@@ -34,3 +34,28 @@ Phase 0, dataset feasibility audit, in progress.
 - LomanLab ENA accessions (if any)
 - PRJNA751627, PRJEB41184, PRJNA1335824, PRJNA554461 (clinical leads, deferred)
 - Free disk space for subsets and databases
+
+## Data access findings (2026-10-12)
+- ENA FASTQ for SRR31222153 is one gzip stream (no complete gzip member in the first 100 MB): no random access.
+  Read IDs are rewritten as SRR31222153.n. ENA MD5 b60b15eee28618650e8fc5c0b8066b06 (119,695,816,967 bytes).
+- Throughput from WSL ~0.5 MB/s everywhere (ENA 0.47, NCBI/AWS 0.56, Cloudflare 0.62): the connection is the limit.
+  Full ENA stream would take ~3 days: rejected.
+- SRA route works: image ncbi/sra-tools@sha256:4f048ba6754246e1ed7799a2c8ed469a38427f392e403ca08b93c4255104c9ce;
+  fastq-dump -N/-X by read number; 20,000 reads in 4 min 14 s (~83 reads/s; ~14 s fixed overhead per call);
+  first 200 reads identical to ENA (sequence+quality md5 66b4146bba99f796f337d62a248f5b21).
+  SRA run object is 109,839,515,692 bytes (not smaller than ENA, but range-readable).
+- D6: stratified block sampling via SRA, 74 strata, 5,000-read blocks, 37 per pool (~185,000 reads, ~1 Gb), seed 20261012;
+  even strata -> dev pool, odd -> eval pool (whole blocks stay together). Within-run held-out only. See docs/SUBSET_PLAN.md.
+- D7: the ENA full-stream scripts (01_stream_*) were removed as superseded.
+- Disk: 664 GB free on WSL root at 2026-10-12.
+
+## Subset sampling result (2026-10-12)
+- bin/01_sra_block_sample.py, seed 20261012: 74 strata, 5,000-read blocks, 37 per pool. Finished in 168.6 min;
+  no failure or retry lines in the run output or fetch log.
+- dev pool: 185,000 reads, 1,015,906,091 bases, mean length 5,491.4 bp.
+  eval pool: 185,000 reads, 1,012,464,842 bases, mean length 5,472.8 bp. Whole-run mean (ENA counts): 5,479 bp.
+- Mean length by run quarter: 5,489 / 5,493 / 5,481 / 5,467 bp (drift about -30 bp, -0.5%); block means 5,295-5,706 bp (sd 81).
+- Pool files (data/subsets/): dev 914 MB, eval 911 MB. SHA-256 prefixes: dev cd5e6500996fb456, eval ea568fa2704b977e
+  (full values in the manifest, copied to metadata/).
+- Not yet checked: read quality distributions and pool similarity (seqkit/NanoPlot), chemistry and basecaller.
+- Status: sampling complete. Next: QC of both pools.

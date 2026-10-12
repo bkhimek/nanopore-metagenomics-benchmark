@@ -1,0 +1,90 @@
+(base) himek@MSI:~/projects/metagenomics_1_Nanopore$ ^C
+(base) himek@MSI:~/projects/metagenomics_1_Nanopore$ tmux new -s subset
+bin/01_sra_block_sample.py
+duplicate session: subset
+run SRR31222153: 23,429,059 reads; 74 strata of ~316,608; block 5,000 reads; 37 blocks/pool = 185,000 reads/pool; seed 20261012
+[  1/74] dev     213,192-218,191    downloaded   130s  elapsed   2.2 min  eta ~157.6 min
+[  2/74] eval    320,751-325,750    downloaded   103s  elapsed   3.9 min  eta ~139.2 min
+[  3/74] dev     659,661-664,660    downloaded   127s  elapsed   6.0 min  eta ~141.8 min
+[  4/74] eval    950,570-955,569    downloaded   157s  elapsed   8.6 min  eta ~150.6 min
+[  5/74] dev   1,289,049-1,294,048  downloaded   131s  elapsed  10.8 min  eta ~149.0 min
+[  6/74] eval  1,877,632-1,882,631  downloaded   136s  elapsed  13.1 min  eta ~148.0 min
+[  7/74] dev   2,178,098-2,183,097  downloaded   112s  elapsed  14.9 min  eta ~142.8 min
+[  8/74] eval  2,252,235-2,257,234  downloaded    91s  elapsed  16.4 min  eta ~135.7 min
+[  9/74] dev   2,649,560-2,654,559  downloaded    76s  elapsed  17.7 min  eta ~128.0 min
+[ 10/74] eval  3,055,952-3,060,951  downloaded   100s  elapsed  19.4 min  eta ~124.1 min
+[ 11/74] dev   3,192,413-3,197,412  downloaded    82s  elapsed  20.8 min  eta ~118.9 min
+[ 12/74] eval  3,572,234-3,577,233  downloaded    87s  elapsed  22.2 min  eta ~114.7 min
+[ 13/74] dev   3,919,845-3,924,844  downloaded   103s  elapsed  23.9 min  eta ~112.2 min
+[ 14/74] eval  4,407,566-4,412,565  downloaded   115s  elapsed  25.8 min  eta ~110.7 min
+[ 15/74] dev   4,725,991-4,730,990  downloaded   111s  elapsed  27.7 min  eta ~108.9 min
+[ 16/74] eval  4,871,277-4,876,276  downloaded   151s  elapsed  30.2 min  eta ~109.5 min
+[ 17/74] dev   5,104,882-5,109,881  downloaded   167s  elapsed  33.0 min  eta ~110.7 min
+[ 18/74] eval  5,668,933-5,673,932  downloaded   162s  elapsed  35.7 min  eta ~111.1 min
+[ 19/74] dev   5,864,503-5,869,502  downloaded   181s  elapsed  38.7 min  eta ~112.1 min
+[ 20/74] eval  6,244,898-6,249,897  downloaded   177s  elapsed  41.7 min  eta ~112.5 min
+[ 21/74] dev   6,392,250-6,397,249  downloaded    91s  elapsed  43.2 min  eta ~109.0 min
+[ 22/74] eval  6,931,683-6,936,682  downloaded   177s  elapsed  46.1 min  eta ~109.1 min
+[ 23/74] dev   7,032,362-7,037,361  downloaded   177s  elapsed  49.1 min  eta ~108.9 min
+[ 24/74] eval  7,325,596-7,330,595  downloaded   172s  elapsed  52.0 min  eta ~108.3 min
+[ 25/74] dev   7,778,338-7,783,337  downloaded   163s  elapsed  54.7 min  eta ~107.2 min
+[ 26/74] eval  8,060,096-8,065,095  downloaded   134s  elapsed  56.9 min  eta ~105.1 min
+[ 27/74] dev   8,533,353-8,538,352  downloaded    89s  elapsed  58.4 min  eta ~101.7 min
+[ 28/74] eval  8,784,838-8,789,837  downloaded   122s  elapsed  60.4 min  eta ~ 99.3 min
+[ 29/74] dev   8,897,823-8,902,822  downloaded    92s  elapsed  62.0 min  eta ~ 96.2 min
+[ 30/74] eval  9,334,257-9,339,256  downloaded   112s  elapsed  63.9 min  eta ~ 93.6 min
+[ 31/74] dev   9,547,983-9,552,982  downloaded   101s  elapsed  65.5 min  eta ~ 90.9 min
+[ 32/74] eval  9,860,945-9,865,944  downloaded   131s  elapsed  67.7 min  eta ~ 88.9 min
+[ 33/74] dev  10,336,400-10,341,399 downloaded   190s  elapsed  70.9 min  eta ~ 88.1 min
+[ 34/74] eval 10,688,061-10,693,060 downloaded   126s  elapsed  73.0 min  eta ~ 85.9 min
+[ 35/74] dev  11,052,418-11,057,417 downloaded   143s  elapsed  75.4 min  eta ~ 84.0 min
+[ 36/74] eval 11,257,843-11,262,842 downloaded   186s  elapsed  78.5 min  eta ~ 82.8 min
+[ 37/74] dev  11,435,533-11,440,532 downloaded   166s  elapsed  81.2 min  eta ~ 81.2 min
+[ 38/74] eval 11,867,824-11,872,823 downloaded   112s  elapsed  83.1 min  eta ~ 78.7 min
+[ 39/74] dev  12,048,875-12,053,874 downloaded    85s  elapsed  84.5 min  eta ~ 75.8 min
+[ 40/74] eval 12,350,673-12,355,672 downloaded   120s  elapsed  86.5 min  eta ~ 73.5 min
+[ 41/74] dev  12,817,613-12,822,612 downloaded   110s  elapsed  88.3 min  eta ~ 71.1 min
+[ 42/74] eval 13,047,268-13,052,267 downloaded   163s  elapsed  91.1 min  eta ~ 69.4 min
+[ 43/74] dev  13,510,059-13,515,058 downloaded    92s  elapsed  92.6 min  eta ~ 66.8 min
+[ 44/74] eval 13,782,559-13,787,558 downloaded    85s  elapsed  94.0 min  eta ~ 64.1 min
+[ 45/74] dev  14,229,217-14,234,216 downloaded    93s  elapsed  95.6 min  eta ~ 61.6 min
+[ 46/74] eval 14,524,429-14,529,428 downloaded   151s  elapsed  98.1 min  eta ~ 59.7 min
+[ 47/74] dev  14,644,524-14,649,523 downloaded   128s  elapsed 100.2 min  eta ~ 57.6 min
+[ 48/74] eval 15,095,853-15,100,852 downloaded   101s  elapsed 101.9 min  eta ~ 55.2 min
+[ 49/74] dev  15,442,229-15,447,228 downloaded   106s  elapsed 103.6 min  eta ~ 52.9 min
+[ 50/74] eval 15,552,785-15,557,784 downloaded   115s  elapsed 105.6 min  eta ~ 50.7 min
+[ 51/74] dev  15,984,477-15,989,476 downloaded    78s  elapsed 106.9 min  eta ~ 48.2 min
+[ 52/74] eval 16,410,048-16,415,047 downloaded   163s  elapsed 109.6 min  eta ~ 46.4 min
+[ 53/74] dev  16,484,783-16,489,782 downloaded   154s  elapsed 112.1 min  eta ~ 44.4 min
+[ 54/74] eval 16,990,272-16,995,271 downloaded    81s  elapsed 113.5 min  eta ~ 42.0 min
+[ 55/74] dev  17,369,585-17,374,584 downloaded    79s  elapsed 114.8 min  eta ~ 39.7 min
+[ 56/74] eval 17,547,309-17,552,308 downloaded    70s  elapsed 116.0 min  eta ~ 37.3 min
+[ 57/74] dev  17,771,102-17,776,101 downloaded    95s  elapsed 117.5 min  eta ~ 35.1 min
+[ 58/74] eval 18,164,776-18,169,775 downloaded   134s  elapsed 119.8 min  eta ~ 33.0 min
+[ 59/74] dev  18,529,280-18,534,279 downloaded   117s  elapsed 121.7 min  eta ~ 30.9 min
+[ 60/74] eval 18,781,270-18,786,269 downloaded   379s  elapsed 128.0 min  eta ~ 29.9 min
+[ 61/74] dev  19,028,346-19,033,345 downloaded   245s  elapsed 132.1 min  eta ~ 28.2 min
+[ 62/74] eval 19,368,881-19,373,880 downloaded   218s  elapsed 135.8 min  eta ~ 26.3 min
+[ 63/74] dev  19,819,667-19,824,666 downloaded   161s  elapsed 138.4 min  eta ~ 24.2 min
+[ 64/74] eval 20,172,473-20,177,472 downloaded   168s  elapsed 141.2 min  eta ~ 22.1 min
+[ 65/74] dev  20,540,523-20,545,522 downloaded   155s  elapsed 143.8 min  eta ~ 19.9 min
+[ 66/74] eval 20,600,921-20,605,920 downloaded    97s  elapsed 145.4 min  eta ~ 17.6 min
+[ 67/74] dev  21,146,757-21,151,756 downloaded   137s  elapsed 147.7 min  eta ~ 15.4 min
+[ 68/74] eval 21,309,748-21,314,747 downloaded   175s  elapsed 150.6 min  eta ~ 13.3 min
+[ 69/74] dev  21,709,491-21,714,490 downloaded   124s  elapsed 152.7 min  eta ~ 11.1 min
+[ 70/74] eval 22,062,047-22,067,046 downloaded   165s  elapsed 155.4 min  eta ~  8.9 min
+[ 71/74] dev  22,250,892-22,255,891 downloaded   204s  elapsed 158.9 min  eta ~  6.7 min
+[ 72/74] eval 22,733,008-22,738,007 downloaded   211s  elapsed 162.4 min  eta ~  4.5 min
+[ 73/74] dev  23,049,013-23,054,012 downloaded   260s  elapsed 166.7 min  eta ~  2.3 min
+[ 74/74] eval 23,212,480-23,217,479 downloaded   116s  elapsed 168.6 min  eta ~  0.0 min
+dev: 185,000 reads, 1.016 Gb, mean length 5,491
+eval: 185,000 reads, 1.012 Gb, mean length 5,473
+manifest: /home/himek/projects/metagenomics_1_Nanopore/data/subsets/SRR31222153.seed20261012.sra_blocks.manifest.json
+(base) himek@MSI:~/projects/metagenomics_1_Nanopore$ D=/mnt/c/Users/krist/OneDrive/Documents/Projects/metagenomics/metagenomics_1_Nanopore
+S=~/projects/metagenomics_1_Nanopore/data/subsets
+tmux capture-pane -p -S -5000 -t subset > $D/subset_run_output.txt
+cp $S/SRR31222153.seed20261012.sra_blocks.manifest.json $D/
+ls -lh $S/*.blocks.fastq.gz > $D/pool_files.txt
+ls $S/blocks/*.fastq.gz | wc -l >> $D/pool_files.txt
+ls $D
+

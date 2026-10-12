@@ -1,0 +1,696 @@
+{
+  "run": "SRR31222153",
+  "project": "PRJNA1181840",
+  "total_reads": 23429059,
+  "seed": 20261012,
+  "block_reads": 5000,
+  "blocks_per_pool": 37,
+  "image": "ncbi/sra-tools@sha256:4f048ba6754246e1ed7799a2c8ed469a38427f392e403ca08b93c4255104c9ce",
+  "rng": "python random.Random(seed).randint, one start per stratum",
+  "pools": {
+    "dev": {
+      "file": "SRR31222153.dev.seed20261012.blocks.fastq.gz",
+      "blocks": 37,
+      "reads": 185000,
+      "bases": 1015906091,
+      "mean_read_length": 5491.4,
+      "sha256": "cd5e6500996fb4562c3dd762a4d1c3fb8d66389cc1feb3df0b141cd6ad3692d8"
+    },
+    "eval": {
+      "file": "SRR31222153.eval.seed20261012.blocks.fastq.gz",
+      "blocks": 37,
+      "reads": 185000,
+      "bases": 1012464842,
+      "mean_read_length": 5472.8,
+      "sha256": "ea568fa2704b977e80607e31f151a4b4dc6b76039b71b4bf6fd7cab54e838af6"
+    }
+  },
+  "blocks": [
+    {
+      "stratum": 0,
+      "pool": "dev",
+      "start": 213192,
+      "end": 218191,
+      "reads": 5000,
+      "bases": 28261592,
+      "file": "SRR31222153.213192-218191.fastq.gz"
+    },
+    {
+      "stratum": 2,
+      "pool": "dev",
+      "start": 659661,
+      "end": 664660,
+      "reads": 5000,
+      "bases": 27782171,
+      "file": "SRR31222153.659661-664660.fastq.gz"
+    },
+    {
+      "stratum": 4,
+      "pool": "dev",
+      "start": 1289049,
+      "end": 1294048,
+      "reads": 5000,
+      "bases": 27316689,
+      "file": "SRR31222153.1289049-1294048.fastq.gz"
+    },
+    {
+      "stratum": 6,
+      "pool": "dev",
+      "start": 2178098,
+      "end": 2183097,
+      "reads": 5000,
+      "bases": 27450056,
+      "file": "SRR31222153.2178098-2183097.fastq.gz"
+    },
+    {
+      "stratum": 8,
+      "pool": "dev",
+      "start": 2649560,
+      "end": 2654559,
+      "reads": 5000,
+      "bases": 27220467,
+      "file": "SRR31222153.2649560-2654559.fastq.gz"
+    },
+    {
+      "stratum": 10,
+      "pool": "dev",
+      "start": 3192413,
+      "end": 3197412,
+      "reads": 5000,
+      "bases": 27044051,
+      "file": "SRR31222153.3192413-3197412.fastq.gz"
+    },
+    {
+      "stratum": 12,
+      "pool": "dev",
+      "start": 3919845,
+      "end": 3924844,
+      "reads": 5000,
+      "bases": 27710085,
+      "file": "SRR31222153.3919845-3924844.fastq.gz"
+    },
+    {
+      "stratum": 14,
+      "pool": "dev",
+      "start": 4725991,
+      "end": 4730990,
+      "reads": 5000,
+      "bases": 27429377,
+      "file": "SRR31222153.4725991-4730990.fastq.gz"
+    },
+    {
+      "stratum": 16,
+      "pool": "dev",
+      "start": 5104882,
+      "end": 5109881,
+      "reads": 5000,
+      "bases": 27361662,
+      "file": "SRR31222153.5104882-5109881.fastq.gz"
+    },
+    {
+      "stratum": 18,
+      "pool": "dev",
+      "start": 5864503,
+      "end": 5869502,
+      "reads": 5000,
+      "bases": 27515020,
+      "file": "SRR31222153.5864503-5869502.fastq.gz"
+    },
+    {
+      "stratum": 20,
+      "pool": "dev",
+      "start": 6392250,
+      "end": 6397249,
+      "reads": 5000,
+      "bases": 27501522,
+      "file": "SRR31222153.6392250-6397249.fastq.gz"
+    },
+    {
+      "stratum": 22,
+      "pool": "dev",
+      "start": 7032362,
+      "end": 7037361,
+      "reads": 5000,
+      "bases": 27699733,
+      "file": "SRR31222153.7032362-7037361.fastq.gz"
+    },
+    {
+      "stratum": 24,
+      "pool": "dev",
+      "start": 7778338,
+      "end": 7783337,
+      "reads": 5000,
+      "bases": 26986883,
+      "file": "SRR31222153.7778338-7783337.fastq.gz"
+    },
+    {
+      "stratum": 26,
+      "pool": "dev",
+      "start": 8533353,
+      "end": 8538352,
+      "reads": 5000,
+      "bases": 27447855,
+      "file": "SRR31222153.8533353-8538352.fastq.gz"
+    },
+    {
+      "stratum": 28,
+      "pool": "dev",
+      "start": 8897823,
+      "end": 8902822,
+      "reads": 5000,
+      "bases": 27508461,
+      "file": "SRR31222153.8897823-8902822.fastq.gz"
+    },
+    {
+      "stratum": 30,
+      "pool": "dev",
+      "start": 9547983,
+      "end": 9552982,
+      "reads": 5000,
+      "bases": 27410939,
+      "file": "SRR31222153.9547983-9552982.fastq.gz"
+    },
+    {
+      "stratum": 32,
+      "pool": "dev",
+      "start": 10336400,
+      "end": 10341399,
+      "reads": 5000,
+      "bases": 27941981,
+      "file": "SRR31222153.10336400-10341399.fastq.gz"
+    },
+    {
+      "stratum": 34,
+      "pool": "dev",
+      "start": 11052418,
+      "end": 11057417,
+      "reads": 5000,
+      "bases": 27224038,
+      "file": "SRR31222153.11052418-11057417.fastq.gz"
+    },
+    {
+      "stratum": 36,
+      "pool": "dev",
+      "start": 11435533,
+      "end": 11440532,
+      "reads": 5000,
+      "bases": 28268580,
+      "file": "SRR31222153.11435533-11440532.fastq.gz"
+    },
+    {
+      "stratum": 38,
+      "pool": "dev",
+      "start": 12048875,
+      "end": 12053874,
+      "reads": 5000,
+      "bases": 27183068,
+      "file": "SRR31222153.12048875-12053874.fastq.gz"
+    },
+    {
+      "stratum": 40,
+      "pool": "dev",
+      "start": 12817613,
+      "end": 12822612,
+      "reads": 5000,
+      "bases": 27074078,
+      "file": "SRR31222153.12817613-12822612.fastq.gz"
+    },
+    {
+      "stratum": 42,
+      "pool": "dev",
+      "start": 13510059,
+      "end": 13515058,
+      "reads": 5000,
+      "bases": 27763917,
+      "file": "SRR31222153.13510059-13515058.fastq.gz"
+    },
+    {
+      "stratum": 44,
+      "pool": "dev",
+      "start": 14229217,
+      "end": 14234216,
+      "reads": 5000,
+      "bases": 27073468,
+      "file": "SRR31222153.14229217-14234216.fastq.gz"
+    },
+    {
+      "stratum": 46,
+      "pool": "dev",
+      "start": 14644524,
+      "end": 14649523,
+      "reads": 5000,
+      "bases": 27109224,
+      "file": "SRR31222153.14644524-14649523.fastq.gz"
+    },
+    {
+      "stratum": 48,
+      "pool": "dev",
+      "start": 15442229,
+      "end": 15447228,
+      "reads": 5000,
+      "bases": 27260875,
+      "file": "SRR31222153.15442229-15447228.fastq.gz"
+    },
+    {
+      "stratum": 50,
+      "pool": "dev",
+      "start": 15984477,
+      "end": 15989476,
+      "reads": 5000,
+      "bases": 26809718,
+      "file": "SRR31222153.15984477-15989476.fastq.gz"
+    },
+    {
+      "stratum": 52,
+      "pool": "dev",
+      "start": 16484783,
+      "end": 16489782,
+      "reads": 5000,
+      "bases": 28529712,
+      "file": "SRR31222153.16484783-16489782.fastq.gz"
+    },
+    {
+      "stratum": 54,
+      "pool": "dev",
+      "start": 17369585,
+      "end": 17374584,
+      "reads": 5000,
+      "bases": 27133335,
+      "file": "SRR31222153.17369585-17374584.fastq.gz"
+    },
+    {
+      "stratum": 56,
+      "pool": "dev",
+      "start": 17771102,
+      "end": 17776101,
+      "reads": 5000,
+      "bases": 26948170,
+      "file": "SRR31222153.17771102-17776101.fastq.gz"
+    },
+    {
+      "stratum": 58,
+      "pool": "dev",
+      "start": 18529280,
+      "end": 18534279,
+      "reads": 5000,
+      "bases": 26919196,
+      "file": "SRR31222153.18529280-18534279.fastq.gz"
+    },
+    {
+      "stratum": 60,
+      "pool": "dev",
+      "start": 19028346,
+      "end": 19033345,
+      "reads": 5000,
+      "bases": 27940009,
+      "file": "SRR31222153.19028346-19033345.fastq.gz"
+    },
+    {
+      "stratum": 62,
+      "pool": "dev",
+      "start": 19819667,
+      "end": 19824666,
+      "reads": 5000,
+      "bases": 27392689,
+      "file": "SRR31222153.19819667-19824666.fastq.gz"
+    },
+    {
+      "stratum": 64,
+      "pool": "dev",
+      "start": 20540523,
+      "end": 20545522,
+      "reads": 5000,
+      "bases": 27929806,
+      "file": "SRR31222153.20540523-20545522.fastq.gz"
+    },
+    {
+      "stratum": 66,
+      "pool": "dev",
+      "start": 21146757,
+      "end": 21151756,
+      "reads": 5000,
+      "bases": 27573954,
+      "file": "SRR31222153.21146757-21151756.fastq.gz"
+    },
+    {
+      "stratum": 68,
+      "pool": "dev",
+      "start": 21709491,
+      "end": 21714490,
+      "reads": 5000,
+      "bases": 27489129,
+      "file": "SRR31222153.21709491-21714490.fastq.gz"
+    },
+    {
+      "stratum": 70,
+      "pool": "dev",
+      "start": 22250892,
+      "end": 22255891,
+      "reads": 5000,
+      "bases": 27739700,
+      "file": "SRR31222153.22250892-22255891.fastq.gz"
+    },
+    {
+      "stratum": 72,
+      "pool": "dev",
+      "start": 23049013,
+      "end": 23054012,
+      "reads": 5000,
+      "bases": 26954881,
+      "file": "SRR31222153.23049013-23054012.fastq.gz"
+    },
+    {
+      "stratum": 1,
+      "pool": "eval",
+      "start": 320751,
+      "end": 325750,
+      "reads": 5000,
+      "bases": 27910576,
+      "file": "SRR31222153.320751-325750.fastq.gz"
+    },
+    {
+      "stratum": 3,
+      "pool": "eval",
+      "start": 950570,
+      "end": 955569,
+      "reads": 5000,
+      "bases": 26656372,
+      "file": "SRR31222153.950570-955569.fastq.gz"
+    },
+    {
+      "stratum": 5,
+      "pool": "eval",
+      "start": 1877632,
+      "end": 1882631,
+      "reads": 5000,
+      "bases": 27002711,
+      "file": "SRR31222153.1877632-1882631.fastq.gz"
+    },
+    {
+      "stratum": 7,
+      "pool": "eval",
+      "start": 2252235,
+      "end": 2257234,
+      "reads": 5000,
+      "bases": 27080167,
+      "file": "SRR31222153.2252235-2257234.fastq.gz"
+    },
+    {
+      "stratum": 9,
+      "pool": "eval",
+      "start": 3055952,
+      "end": 3060951,
+      "reads": 5000,
+      "bases": 28383773,
+      "file": "SRR31222153.3055952-3060951.fastq.gz"
+    },
+    {
+      "stratum": 11,
+      "pool": "eval",
+      "start": 3572234,
+      "end": 3577233,
+      "reads": 5000,
+      "bases": 27801975,
+      "file": "SRR31222153.3572234-3577233.fastq.gz"
+    },
+    {
+      "stratum": 13,
+      "pool": "eval",
+      "start": 4407566,
+      "end": 4412565,
+      "reads": 5000,
+      "bases": 27734217,
+      "file": "SRR31222153.4407566-4412565.fastq.gz"
+    },
+    {
+      "stratum": 15,
+      "pool": "eval",
+      "start": 4871277,
+      "end": 4876276,
+      "reads": 5000,
+      "bases": 26552608,
+      "file": "SRR31222153.4871277-4876276.fastq.gz"
+    },
+    {
+      "stratum": 17,
+      "pool": "eval",
+      "start": 5668933,
+      "end": 5673932,
+      "reads": 5000,
+      "bases": 27280635,
+      "file": "SRR31222153.5668933-5673932.fastq.gz"
+    },
+    {
+      "stratum": 19,
+      "pool": "eval",
+      "start": 6244898,
+      "end": 6249897,
+      "reads": 5000,
+      "bases": 27600617,
+      "file": "SRR31222153.6244898-6249897.fastq.gz"
+    },
+    {
+      "stratum": 21,
+      "pool": "eval",
+      "start": 6931683,
+      "end": 6936682,
+      "reads": 5000,
+      "bases": 27973181,
+      "file": "SRR31222153.6931683-6936682.fastq.gz"
+    },
+    {
+      "stratum": 23,
+      "pool": "eval",
+      "start": 7325596,
+      "end": 7330595,
+      "reads": 5000,
+      "bases": 27140678,
+      "file": "SRR31222153.7325596-7330595.fastq.gz"
+    },
+    {
+      "stratum": 25,
+      "pool": "eval",
+      "start": 8060096,
+      "end": 8065095,
+      "reads": 5000,
+      "bases": 27183941,
+      "file": "SRR31222153.8060096-8065095.fastq.gz"
+    },
+    {
+      "stratum": 27,
+      "pool": "eval",
+      "start": 8784838,
+      "end": 8789837,
+      "reads": 5000,
+      "bases": 27285649,
+      "file": "SRR31222153.8784838-8789837.fastq.gz"
+    },
+    {
+      "stratum": 29,
+      "pool": "eval",
+      "start": 9334257,
+      "end": 9339256,
+      "reads": 5000,
+      "bases": 27826227,
+      "file": "SRR31222153.9334257-9339256.fastq.gz"
+    },
+    {
+      "stratum": 31,
+      "pool": "eval",
+      "start": 9860945,
+      "end": 9865944,
+      "reads": 5000,
+      "bases": 26993342,
+      "file": "SRR31222153.9860945-9865944.fastq.gz"
+    },
+    {
+      "stratum": 33,
+      "pool": "eval",
+      "start": 10688061,
+      "end": 10693060,
+      "reads": 5000,
+      "bases": 27627364,
+      "file": "SRR31222153.10688061-10693060.fastq.gz"
+    },
+    {
+      "stratum": 35,
+      "pool": "eval",
+      "start": 11257843,
+      "end": 11262842,
+      "reads": 5000,
+      "bases": 27543100,
+      "file": "SRR31222153.11257843-11262842.fastq.gz"
+    },
+    {
+      "stratum": 37,
+      "pool": "eval",
+      "start": 11867824,
+      "end": 11872823,
+      "reads": 5000,
+      "bases": 27561821,
+      "file": "SRR31222153.11867824-11872823.fastq.gz"
+    },
+    {
+      "stratum": 39,
+      "pool": "eval",
+      "start": 12350673,
+      "end": 12355672,
+      "reads": 5000,
+      "bases": 27011929,
+      "file": "SRR31222153.12350673-12355672.fastq.gz"
+    },
+    {
+      "stratum": 41,
+      "pool": "eval",
+      "start": 13047268,
+      "end": 13052267,
+      "reads": 5000,
+      "bases": 27375995,
+      "file": "SRR31222153.13047268-13052267.fastq.gz"
+    },
+    {
+      "stratum": 43,
+      "pool": "eval",
+      "start": 13782559,
+      "end": 13787558,
+      "reads": 5000,
+      "bases": 27394155,
+      "file": "SRR31222153.13782559-13787558.fastq.gz"
+    },
+    {
+      "stratum": 45,
+      "pool": "eval",
+      "start": 14524429,
+      "end": 14529428,
+      "reads": 5000,
+      "bases": 27312695,
+      "file": "SRR31222153.14524429-14529428.fastq.gz"
+    },
+    {
+      "stratum": 47,
+      "pool": "eval",
+      "start": 15095853,
+      "end": 15100852,
+      "reads": 5000,
+      "bases": 27448115,
+      "file": "SRR31222153.15095853-15100852.fastq.gz"
+    },
+    {
+      "stratum": 49,
+      "pool": "eval",
+      "start": 15552785,
+      "end": 15557784,
+      "reads": 5000,
+      "bases": 27353682,
+      "file": "SRR31222153.15552785-15557784.fastq.gz"
+    },
+    {
+      "stratum": 51,
+      "pool": "eval",
+      "start": 16410048,
+      "end": 16415047,
+      "reads": 5000,
+      "bases": 27271152,
+      "file": "SRR31222153.16410048-16415047.fastq.gz"
+    },
+    {
+      "stratum": 53,
+      "pool": "eval",
+      "start": 16990272,
+      "end": 16995271,
+      "reads": 5000,
+      "bases": 27449425,
+      "file": "SRR31222153.16990272-16995271.fastq.gz"
+    },
+    {
+      "stratum": 55,
+      "pool": "eval",
+      "start": 17547309,
+      "end": 17552308,
+      "reads": 5000,
+      "bases": 26477375,
+      "file": "SRR31222153.17547309-17552308.fastq.gz"
+    },
+    {
+      "stratum": 57,
+      "pool": "eval",
+      "start": 18164776,
+      "end": 18169775,
+      "reads": 5000,
+      "bases": 27817973,
+      "file": "SRR31222153.18164776-18169775.fastq.gz"
+    },
+    {
+      "stratum": 59,
+      "pool": "eval",
+      "start": 18781270,
+      "end": 18786269,
+      "reads": 5000,
+      "bases": 27134631,
+      "file": "SRR31222153.18781270-18786269.fastq.gz"
+    },
+    {
+      "stratum": 61,
+      "pool": "eval",
+      "start": 19368881,
+      "end": 19373880,
+      "reads": 5000,
+      "bases": 27375913,
+      "file": "SRR31222153.19368881-19373880.fastq.gz"
+    },
+    {
+      "stratum": 63,
+      "pool": "eval",
+      "start": 20172473,
+      "end": 20177472,
+      "reads": 5000,
+      "bases": 27330920,
+      "file": "SRR31222153.20172473-20177472.fastq.gz"
+    },
+    {
+      "stratum": 65,
+      "pool": "eval",
+      "start": 20600921,
+      "end": 20605920,
+      "reads": 5000,
+      "bases": 26811078,
+      "file": "SRR31222153.20600921-20605920.fastq.gz"
+    },
+    {
+      "stratum": 67,
+      "pool": "eval",
+      "start": 21309748,
+      "end": 21314747,
+      "reads": 5000,
+      "bases": 27604622,
+      "file": "SRR31222153.21309748-21314747.fastq.gz"
+    },
+    {
+      "stratum": 69,
+      "pool": "eval",
+      "start": 22062047,
+      "end": 22067046,
+      "reads": 5000,
+      "bases": 27730132,
+      "file": "SRR31222153.22062047-22067046.fastq.gz"
+    },
+    {
+      "stratum": 71,
+      "pool": "eval",
+      "start": 22733008,
+      "end": 22738007,
+      "reads": 5000,
+      "bases": 27039641,
+      "file": "SRR31222153.22733008-22738007.fastq.gz"
+    },
+    {
+      "stratum": 73,
+      "pool": "eval",
+      "start": 23212480,
+      "end": 23217479,
+      "reads": 5000,
+      "bases": 27386455,
+      "file": "SRR31222153.23212480-23217479.fastq.gz"
+    }
+  ]
+}
