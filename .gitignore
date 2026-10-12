@@ -1,0 +1,17 @@
+work/
+results/
+.nextflow/
+.nextflow.log*
+*.fna
+*.fasta
+*.fa
+*.bam
+*.cram
+*.fastq
+*.fastq.gz
+*.fq
+*.fq.gz
+*.pod5
+*.fast5
+*.k2d
+data/
