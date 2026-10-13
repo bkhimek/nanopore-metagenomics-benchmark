@@ -1,14 +1,18 @@
 # PROJECT_STATE: decision log and findings
 
-Last updated: 2026-10-12
+Last updated: 2026-10-13
 
 ## Status
-Phase 0, dataset feasibility audit, in progress.
+Phase 0, dataset feasibility audit, in progress. Run record verified and both pools sampled. Remaining: verify D6331
+composition against the Zymo certificate, QC of both pools, chemistry/basecaller, database choice (must fit 12 GB and
+include fungi/archaea). Plan is at revision 4 (13 October).
 
 ## Environment
 - WSL2 Ubuntu, 12 GB RAM cap, 6 processors (C:\Users\krist\.wslconfig)
 - Repo: ~/projects/metagenomics_1_Nanopore/ ; data (gitignored, inside the project folder): ~/projects/metagenomics_1_Nanopore/data/
-- OneDrive copy of selected outputs: Projects/metagenomics/metagenomics_1_Nanopore
+- OneDrive project folder (copy of the plan, subset plan, handover, manifest and selected outputs; no scripts):
+  Windows: C:\Users\krist\OneDrive\Documents\Projects\metagenomics\metagenomics_1_Nanopore
+  From WSL: /mnt/c/Users/krist/OneDrive/Documents/Projects/metagenomics/metagenomics_1_Nanopore
 - Nextflow from the `nextflow` conda env; tools in pinned Docker images; no new conda envs
 
 ## Decisions
@@ -22,6 +26,17 @@ Phase 0, dataset feasibility audit, in progress.
   or minimap2; record the sensitivity limitation.
 - D5 Evaluation: development and held-out data separated; detection-threshold rule fixed before evaluation.
 
+- D8 (2026-10-13) SRR31222153 is the PROVISIONAL primary dataset for the taxonomy benchmark, pending verification of
+  the D6331 composition and pool QC. LomanLab data remain a fallback (older chemistry, so confounded).
+- D9 (2026-10-13) Metrics: primary = precision/recall/F1 at a pre-specified threshold plus a false-positive audit;
+  AUPRC supplementary only. Recall is computed over "evaluable" species (expected read count at that depth above a
+  pre-specified minimum); the rest are listed separately. Depth is defined by Gb (0.1, 0.25, 0.5 Gb x 5 replicates);
+  the full ~1 Gb pool is a single baseline without replicates.
+- D10 (2026-10-13) Uncertainty: block-level resampling (reads come in 5,000-read blocks). Replicates measure
+  within-pool variation only (about half overlap at 0.5 Gb), not run-to-run variation.
+- D11 (2026-10-13) Database must contain fungi and archaea (standard Kraken2 indices lack fungi); otherwise those
+  mock members are declared out of evaluable scope. Check coverage before running. Refines D4.
+
 ## Findings (verified from primary records)
 - PRJNA1181840 (ENA, checked 2026-10-12): one run SRR31222153; PromethION; WGS/METAGENOMIC/RANDOM;
   23,429,059 reads; 128,369,700,312 bases (mean ~5.5 kb); FASTQ 119,695,816,967 bytes;
@@ -29,11 +44,20 @@ Phase 0, dataset feasibility audit, in progress.
 - LomanLab mockcommunity README: even (ZRC190633) and log (ZRC190842) Zymo standards, 10 species each,
   GridION ~14-16 Gb and PromethION ~146-148 Gb; hosted on CLIMB, no ENA accessions listed there.
 
+## D6331 expected composition (UNVERIFIED: from a copy of the Zymo datasheet, not checked against the lot certificate)
+- 21 strains: 18 bacteria (including 5 E. coli strains), 1 archaeon, 2 fungi; 17 species after collapsing strains.
+- Abundances span about 14% down to 0.0001%; basis (genomic DNA, cells or other) unclear. Nominal proportions are not
+  expected read proportions; state which is used.
+- Consequence: species at or below roughly 0.01% give almost no reads in 1 Gb, hence the evaluable-species rule (D9).
+  The five E. coli strains are a natural closely-related-genome test.
+
 ## Unverified / open
-- PRJNA1181840 chemistry (Kit 14?), basecaller/model, Zymo D6331 composition, link to Argo paper (Nat Commun 2025)
+- PRJNA1181840 chemistry ("Q20+" suggests Kit 14, an inference), basecaller/model, link to Argo paper (Nat Commun 2025)
+- Zymo D6331 composition: verify against the manufacturer's certificate of analysis (see section above)
+- Decisions 1 (dataset) and 2 (metrics, threshold rule) not yet formally settled
 - LomanLab ENA accessions (if any)
 - PRJNA751627, PRJEB41184, PRJNA1335824, PRJNA554461 (clinical leads, deferred)
-- Free disk space for subsets and databases
+- Disk: 664 GB free at 2026-10-12 (checked); recheck before database downloads
 
 ## Data access findings (2026-10-12)
 - ENA FASTQ for SRR31222153 is one gzip stream (no complete gzip member in the first 100 MB): no random access.
