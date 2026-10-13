@@ -1,10 +1,10 @@
 # PROJECT_STATE: decision log and findings
 
-Last updated: 2026-10-13
+Last updated: 2026-10-13 (evening)
 
 ## Status
-Phase 0, dataset feasibility audit, in progress. Run record verified and both pools sampled. Remaining: verify D6331
-composition against the Zymo certificate, QC of both pools, chemistry/basecaller, database choice (must fit 12 GB and
+Phase 0, dataset feasibility audit, in progress. Run record verified and both pools sampled. Remaining: lot-specific CoA
+(lot unknown; theoretical composition now checked), QC of both pools, chemistry/basecaller, database choice (must fit 12 GB and
 include fungi/archaea). Plan is at revision 4 (13 October).
 
 ## Environment
@@ -44,16 +44,27 @@ include fungi/archaea). Plan is at revision 4 (13 October).
 - LomanLab mockcommunity README: even (ZRC190633) and log (ZRC190842) Zymo standards, 10 species each,
   GridION ~14-16 Gb and PromethION ~146-148 Gb; hosted on CLIMB, no ENA accessions listed there.
 
-## D6331 expected composition (UNVERIFIED: from a copy of the Zymo datasheet, not checked against the lot certificate)
-- 21 strains: 18 bacteria (including 5 E. coli strains), 1 archaeon, 2 fungi; 17 species after collapsing strains.
-- Abundances span about 14% down to 0.0001%; basis (genomic DNA, cells or other) unclear. Nominal proportions are not
-  expected read proportions; state which is used.
-- Consequence: species at or below roughly 0.01% give almost no reads in 1 Gb, hence the evaluable-species rule (D9).
-  The five E. coli strains are a natural closely-related-genome test.
+## D6331 expected composition (checked 2026-10-13 against the manufacturer's manual, Tables 1 and 2)
+- Source: ZymoBIOMICS Gut Microbiome Standard D6331 instruction manual (PDF SHA-256 a6fdb1b4...cc76eb). THEORETICAL composition;
+  the lot-specific certificate of analysis (CoA) is not obtained: lot number of the sequenced tube unknown (BioSample has no lot).
+- 21 strains: 18 bacteria (5 E. coli), 1 archaeon (M. smithii), 2 fungi (C. albicans, S. cerevisiae); 17 species.
+- Five columns: genomic DNA, 16S only, 16S+18S, genome copy, cell number. Genomic DNA runs 14% to 0.0001% (sums to 100.011).
+- Verified: genome-copy % = genomic-DNA % / genome size, renormalised. Reads follow DNA mass (use the DNA column for read-fraction
+  outputs); coverage per genome follows the genome-copy column (use for coverage-based abundance, e.g. Sylph).
+- Expected reads at 0.1/0.25/0.5/1.0 Gb (DNA basis, 5,479 bp mean): Salmonella 1.8/4.6/9.1/18; E. faecalis 0.2/0.5/0.9/1.8;
+  C. perfringens ~0/0/0.1/0.2; M. smithii 18/46/91/183. Salmonella (0.01%) is at the manual's stated impurity limit (<0.01%
+  foreign DNA) and is a close relative of the E. coli (14% of DNA combined): hard and interesting, but contamination cannot be
+  separated from signal at that level.
+- Reference genomes (D6331.refseq.zip, SHA-256 4795b7df...97d3d): bacterial/archaeal lengths match Table 2; the two yeast files are
+  draft assemblies (C. albicans 13,062 contigs, 12.58 Mb vs 14.68 in Table 2; S. cerevisiae 51 contigs, 12.84 vs 13.30).
+- Files: reference/d6331_composition.csv, reference/d6331_expected_reads_by_species.csv, reference/README.md (in the repo).
+- Manual states relative abundance deviation <15% on average and impurity <0.01%.
 
 ## Unverified / open
-- PRJNA1181840 chemistry ("Q20+" suggests Kit 14, an inference), basecaller/model, link to Argo paper (Nat Commun 2025)
-- Zymo D6331 composition: verify against the manufacturer's certificate of analysis (see section above)
+- PRJNA1181840 chemistry/basecaller/model and the Argo paper link (see below)
+- Lot-specific CoA for the sequenced tube: lot number unknown. Ask Zymo (tech@zymoresearch.com) or the Argo paper authors. Do not block the project on it; label results as against theoretical composition.
+- Chemistry/basecaller: an outside report says SRA lists SQK-LSK114, FLO-PRO114M, Dorado v7.2.13. NOT verified by me (site fetch was rate-limited); confirm from the SRA/ENA experiment record, then record here.
+- Argo paper link: reported as confirmed in the paper's data availability statement; not verified by me.
 - Decisions 1 (dataset) and 2 (metrics, threshold rule) not yet formally settled
 - LomanLab ENA accessions (if any)
 - PRJNA751627, PRJEB41184, PRJNA1335824, PRJNA554461 (clinical leads, deferred)

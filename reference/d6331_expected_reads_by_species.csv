@@ -1,0 +1,18 @@
+species,domain,n_strains,genomic_dna_pct,genome_copy_pct,exp_reads_0.1Gb,exp_reads_0.25Gb,exp_reads_0.5Gb,exp_reads_1.0Gb
+Faecalibacterium prausnitzii,Bacteria,1,14.0,14.77,2555.21,6388.03,12776.05,25552.11
+Veillonella rogosae,Bacteria,1,14.0,19.94,2555.21,6388.03,12776.05,25552.11
+Roseburia hominis,Bacteria,1,14.0,12.43,2555.21,6388.03,12776.05,25552.11
+Bacteroides fragilis,Bacteria,1,14.0,8.33,2555.21,6388.03,12776.05,25552.11
+Prevotella corporis,Bacteria,1,6.0,6.26,1095.09,2737.73,5475.45,10950.9
+Bifidobacterium adolescentis,Bacteria,1,6.0,8.83,1095.09,2737.73,5475.45,10950.9
+Fusobacterium nucleatum,Bacteria,1,6.0,7.53,1095.09,2737.73,5475.45,10950.9
+Lactobacillus fermentum,Bacteria,1,6.0,9.68,1095.09,2737.73,5475.45,10950.9
+Clostridioides difficile,Bacteria,1,1.5,1.1,273.77,684.43,1368.86,2737.73
+Akkermansia muciniphila,Bacteria,1,1.5,1.62,273.77,684.43,1368.86,2737.73
+Methanobrevibacter smithii,Archaea,1,0.1,0.17,18.25,45.63,91.26,182.52
+Salmonella enterica,Bacteria,1,0.01,0.007,1.83,4.56,9.13,18.25
+Enterococcus faecalis,Bacteria,1,0.001,0.0011,0.18,0.46,0.91,1.83
+Clostridium perfringens,Bacteria,1,0.0001,9e-05,0.02,0.05,0.09,0.18
+Escherichia coli,Bacteria,5,14.0,8.71,2555.21,6388.03,12776.05,25552.11
+Candida albicans,Fungi,1,1.5,0.31,273.77,684.43,1368.86,2737.73
+Saccharomyces cerevisiae,Fungi,1,1.4,0.32,255.52,638.8,1277.61,2555.21

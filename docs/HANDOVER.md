@@ -49,11 +49,11 @@ State: Phase 0 in progress. Pools sampled; QC still NOT done. Supersedes the 202
   block-level resampling; database must include fungi/archaea.
 
 Next steps, in order:
-1. Verify the D6331 composition against the Zymo certificate of analysis; derive expected read counts per species at each depth.
+1. DONE (evening): D6331 composition checked against the Zymo manual and stored as reference/d6331_composition.csv and d6331_expected_reads_by_species.csv. Still open: lot CoA (lot number unknown; email Zymo or Argo authors).
 2. QC both pools (seqkit stats, NanoPlot) in pinned Docker images; compare length and quality between pools.
-3. Confirm chemistry/kit and basecaller (SRX26602699 page or Argo paper methods).
+3. Confirm chemistry/kit and basecaller from the SRA/ENA experiment record (reported, not verified: SQK-LSK114, FLO-PRO114M, Dorado v7.2.13).
 4. Settle Decisions 1 and 2; choose the baseline classifier and a database that fits 12 GB and includes fungi/archaea.
-5. Then wrap in Nextflow (D1). An educational workflow guide is being written alongside (docs/WORKFLOW_GUIDE.md, format to confirm).
+5. Then wrap in Nextflow (D1). An educational workflow guide is being written alongside (Word document in OneDrive only: Nanopore_Metagenomics_Workflow_Guide.docx; not in the repo).
 
 ## Paths (reference)
 - WSL repo: ~/projects/metagenomics_1_Nanopore/ (data in its gitignored data/ subfolder)
