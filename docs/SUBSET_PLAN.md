@@ -49,8 +49,8 @@ Development pool: tune thresholds only. Evaluation pool: report only, thresholds
   within a pool limits leakage from adjacent related reads but does not rule out all of it.
 - Reads are sampled in blocks of consecutive reads, so within-block reads are not independent draws. Confidence
   intervals must use block-level resampling (bootstrap over the 37 blocks per pool), not read-level.
-- Chemistry and basecaller are still to be confirmed from the SRA experiment or paper. "Q20+" in the study title suggests
-  Kit 14 chemistry, but that is an inference, not a verified fact.
+- Chemistry and basecaller (ENA record SRX26602699, checked 2026-10-15): SQK-LSK114, FLO-PRO114M, Dorado v7.2.13.
+  The basecalling model tier is not stated. Results apply to this chemistry and basecaller only.
 
 ## Result (2026-10-12; details in PROJECT_STATE.md)
 - Finished in 168.6 min with no failure or retry lines. Dev pool 185,000 reads, 1.016 Gb, mean 5,491 bp; eval pool
@@ -59,4 +59,5 @@ Development pool: tune thresholds only. Evaluation pool: report only, thresholds
 
 ## Representativeness checks (done for length; quality still to do)
 - Pool mean read length vs run mean 5,479 bp (from ENA counts); per-block mean length across the run (any drift?).
-- `seqkit stats` / NanoPlot on each pool: length and quality distributions should match between pools.
+- `bin/02_pool_qc.py`: length and read-quality distributions for each pool and block, dev-vs-eval comparison at block level.
+  Run: `bin/02_pool_qc.py` (no Docker; outputs in data/qc/).

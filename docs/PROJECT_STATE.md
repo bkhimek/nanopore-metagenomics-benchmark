@@ -1,11 +1,11 @@
 # PROJECT_STATE: decision log and findings
 
-Last updated: 2026-10-13 (evening)
+Last updated: 2026-10-15
 
 ## Status
-Phase 0, dataset feasibility audit, in progress. Run record verified and both pools sampled. Remaining: lot-specific CoA
-(lot unknown; theoretical composition now checked), QC of both pools, chemistry/basecaller, database choice (must fit 12 GB and
-include fungi/archaea). Plan is at revision 4 (13 October).
+Phase 0, dataset feasibility audit, in progress. Run record, chemistry and basecaller verified; both pools sampled;
+theoretical composition checked. Remaining: QC of both pools (script ready: bin/02_pool_qc.py), lot-specific CoA (lot unknown),
+basecalling model tier, database choice (must fit 12 GB and include fungi/archaea). Plan is at revision 4 (minor update 15 October).
 
 ## Environment
 - WSL2 Ubuntu, 12 GB RAM cap, 6 processors (C:\Users\krist\.wslconfig)
@@ -44,6 +44,12 @@ include fungi/archaea). Plan is at revision 4 (13 October).
 - LomanLab mockcommunity README: even (ZRC190633) and log (ZRC190842) Zymo standards, 10 species each,
   GridION ~14-16 Gb and PromethION ~146-148 Gb; hosted on CLIMB, no ENA accessions listed there.
 
+## Chemistry and basecaller (verified 2026-10-15 from the ENA record of experiment SRX26602699)
+- DESIGN_DESCRIPTION (submitter free text, not a structured field): "SQK-LSK114 + FLO-PRO114M + Dorado v7.2.13".
+  Instrument PromethION; WGS / METAGENOMIC / RANDOM; single layout. So Kit 14 ligation chemistry, PromethION flow cell, Dorado 7.2.13.
+- Not stated: basecalling model tier (fast / hac / sup). Link to the Argo paper: still unverified by me.
+- Results apply to this chemistry and basecaller only (plan Section 3).
+
 ## D6331 expected composition (checked 2026-10-13 against the manufacturer's manual, Tables 1 and 2)
 - Source: ZymoBIOMICS Gut Microbiome Standard D6331 instruction manual (PDF SHA-256 a6fdb1b4...cc76eb). THEORETICAL composition;
   the lot-specific certificate of analysis (CoA) is not obtained: lot number of the sequenced tube unknown (BioSample has no lot).
@@ -61,9 +67,9 @@ include fungi/archaea). Plan is at revision 4 (13 October).
 - Manual states relative abundance deviation <15% on average and impurity <0.01%.
 
 ## Unverified / open
-- PRJNA1181840 chemistry/basecaller/model and the Argo paper link (see below)
+- Argo paper link and basecalling model tier (see below)
 - Lot-specific CoA for the sequenced tube: lot number unknown. Ask Zymo (tech@zymoresearch.com) or the Argo paper authors. Do not block the project on it; label results as against theoretical composition.
-- Chemistry/basecaller: an outside report says SRA lists SQK-LSK114, FLO-PRO114M, Dorado v7.2.13. NOT verified by me (site fetch was rate-limited); confirm from the SRA/ENA experiment record, then record here.
+- Basecalling model tier (fast/hac/sup) not stated in the ENA record; look in the Argo paper methods or ask the authors.
 - Argo paper link: reported as confirmed in the paper's data availability statement; not verified by me.
 - Decisions 1 (dataset) and 2 (metrics, threshold rule) not yet formally settled
 - LomanLab ENA accessions (if any)
@@ -93,4 +99,4 @@ include fungi/archaea). Plan is at revision 4 (13 October).
 - Pool files (data/subsets/): dev 914 MB, eval 911 MB. SHA-256 prefixes: dev cd5e6500996fb456, eval ea568fa2704b977e
   (full values in the manifest, copied to metadata/).
 - Not yet checked: read quality distributions and pool similarity (seqkit/NanoPlot), chemistry and basecaller.
-- Status: sampling complete. Next: QC of both pools.
+- Status: sampling complete. Next: QC of both pools with bin/02_pool_qc.py (reads the manifest and the block files; writes data/qc/).

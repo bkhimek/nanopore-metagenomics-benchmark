@@ -55,6 +55,21 @@ Next steps, in order:
 4. Settle Decisions 1 and 2; choose the baseline classifier and a database that fits 12 GB and includes fungi/archaea.
 5. Then wrap in Nextflow (D1). An educational workflow guide is being written alongside (Word document in OneDrive only: Nanopore_Metagenomics_Workflow_Guide.docx; not in the repo).
 
+## 2026-10-15 session (chemistry confirmed, QC script)
+State: Phase 0 in progress. Pools sampled; QC script written and tested on synthetic data but NOT yet run on the real pools.
+- Chemistry and basecaller verified from the ENA record of SRX26602699 (WSL curl): SQK-LSK114, FLO-PRO114M, Dorado v7.2.13
+  (submitter free text; model tier not stated). Recorded in PROJECT_STATE.md, SUBSET_PLAN.md and the plan (rev 4, minor update).
+- Added bin/02_pool_qc.py: per-read length and mean Q (error-probability mean), per-block and per-pool summaries, dev-vs-eval
+  comparison at block level, drift vs position. Output in data/qc/. Supersedes the 2026-10-13 step 2 and 3 wording
+  (seqkit/NanoPlot images not needed for this step).
+
+Next steps, in order:
+1. Run bin/02_pool_qc.py on the real pools; record the numbers in PROJECT_STATE.md; check the pools look alike and Q is plausible for Kit 14.
+2. Optional: lot CoA (email Zymo / Argo authors); basecalling model tier (Argo paper methods).
+3. Settle Decisions 1 and 2 (dataset confirmation; metrics and threshold rule, including the evaluable-species minimum).
+4. Choose the baseline classifier and a database that fits 12 GB and includes fungi/archaea; freeze and record.
+5. Then wrap in Nextflow (D1).
+
 ## Paths (reference)
 - WSL repo: ~/projects/metagenomics_1_Nanopore/ (data in its gitignored data/ subfolder)
 - OneDrive project folder (Windows): C:\Users\krist\OneDrive\Documents\Projects\metagenomics\metagenomics_1_Nanopore
