@@ -1,22 +1,22 @@
-species,strain,domain,genomic_dna_pct,pct_16s_only,pct_16s_18s,genome_copy_pct,cell_number_pct,genome_size_mb_table2,gc_pct,rrna_copies,gram,refseq_fasta
-Faecalibacterium prausnitzii,AP34BHI,Bacteria,14,17.63,15.96,14.77,14.82,2.914,57.8,6,+,Faecalibacterium_prausnitzii.fasta
-Veillonella rogosae,AC2811 ANNA 2,Bacteria,14,15.87,14.37,19.94,20.01,2.158,39.0,4,-,Veillonella_rogosae.fasta
-Roseburia hominis,OB EAV1 11 DCM,Bacteria,14,9.89,8.95,12.43,12.47,3.463,48.7,4,+/-,Roseburia_hominis.fasta
-Bacteroides fragilis,OB EAV1 11 D6 FAA,Bacteria,14,9.94,9.0,8.33,8.36,5.167,43.3,6,-,Bacteroides_fragilis.fasta
-Prevotella corporis,OB21 FMU 4,Bacteria,6,4.98,4.51,6.26,6.28,2.947,44.4,4,-,Prevotella_corporis.fasta
-Bifidobacterium adolescentis,LMG 10502,Bacteria,6,8.78,7.95,8.83,8.86,2.09,59.2,5,-,Bifidobacterium_adolescentis.fasta
-Fusobacterium nucleatum,2/1/50A,Bacteria,6,7.49,6.79,7.53,7.56,2.448,27.0,5,-,Fusobacterium_nucleatum.fasta
-Lactobacillus fermentum,B-1840,Bacteria,6,9.63,8.72,9.68,9.71,1.905,52.3,5,+,Lactobacillus_fermentum.fasta
-Clostridioides difficile,P4D3A1-1,Bacteria,1.5,2.62,2.37,1.1,1.1,4.209,28.8,12,+,Clostridioides_difficile.fasta
-Akkermansia muciniphila,OB21 FAA NB 28,Bacteria,1.5,0.97,0.87,1.62,1.62,2.851,55.5,3,-,Akkermansia_muciniphila.fasta
-Methanobrevibacter smithii,DSM 861,Archaea,0.1,0.066,0.06,0.17,0.17,1.853,31.0,2,+,Methanobrevibacter_smithii.fasta
-Salmonella enterica,B-4212,Bacteria,0.01,0.009,0.008,0.007,0.0065,4.76,52.2,7,-,Salmonella_enterica.fasta
-Enterococcus faecalis,IP101412 AER FAA 2,Bacteria,0.001,0.0009,0.0008,0.0011,0.0011,2.845,37.5,4,+,Enterococcus_faecalis.fasta
-Clostridium perfringens,OB21 TSA 19,Bacteria,0.0001,0.0002,0.0002,9e-05,9e-05,3.436,28.3,10,+,Clostridium_perfringens.fasta
-Escherichia coli,JM109,Bacteria,2.8,2.53,2.29,1.82,1.83,4.729,50.9,7,-,Escherichia_coli_JM109.fasta
-Escherichia coli,B-3008,Bacteria,2.8,2.53,2.29,1.82,1.82,4.739,50.9,7,-,Escherichia_coli_B3008.fasta
-Escherichia coli,B-2207,Bacteria,2.8,2.29,2.07,1.64,1.65,5.234,50.7,7,-,Escherichia_coli_b2207.fasta
-Escherichia coli,B-766,Bacteria,2.8,2.31,2.09,1.66,1.66,5.191,50.8,7,-,Escherichia_coli_B766.fasta
-Escherichia coli,B-1109,Bacteria,2.8,2.46,2.23,1.77,1.77,4.875,50.5,7,-,Escherichia_coli_B1109.fasta
-Candida albicans,IHEM 3108,Fungi,1.5,,3.11,0.31,0.16,14.68,33.6,552,yeast,Candida_albican.fasta
-Saccharomyces cerevisiae,Y-567,Fungi,1.4,,6.35,0.32,0.16,13.3,38.3,1092,yeast,Saccharomyces_cerevisiae.fasta
+species,species_taxid,ncbi_name_in_kraken_db,strain,domain,genomic_dna_pct,pct_16s_only,pct_16s_18s,genome_copy_pct,cell_number_pct,genome_size_mb_table2,gc_pct,rrna_copies,gram,refseq_fasta
+Faecalibacterium prausnitzii,853,Faecalibacterium prausnitzii,AP34BHI,Bacteria,14,17.63,15.96,14.77,14.82,2.914,57.8,6,+,Faecalibacterium_prausnitzii.fasta
+Veillonella rogosae,423477,Veillonella rogosae,AC2811 ANNA 2,Bacteria,14,15.87,14.37,19.94,20.01,2.158,39.0,4,-,Veillonella_rogosae.fasta
+Roseburia hominis,301301,Roseburia hominis,OB EAV1 11 DCM,Bacteria,14,9.89,8.95,12.43,12.47,3.463,48.7,4,+/-,Roseburia_hominis.fasta
+Bacteroides fragilis,817,Bacteroides fragilis,OB EAV1 11 D6 FAA,Bacteria,14,9.94,9.0,8.33,8.36,5.167,43.3,6,-,Bacteroides_fragilis.fasta
+Prevotella corporis,28128,Prevotella corporis,OB21 FMU 4,Bacteria,6,4.98,4.51,6.26,6.28,2.947,44.4,4,-,Prevotella_corporis.fasta
+Bifidobacterium adolescentis,1680,Bifidobacterium adolescentis,LMG 10502,Bacteria,6,8.78,7.95,8.83,8.86,2.09,59.2,5,-,Bifidobacterium_adolescentis.fasta
+Fusobacterium nucleatum,851,Fusobacterium nucleatum,2/1/50A,Bacteria,6,7.49,6.79,7.53,7.56,2.448,27.0,5,-,Fusobacterium_nucleatum.fasta
+Lactobacillus fermentum,1613,Limosilactobacillus fermentum,B-1840,Bacteria,6,9.63,8.72,9.68,9.71,1.905,52.3,5,+,Lactobacillus_fermentum.fasta
+Clostridioides difficile,1496,Clostridioides difficile,P4D3A1-1,Bacteria,1.5,2.62,2.37,1.1,1.1,4.209,28.8,12,+,Clostridioides_difficile.fasta
+Akkermansia muciniphila,239935,Akkermansia muciniphila,OB21 FAA NB 28,Bacteria,1.5,0.97,0.87,1.62,1.62,2.851,55.5,3,-,Akkermansia_muciniphila.fasta
+Methanobrevibacter smithii,2173,Methanobrevibacter smithii,DSM 861,Archaea,0.1,0.066,0.06,0.17,0.17,1.853,31.0,2,+,Methanobrevibacter_smithii.fasta
+Salmonella enterica,28901,Salmonella enterica,B-4212,Bacteria,0.01,0.009,0.008,0.007,0.0065,4.76,52.2,7,-,Salmonella_enterica.fasta
+Enterococcus faecalis,1351,Enterococcus faecalis,IP101412 AER FAA 2,Bacteria,0.001,0.0009,0.0008,0.0011,0.0011,2.845,37.5,4,+,Enterococcus_faecalis.fasta
+Clostridium perfringens,1502,Clostridium perfringens,OB21 TSA 19,Bacteria,0.0001,0.0002,0.0002,9e-05,9e-05,3.436,28.3,10,+,Clostridium_perfringens.fasta
+Escherichia coli,562,Escherichia coli,JM109,Bacteria,2.8,2.53,2.29,1.82,1.83,4.729,50.9,7,-,Escherichia_coli_JM109.fasta
+Escherichia coli,562,Escherichia coli,B-3008,Bacteria,2.8,2.53,2.29,1.82,1.82,4.739,50.9,7,-,Escherichia_coli_B3008.fasta
+Escherichia coli,562,Escherichia coli,B-2207,Bacteria,2.8,2.29,2.07,1.64,1.65,5.234,50.7,7,-,Escherichia_coli_b2207.fasta
+Escherichia coli,562,Escherichia coli,B-766,Bacteria,2.8,2.31,2.09,1.66,1.66,5.191,50.8,7,-,Escherichia_coli_B766.fasta
+Escherichia coli,562,Escherichia coli,B-1109,Bacteria,2.8,2.46,2.23,1.77,1.77,4.875,50.5,7,-,Escherichia_coli_B1109.fasta
+Candida albicans,5476,Candida albicans,IHEM 3108,Fungi,1.5,,3.11,0.31,0.16,14.68,33.6,552,yeast,Candida_albican.fasta
+Saccharomyces cerevisiae,4932,Saccharomyces cerevisiae,Y-567,Fungi,1.4,,6.35,0.32,0.16,13.3,38.3,1092,yeast,Saccharomyces_cerevisiae.fasta

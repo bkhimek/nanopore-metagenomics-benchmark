@@ -23,3 +23,7 @@ Checks done
 Which column to use
 - Read-fraction outputs (for example Kraken2 read counts): compare with genomic DNA %.
 - Coverage- or copy-based abundance (for example Sylph taxonomic abundance): compare with genome copy %.
+
+Taxonomy IDs (added 2026-10-15)
+- species_taxid and ncbi_name_in_kraken_db come from the PlusPF-8 (2026-06-26) index listing (inspect.txt, rank S rows). Score by taxid, not by name:
+  Zymo's "Lactobacillus fermentum" is "Limosilactobacillus fermentum" (taxid 1613) in the current NCBI taxonomy. All five E. coli strains map to species 562.
