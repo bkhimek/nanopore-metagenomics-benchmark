@@ -1,6 +1,6 @@
 # PROJECT_STATE: decision log and findings
 
-Last updated: 2026-10-15
+Last updated: 2026-10-15 (evening)
 
 ## Status
 Phase 0, dataset feasibility audit, in progress. Run record, chemistry and basecaller verified; both pools sampled;
@@ -34,6 +34,9 @@ basecalling model tier, database choice (must fit 12 GB and include fungi/archae
   the full ~1 Gb pool is a single baseline without replicates.
 - D10 (2026-10-13) Uncertainty: block-level resampling (reads come in 5,000-read blocks). Replicates measure
   within-pool variation only (about half overlap at 0.5 Gb), not run-to-run variation.
+- D12 (2026-10-15) Baseline classifier = Kraken2 2.17.2 (image quay.io/biocontainers/kraken2@sha256:db5d772d9df323cf0ddc644fb9793c0fca25b61f86469be42f1a9f5b903b9fdf)
+  with the PlusPF-8 index dated 2026-06-26 (7.5 GB, includes fungi and archaea; FROZEN as the baseline database, D3). Run with a docker memory cap
+  (10g default). AWS deferred: a large-database run on a big-RAM instance is the Phase 2 experiment to measure what the 8 GB cap costs.
 - D11 (2026-10-13) Database must contain fungi and archaea (standard Kraken2 indices lack fungi); otherwise those
   mock members are declared out of evaluable scope. Check coverage before running. Refines D4.
 
@@ -65,6 +68,18 @@ basecalling model tier, database choice (must fit 12 GB and include fungi/archae
   draft assemblies (C. albicans 13,062 contigs, 12.58 Mb vs 14.68 in Table 2; S. cerevisiae 51 contigs, 12.84 vs 13.30).
 - Files: reference/d6331_composition.csv, reference/d6331_expected_reads_by_species.csv, reference/README.md (in the repo).
 - Manual states relative abundance deviation <15% on average and impurity <0.01%.
+
+## Baseline database and classifier (2026-10-15)
+- Index: Kraken2 PlusPF-8, 2026-06-26 (genome-idx.s3.amazonaws.com/kraken/k2_pluspf_08_GB_20260626.tar.gz). Archive md5 79a153b99f045bc2ae95e6d57c17a02d (verified
+  against the published md5 list). Archive 5.5 GB; index hash.k2d 7.5 GB; in data/db/pluspf_08_20260626/ (gitignored). Contents: RefSeq archaea, bacteria, viral, plasmid, human,
+  UniVec_Core plus protozoa and fungi (per the index listing page, read 2026-10-15).
+- Coverage check (inspect.txt): all 17 D6331 species present at rank S. Zymo's "Lactobacillus fermentum" is "Limosilactobacillus fermentum" (taxid 1613) in the current taxonomy:
+  score by taxid. Minimizer counts per species are uneven (E. coli 1.79 M; M. smithii 38 k; Fusobacterium 101 k; Candida albicans 252 k): species with few retained minimizers
+  may be detected less sensitively in a capped index. To be measured, not assumed.
+- Smoke test (one 5,000-read block, start 10,336,400 = stratum 32, dev pool): 94.38% classified, 5.62% unclassified (confidence 0); 1.45 s classification, 11 s wall incl. database load.
+  Single block, not scored.
+- Script: bin/03_classify.py (pinned image digest, docker memory cap, run.json record; refuses the eval pool without --allow-eval).
+- Reference files now carry species_taxid (reference/d6331_*.csv).
 
 ## Unverified / open
 - Argo paper link and basecalling model tier (see below)

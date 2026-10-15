@@ -63,7 +63,11 @@ State: Phase 0 essentially complete. Pools sampled and QC done (see PROJECT_STAT
   comparison at block level, drift vs position. Output in data/qc/. Supersedes the 2026-10-13 step 2 and 3 wording
   (seqkit/NanoPlot images not needed for this step).
 
+Evening update: PlusPF-8 (2026-06-26) downloaded and verified, all 17 species present, Kraken2 2.17.2 pinned by digest, smoke test OK (see PROJECT_STATE.md, D12),
+bin/03_classify.py written. AWS idea: deferred to Phase 2 (large-database comparison).
+
 Next steps, in order:
+0. Run bin/03_classify.py --pool dev (label baseline_c0) and score it (scoring script to be written: species calls by taxid vs reference, FP audit, evaluable species).
 1. DONE: bin/02_pool_qc.py run on the real pools; numbers recorded in PROJECT_STATE.md.
 2. Optional: lot CoA (email Zymo / Argo authors); basecalling model tier (Argo paper methods).
 3. Settle Decisions 1 and 2 (dataset confirmation; metrics and threshold rule, including the evaluable-species minimum).
