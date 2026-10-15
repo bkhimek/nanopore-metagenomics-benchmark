@@ -99,4 +99,16 @@ basecalling model tier, database choice (must fit 12 GB and include fungi/archae
 - Pool files (data/subsets/): dev 914 MB, eval 911 MB. SHA-256 prefixes: dev cd5e6500996fb456, eval ea568fa2704b977e
   (full values in the manifest, copied to metadata/).
 - Not yet checked: read quality distributions and pool similarity (seqkit/NanoPlot), chemistry and basecaller.
-- Status: sampling complete. Next: QC of both pools with bin/02_pool_qc.py (reads the manifest and the block files; writes data/qc/).
+- Status: sampling complete; QC done (next section).
+
+## Pool QC result (2026-10-15, bin/02_pool_qc.py; outputs in data/qc/, scipy 1.18.1 pip-installed into base)
+- Read quality = per-read error-probability mean (Phred+33; quality characters 34..83). Reads: 185,000 per pool.
+- dev vs eval: mean length 5,491 vs 5,473 bp; N50 9,252 vs 9,227; 8.9% vs 9.0% of reads <500 bp; mean read Q 16.95 vs 16.97; median Q 17.91 vs 17.92;
+  Q>=10 89.9% vs 90.1%; Q>=15 74.0% vs 74.0%; Q>=20 27.6% vs 27.9%.
+- Length percentiles 5/25/50/75/95 (dev): 382 / 1,307 / 4,061 / 8,036 / 15,554 bp. Read Q percentiles 5/25/50/75/95: 6.3 / 14.8 / 17.9 / 20.3 / 22.8.
+- Pool similarity: KS D (effect size) length 0.0025, mean Q 0.0029. Block-level Mann-Whitney (37 vs 37 blocks): mean length p=0.55, mean Q p=0.22,
+  % reads Q>=20 p=0.11. No detectable difference between pools.
+- Drift along the run (Spearman, block mean vs read-number position): length rho -0.11 (p 0.36); mean Q rho -0.005 (p 0.96). No detectable drift.
+- Interpretation: "Q20+" in the study title describes the chemistry; only ~28% of reads reach Q20 and the typical read is about Q18.
+  Report as Kit 14 data, median read Q about 18. No filtering applied; any length/quality filter must be pre-specified and applied identically to both pools.
+- Phase 0 audit items now closed except: lot CoA (unknown lot), basecalling model tier, Argo paper link.
