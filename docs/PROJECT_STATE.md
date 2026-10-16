@@ -1,11 +1,11 @@
 # PROJECT_STATE: decision log and findings
 
-Last updated: 2026-10-16 (evening, after eval run)
+Last updated: 2026-10-16 (evening, depth series registered)
 
 ## Status
 Phase 0 (dataset audit) essentially complete; Phase 1 (baseline benchmark) started. Done: run record, chemistry/basecaller, pools sampled and QC'd,
 theoretical composition checked, baseline database and classifier frozen (D12), baseline run on the dev pool, first scoring done (sweep on dev, see Scoring). Truth-table naming issue found and fixed by alias (D13), sweep rerun with it. Evaluable minimum fixed at 20 (D14a). Threshold FROZEN at 0.08% of reads (D14b), chosen on the dev pool by bootstrap-mean F1.
-Eval pool classified and scored ONCE with the frozen threshold (result below, within the written predictions). Next: depth series (0.1/0.25/0.5 Gb x 5 replicates), then Phase 2.
+Eval pool classified and scored ONCE with the frozen threshold (result below, within the written predictions). Depth series designed and registered (D15), script bin/05_depth_series.py written and tested on synthetic data; not yet run on real data. Then Phase 2.
 Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper link. Plan is at revision 5 (16 October; Rev4 kept). Workflow guide is at version 2 (16 October; OneDrive only; new section 4 explains thresholds and scoring for a novice).
 
 ## Environment
@@ -159,6 +159,18 @@ Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper l
 - Open (D14), proposals not yet accepted by the user: (a) keep the evaluable minimum at 20 expected reads (pre-specified before results; Salmonella, 18.5 expected, is then "detected, not evaluable");
   (b) choose the threshold as a FRACTION of reads (not a read count) on the dev pool, maximising F1 over a wide grid, ties to the larger value, after the D13 alias is applied; report the whole curve with
   bootstrap intervals; freeze before touching eval.
+
+## Depth series (design registered 2026-10-16, BEFORE running; bin/05_depth_series.py)
+- D15 (2026-10-16, proposed by Claude, default unless the user changes it): the depth series is drawn from the EVALUATION pool. Reason: the rules are frozen (D14), nothing will be changed in response, and drawing from dev would be
+  optimistic because the threshold was tuned on dev blocks. The full-pool eval result (baseline_c0) is the 1.0 Gb baseline. A second series on dev can be added later as a labelled "tuning pool, optimistic" comparison.
+- Design: depths 0.1, 0.25, 0.5 Gb (D9), 5 replicates each, random reads without replacement until bases reach the target, seed 20261016 with per-(pool, depth, replicate) seeds recorded in data/depth/<pool>/depth_manifest.json.
+  Replicates overlap (about half at 0.5 Gb) and come from one pool: spread = within-pool variation only (D10). Classified with the frozen baseline (03_classify.py defaults), scored with --min-frac 0.0008 --bootstrap 0
+  (block bootstrap does not apply to random-read subsamples). Evaluable minimum 20 expected reads at EACH depth (D14a). No sweep, no retuning, no rule changes.
+- Expected sizes: about 18,500 / 46,000 / 92,500 reads; threshold T about 15 / 37 / 74 reads; evaluable species 13 / 14 / 14 (Methanobrevibacter smithii expects about 18.5 reads at 0.1 Gb, so it drops out there).
+- Predictions written before the run: (1) evaluable recall 13/13 in all replicates at 0.1 Gb; at 0.25 and 0.5 Gb M. smithii (observed 0.088% of reads vs threshold 0.08%) detected in roughly 70-80% of replicates, so recall 13/14 or 14/14;
+  (2) false positives 1 to 2.5 on average (human always present at about 0.45%), at most about 4 in any run, possibly a little higher at 0.1 Gb because counts are small; (3) F1 mean between 0.90 and 0.97 at every depth;
+  (4) Bray-Curtis about 0.17 (+/- 0.01) at every depth; (5) per-species obs/exp the same as at full depth (for example F. nucleatum about 0.76, B. adolescentis about 0.22). Anything far outside is a finding, not something to tune away.
+- Cost: subsampling reads the pool once (a minute or two); 15 classifications at about 17 s each.
 
 ## Unverified / open
 - Argo paper link and basecalling model tier (see below)

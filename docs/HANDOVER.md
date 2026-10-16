@@ -104,7 +104,7 @@ State: bin/04_score.py committed (895e437) and run on the real dev baseline (swe
 Next steps, in order (supersedes the 2026-10-16 morning list):
 1. DONE: candidate comparison; threshold frozen at 0.0008 (D14b).
 2. DONE: eval pool classified and scored once; compared with predictions.
-2a. Next: design and run the depth series (0.1/0.25/0.5 Gb x 5 replicates) with the same frozen fraction threshold; decide first which pool the replicates are drawn from (the eval pool has been used once).
+2a. Depth series: design, D15 (draw from the EVAL pool, default) and predictions are registered in PROJECT_STATE.md; bin/05_depth_series.py written and tested on synthetic data. Next: copy it into the repo, commit (so the registration precedes the run), then run `bin/05_depth_series.py --pool eval --allow-eval` and compare with the predictions.
 2c. DONE 2026-10-16: plan refreshed to revision 5 (Nanopore_Metagenomics_Project_Plan_Rev5.docx) and the workflow guide to v2 (Nanopore_Metagenomics_Workflow_Guide_v2.docx), both in OneDrive. Delete the old guide file once happy.
 2b. Optional small checks: where the human reads come from (BLAST/minimap2 of a sample of them), genome accession of the Fusobacterium strain, whether L. fermentum 1.66x is relatives' reads.
 3. (merged into step 2 above)
