@@ -94,13 +94,15 @@ State: bin/04_score.py committed (895e437) and run on the real dev baseline (swe
 - Other low recoveries are real classifier behaviour (Bifidobacterium adolescentis stops at genus level; Roseburia loses reads above genus/unclassified; E. coli shares reads with relatives).
 - 04_score.py updated: --min-frac, --sweep-frac, --aliases, genus-level recall, wider default grid. Regression-tested against the previous version.
 - Alias applied (commit e161f77): Fusobacterium nucleatum 8,689 reads (0.78x). Sweep rerun; F1 peaks at T=150 (0.966) one read below Methanobrevibacter smithii (151 reads): a knife edge.
-- User decided: evaluable minimum stays 20 (D14a); threshold = fraction of reads maximising F1 on dev (D14b, in principle). Value not yet fixed; bootstrap comparison of candidates is next.
-- 04_score.py now also prints the bootstrap MEAN of each metric (transfer copy, not yet committed).
+- User decided: evaluable minimum stays 20 (D14a); threshold = fraction of reads chosen by bootstrap-mean F1 on dev, ties to the smaller (D14b, accepted).
+- 04_score.py prints the bootstrap MEAN of each metric (commit 8f6c741). Candidate comparison done: best is --min-frac 0.0008 (T=148 on 185,000 reads), FROZEN. Remaining FP at that threshold is Homo sapiens (923 reads).
+  Predictions for the eval run are written in PROJECT_STATE.md before it is run.
 
 Next steps, in order (supersedes the 2026-10-16 morning list):
-1. Copy the updated 04_score.py (bootstrap mean) into the repo and run --min-frac with bootstrap for candidates 0.0002, 0.0005, 0.0008, 0.001, 0.002, 0.005 on dev; compare mean F1, M. smithii detection frequency and the false-positive audit.
-2. Fix the threshold value and tie rule (D14b) from that comparison; record it; then freeze.
-3. Freeze, then bin/03_classify.py --pool eval --allow-eval --label baseline_c0, and score it once with the frozen threshold.
+1. DONE: candidate comparison; threshold frozen at 0.0008 (D14b).
+2. Commit the frozen record (git tag freeze-d14), then bin/03_classify.py --pool eval --allow-eval --label baseline_c0 and bin/04_score.py --run data/classify/eval/baseline_c0 --allow-eval --min-frac 0.0008 (ONCE; no sweep, no retuning).
+   Compare with the written predictions; record the result honestly.
+3. (merged into step 2 above)
 4. Phase 1 extras: depth series (0.1/0.25/0.5 Gb x 5 replicates; the fraction threshold carries over), then Phase 2 (AWS large database to test the capped index, long-read-aware profiler, AMR).
 5. Optional: lot CoA, basecalling model tier, Argo paper link, genome accession for the Fusobacterium strain.
 

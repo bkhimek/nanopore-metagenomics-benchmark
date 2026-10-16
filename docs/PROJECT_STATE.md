@@ -1,11 +1,11 @@
 # PROJECT_STATE: decision log and findings
 
-Last updated: 2026-10-16 (late afternoon)
+Last updated: 2026-10-16 (evening)
 
 ## Status
 Phase 0 (dataset audit) essentially complete; Phase 1 (baseline benchmark) started. Done: run record, chemistry/basecaller, pools sampled and QC'd,
-theoretical composition checked, baseline database and classifier frozen (D12), baseline run on the dev pool, first scoring done (sweep on dev, see Scoring). Truth-table naming issue found and fixed by alias (D13), sweep rerun with it. Evaluable minimum fixed at 20 (D14a). Threshold rule agreed in principle
-(fraction of reads, maximise F1 on dev; D14b) but the value is NOT yet fixed: the F1 optimum sits on a knife edge (see Scoring). Eval pool untouched.
+theoretical composition checked, baseline database and classifier frozen (D12), baseline run on the dev pool, first scoring done (sweep on dev, see Scoring). Truth-table naming issue found and fixed by alias (D13), sweep rerun with it. Evaluable minimum fixed at 20 (D14a). Threshold FROZEN at 0.08% of reads (D14b), chosen on the dev pool by bootstrap-mean F1.
+Next: classify the eval pool with the frozen baseline and score it ONCE with the frozen threshold.
 Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper link. Plan is at revision 4 (minor update 15 October).
 
 ## Environment
@@ -44,8 +44,10 @@ Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper l
   reference/d6331_taxid_aliases.csv with the evidence; 04_score.py reports every alias it applies. Caveat: found after seeing results, strain not checked against an
   assembly accession (the FASTA header is only the file name). Not a classifier error: a taxonomy-name mismatch in the truth table, same family as the Lactobacillus rename.
 - D14a (2026-10-16, user) Evaluable-species minimum = 20 expected reads (set before results, kept). Salmonella (18.5 expected) is "detected, not evaluable".
-- D14b (2026-10-16, user, in principle) Detection threshold is a FRACTION of all reads, chosen to maximise F1 on the dev pool; the value is frozen before the eval pool is touched.
-  Open refinements proposed (not yet accepted): evaluate F1 as the bootstrap mean rather than the point estimate, and break ties towards the SMALLER threshold (see Scoring).
+- D14b (2026-10-16, FROZEN, user accepted the rule) Detection threshold = a FRACTION of all reads, chosen on the dev pool as the candidate with the highest block-bootstrap MEAN F1 (not the
+  single-pool point value); ties go to the SMALLER threshold (keeps real low-abundance species). Candidates 0.0002, 0.0005, 0.0008, 0.001, 0.002, 0.005 (the list includes values picked after
+  seeing the sweep, all on dev). Result: 0.0008 (mean F1 0.948; 0.005 is 0.947, a tie, and the tie rule agrees). FROZEN: --min-frac 0.0008, i.e. T = ceil(0.0008 x reads) = 148 on a 185,000-read pool.
+  No further tuning on the eval pool. Strict truth: any species not in the 17 (including human) counts as a false positive; no exclusions after the fact.
 - D11 (2026-10-13) Database must contain fungi and archaea (standard Kraken2 indices lack fungi); otherwise those
   mock members are declared out of evaluable scope. Check coverage before running. Refines D4.
 
@@ -127,7 +129,21 @@ Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper l
   species would be missed about half the time. The two near-equal options: T about 150 (all 14 evaluable found, 1 false positive, fragile) or T about 925 or more (0 false positives,
   loses M. smithii by design; F1 0.963 vs 0.966). The F1 difference is far smaller than the sampling noise. Ties-to-larger would push the choice to 1% of reads, which is silly for a mock whose
   lowest evaluable species is 0.1%, hence the proposal to break ties towards the smaller threshold and to compare candidates by bootstrap mean F1.
-- The 1 remaining false positive at T=150 (same-genus count 0, other 1) not yet identified; run with --min-frac to get fp_audit.tsv.
+- The 1 remaining false positive at T=148 is Homo sapiens: 923 reads (0.5% of reads), 8,053 distinct minimizers. The mock has no human DNA, so this is host/lab contamination or a
+  misassignment; not resolved (many distinct minimizers lean towards real human reads, but this is not shown). Kept as a false positive (strict truth). Note the 0.5% option (T=925) is zero-FP
+  only because human has 923 reads: both candidate thresholds sit within a few reads of an edge (M. smithii 151 vs 148; human 923 vs 925).
+
+### Threshold choice on dev (bootstrap, 1000 resamples of 37 blocks, seed 20261016)
+- frac (T) : precision / F1 (point; mean; 95% interval) / false positives (mean)
+  0.0002 (37): 0.536 / 0.698; 0.690; 0.667-0.714 / 13.5
+  0.0005 (93): 0.778 / 0.875; 0.874; 0.824-0.903 / 4.1
+  0.0008 (148): 0.933 / 0.966; 0.948; 0.897-0.966 / 1.07  (14/14 evaluable detected; M. smithii detected in 58% of resamples)
+  0.001 (185): 0.929 / 0.929; 0.929; 0.929-0.929 / 1.0  (M. smithii lost: 13/14)
+  0.002 (370): same as 0.001
+  0.005 (925): 1.000 / 0.963; 0.947; 0.929-0.963 / 0.46  (M. smithii lost)
+- Predictions written BEFORE the eval run (so they can be checked): with 0.0008, expect evaluable recall 13/14 or 14/14 (M. smithii about a coin flip), 1 to 2 false positives (human likely among them),
+  F1 roughly 0.90 to 0.97, Fusobacterium about 0.78x, Roseburia/Bifidobacterium/E. coli recoveries similar to dev. A result far outside this is a finding, not something to tune away.
+- Depth note: the fraction transfers across depth, but at low depth the evaluable-species rule (expected reads >= 20 at that depth) removes the rarest species, so recall is reported over fewer species.
 - Open (D14), proposals not yet accepted by the user: (a) keep the evaluable minimum at 20 expected reads (pre-specified before results; Salmonella, 18.5 expected, is then "detected, not evaluable");
   (b) choose the threshold as a FRACTION of reads (not a read count) on the dev pool, maximising F1 over a wide grid, ties to the larger value, after the D13 alias is applied; report the whole curve with
   bootstrap intervals; freeze before touching eval.
