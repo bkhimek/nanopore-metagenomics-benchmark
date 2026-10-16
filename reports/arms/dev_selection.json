@@ -1,0 +1,51 @@
+{
+  "arms": {
+    "0": {
+      "label": "baseline_c0",
+      "fraction": 0.0008,
+      "dev_max_boot_mean_f1": 0.9479367816091955,
+      "rule": "baseline frozen by D14b",
+      "dev_retuned_fraction_for_reference": 0.0008
+    },
+    "0.05": {
+      "label": "c0.05",
+      "fraction": 5e-05,
+      "dev_max_boot_mean_f1": 0.9243049808429119,
+      "rule": "smallest fraction with bootstrap-mean F1 >= max - 0.002",
+      "dev_retuned_fraction_for_reference": 5e-05
+    },
+    "0.1": {
+      "label": "c0.1",
+      "fraction": 5e-05,
+      "dev_max_boot_mean_f1": 0.6038748462064251,
+      "rule": "smallest fraction with bootstrap-mean F1 >= max - 0.002",
+      "dev_retuned_fraction_for_reference": 5e-05
+    },
+    "0.2": {
+      "label": "c0.2",
+      "fraction": 5e-05,
+      "dev_max_boot_mean_f1": 0.0,
+      "rule": "smallest fraction with bootstrap-mean F1 >= max - 0.002",
+      "dev_retuned_fraction_for_reference": 5e-05
+    },
+    "0.4": {
+      "label": "c0.4",
+      "fraction": 5e-05,
+      "dev_max_boot_mean_f1": 0.0,
+      "rule": "smallest fraction with bootstrap-mean F1 >= max - 0.002",
+      "dev_retuned_fraction_for_reference": 5e-05
+    }
+  },
+  "grid": [
+    5e-05,
+    0.0001,
+    0.0002,
+    0.0005,
+    0.0008,
+    0.001,
+    0.002,
+    0.005
+  ],
+  "tie": 0.002,
+  "bootstrap": 1000
+}
