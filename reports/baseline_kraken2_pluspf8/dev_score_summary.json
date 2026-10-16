@@ -1,0 +1,97 @@
+{
+  "run": "data/classify/dev/baseline_c0",
+  "pool": "dev",
+  "total_reads": 185000,
+  "classified": 174153,
+  "unclassified": 10847,
+  "evaluable_min_expected": 20.0,
+  "evaluable": [
+    "Escherichia coli",
+    "Bacteroides fragilis",
+    "Fusobacterium nucleatum",
+    "Faecalibacterium prausnitzii",
+    "Clostridioides difficile",
+    "Limosilactobacillus fermentum",
+    "Bifidobacterium adolescentis",
+    "Methanobrevibacter smithii",
+    "Saccharomyces cerevisiae",
+    "Candida albicans",
+    "Prevotella corporis",
+    "Akkermansia muciniphila",
+    "Roseburia hominis",
+    "Veillonella rogosae"
+  ],
+  "not_evaluable": [
+    "Salmonella enterica (expected 18.5 reads)",
+    "Enterococcus faecalis (expected 1.9 reads)",
+    "Clostridium perfringens (expected 0.2 reads)"
+  ],
+  "reads_in_mock_species": 154916,
+  "pct_reads_in_mock_species": 83.74,
+  "pct_classified_elsewhere": 10.4,
+  "aliases": [
+    {
+      "truth": "Fusobacterium nucleatum",
+      "accepted_taxid": 76859,
+      "accepted_name": "Fusobacterium animalis",
+      "evidence": "Added 2026-10-16 AFTER the first dev-pool scoring showed F. nucleatum at 92 of 11100 expected reads while F. animalis had 8597. Evidence independent of the reads: the D6331 reference genome (D6331.refseq/genomes/Fusobacterium_nucleatum.fasta, 2448186 bp, header is only the file name) was cut into 489 pieces of 5 kb and classified with the frozen baseline (Kraken2 PlusPF-8 2026-06-26): 475/489 (97.1%) species-level F. animalis, 3 F. nucleatum. NCBI taxonomy now files the strain under F. animalis. Strain-level identity not checked against an assembly accession."
+    }
+  ],
+  "threshold": {
+    "min_reads": 148,
+    "min_frac": 0.0008,
+    "pct_of_reads": 0.08,
+    "genus_recall_evaluable": 1.0
+  },
+  "at_T": {
+    "T": 148,
+    "called": 15,
+    "correct": 14,
+    "fp": 1,
+    "tp_evaluable": 14,
+    "fn_evaluable": 0,
+    "precision": 0.9333333333333333,
+    "recall_evaluable": 1.0,
+    "recall_all_truth": 0.8235294117647058,
+    "f1": 0.9655172413793104,
+    "l1": 0.33289654236627414,
+    "bray_curtis": 0.1664482711831371
+  },
+  "fp_by_category": {
+    "eukaryote (fungi, human, other)": 1
+  },
+  "bootstrap": {
+    "n": 1000,
+    "seed": 20261016,
+    "ci95": {
+      "precision": [
+        0.8666666666666667,
+        0.9333333333333333
+      ],
+      "recall_evaluable": [
+        0.9285714285714286,
+        1.0
+      ],
+      "f1": [
+        0.896551724137931,
+        0.9655172413793104
+      ],
+      "bray_curtis": [
+        0.16418053593176563,
+        0.16933545553459428
+      ],
+      "fp": [
+        1,
+        2
+      ]
+    },
+    "mean": {
+      "precision": 0.9271666666666667,
+      "recall_evaluable": 0.9703571428571429,
+      "f1": 0.9479367816091955,
+      "bray_curtis": 0.16680807288153915,
+      "fp": 1.07
+    },
+    "crosscheck_mismatch": []
+  }
+}

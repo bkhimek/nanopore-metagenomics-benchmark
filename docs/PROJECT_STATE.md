@@ -1,11 +1,11 @@
 # PROJECT_STATE: decision log and findings
 
-Last updated: 2026-10-16 (evening, depth series registered)
+Last updated: 2026-10-16 (evening, confidence arms registered)
 
 ## Status
 Phase 0 (dataset audit) essentially complete; Phase 1 (baseline benchmark) started. Done: run record, chemistry/basecaller, pools sampled and QC'd,
 theoretical composition checked, baseline database and classifier frozen (D12), baseline run on the dev pool, first scoring done (sweep on dev, see Scoring). Truth-table naming issue found and fixed by alias (D13), sweep rerun with it. Evaluable minimum fixed at 20 (D14a). Threshold FROZEN at 0.08% of reads (D14b), chosen on the dev pool by bootstrap-mean F1.
-Eval pool classified and scored ONCE with the frozen threshold (result below, within the written predictions). Depth series designed and registered (D15), script bin/05_depth_series.py written and tested on synthetic data; not yet run on real data. Then Phase 2.
+Eval pool classified and scored ONCE with the frozen threshold (result below, within the written predictions). Depth series run on the eval pool and compared with the registered predictions (all met). Phase 2 arm 1 (Kraken2 confidence, D16) designed and registered; script written and tested on synthetic data; dev stage not yet run.
 Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper link. Plan is at revision 5 (16 October; Rev4 kept). Workflow guide is at version 2 (16 October; OneDrive only; new section 4 explains thresholds and scoring for a novice).
 
 ## Environment
@@ -171,6 +171,44 @@ Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper l
   (2) false positives 1 to 2.5 on average (human always present at about 0.45%), at most about 4 in any run, possibly a little higher at 0.1 Gb because counts are small; (3) F1 mean between 0.90 and 0.97 at every depth;
   (4) Bray-Curtis about 0.17 (+/- 0.01) at every depth; (5) per-species obs/exp the same as at full depth (for example F. nucleatum about 0.76, B. adolescentis about 0.22). Anything far outside is a finding, not something to tune away.
 - Cost: subsampling reads the pool once (a minute or two); 15 classifications at about 17 s each.
+
+### Depth series result (eval pool, 2026-10-16; data/depth/eval/; frozen threshold 0.0008 of reads; each replicate classified in 4-25 s)
+| Gb | runs | reads | T | evaluable | precision mean (min-max) | evaluable recall mean (min-max) | F1 mean (min-max) | FP mean (min-max) | Bray-Curtis |
+| 0.1 | 5 | 18,298 | 15 | 13 | 0.910 (0.824-0.933) | 1.000 (1.000-1.000) | 0.953 (0.903-0.966) | 1.4 (1-3) | 0.171 |
+| 0.25 | 5 | 45,890 | 37 | 14 | 0.932 (0.929-0.933) | 0.986 (0.929-1.000) | 0.958 (0.929-0.966) | 1.0 (1-1) | 0.169 |
+| 0.5 | 5 | 91,318 | 74 | 14 | 0.933 (0.933-0.933) | 1.000 (1.000-1.000) | 0.966 (0.966-0.966) | 1.0 (1-1) | 0.168 |
+| 1.0 | 1 (full pool) | 185,000 | 148 | 14 | 0.933 | 1.000 | 0.966 | 1 | 0.168 |
+- Predictions vs result: all five met. (1) 0.1 Gb recall 13/13 in every replicate OK; M. smithii at 0.25 Gb detected in 4/5 (predicted about 70-80%) OK, at 0.5 Gb in 5/5 (a little above the predicted 70-80%, but 5 replicates cannot tell 80% from 100%; the
+  lowest count was 74 against T=74, so it was detected by one read); (2) FP mean 1.4 / 1.0 / 1.0 (predicted 1-2.5, max about 4) OK, maximum 3; (3) F1 means 0.953 / 0.958 / 0.966 (predicted 0.90-0.97) OK; (4) Bray-Curtis 0.171 / 0.169 / 0.168 OK;
+  (5) obs/exp unchanged (F. nucleatum 0.73-0.78, B. adolescentis 0.20-0.23, Roseburia 0.40-0.43, E. coli 0.56-0.59, L. fermentum 1.65-1.69) OK.
+- Findings: (a) with a threshold that is a fraction of reads, presence/absence performance is flat from 1 Gb down to 0.1 Gb (about 18,000 reads) for this mock; the cost of lower depth is only that the rarest species drop out of
+  evaluability (M. smithii at 0.1 Gb: 6-20 reads against T=15; detected in 4 of 5 although not evaluable). (b) 14 of 15 runs have exactly one false positive, and it is human in every run inspected (about 0.35-0.5% of reads at every depth: 62-75 reads at 0.1 Gb,
+  190-232 at 0.25 Gb, about 400 at 0.5 Gb): it is systematic. (c) The extra false positives (Escherichia albertii 17 reads, Shigella flexneri 17 reads) occurred only in one 0.1 Gb replicate, where T=15 reads is a low absolute bar:
+  relatives of E. coli cross a small absolute threshold by chance. (d) Abundance bias (Roseburia, Bifidobacterium, E. coli low; Limosilactobacillus high) does not depend on depth, so it is a database/classifier property, not noise.
+- Caveats: replicates are drawn from one 1 Gb pool and overlap (about half at 0.5 Gb), so the very small spreads at 0.5 Gb are partly an artefact of overlap; they measure within-pool variation only (D10). The mock has 14 species at >=0.1% DNA;
+  a clinical sample with a dominant host or few abundant species would behave differently. One run, one chemistry.
+
+## Scoring script fix (2026-10-16, 04_score.py)
+- Edge case found by the confidence arms: when NO species reaches the threshold in any bootstrap resample, the interval code crashed (empty list). Fixed: F1 is now 0 (not undefined) when nothing is called or nothing called is right (recall is 0);
+  precision stays undefined (nan) in that case; intervals of empty lists are nan. Regression-tested: identical metrics, bootstrap and sweep output to the previous version whenever at least one species is called (all earlier results unaffected).
+
+## Confidence arms (Phase 2, arm 1; REGISTERED 2026-10-16 before running; bin/06_confidence_arms.py)
+- D16 (2026-10-16, user chose this as the next experiment): test Kraken2 --confidence as a cheap lever against false positives. Arms: 0.0 (the frozen baseline, threshold stays 0.0008) plus 0.05, 0.1, 0.2, 0.4. Everything else as in D12.
+- Registration note (honest record): the first registration commit FAILED because results/ is gitignored (Nextflow scaffold), yet the tag arms-registered was created on the previous commit; the tag was deleted and recreated after the real
+  commit, and tracked outputs now live in reports/ (not results/). Before that commit the dev stage had already been started. It crashed at confidence 0.1, fraction 0.002 (threshold 370 reads) because NO species reached 370 reads at species
+  rank, while scoring at 0.001 (threshold 185) had completed. So the registration is partly informed by one glimpse: species-level counts collapse at confidence 0.1, which probably breaks expectation (4). The expectation text below was
+  written before any run and is unchanged.
+- Rule (same as D14b, made explicit): for each non-baseline arm, score the dev pool with the block bootstrap at fractions 0.00005, 0.0001, 0.0002, 0.0005, 0.0008, 0.001, 0.002, 0.005 and choose the SMALLEST fraction whose bootstrap-mean F1 is within 0.002 of that arm's maximum.
+  Selections are written to reports/arms/dev_selection.json, committed and tagged `arms-frozen` BEFORE the eval pool is touched (the script refuses otherwise). Then each arm is scored ONCE on eval at its own frozen fraction. ALL arms are reported;
+  no arm is chosen on eval. The 0.0 arm is not re-tuned (its dev optimum on the wider grid is shown for reference only).
+- Why F1 alone will not separate the arms: with human DNA as an unavoidable false positive, the F1 ceiling on this mock is 0.966 (14 true calls, 1 false). The informative columns are therefore: the smallest usable fraction (the lowest
+  abundance the arm can call without false positives), reads classified, reads in the 17 mock species, Bray-Curtis, per-species obs/exp (Roseburia, Bifidobacterium adolescentis) and the false-positive list.
+- Expectations written before the run (low confidence, mechanism: Kraken2 confidence is the share of a read's k-mers supporting a clade; nanopore reads at about Q18 have many k-mers with errors, so high values push reads up to genus or leave them unclassified):
+  (1) reads classified (any rank) and reads in the mock species at species rank both fall monotonically with confidence, c0.4 clearly lowest (below about 80% classified);
+  (2) the dev-chosen fraction for c0.05 to c0.2 is at or below 0.0008 for at least one arm (noise falls faster than signal), and false-positive species other than human at a fixed low fraction (0.0002) fall monotonically with confidence;
+  (3) human stays a false positive in every arm whose chosen fraction is below about 0.4%;
+  (4) evaluable recall stays 14/14 for c <= 0.1 and may drop at c >= 0.2 (rare species lose species-level reads); (5) the already-low species (Bifidobacterium adolescentis 0.22, Roseburia hominis 0.42) fall further as confidence rises;
+  (6) Bray-Curtis changes by less than 0.03 for c <= 0.1. A result far outside this is a finding. The eval pool is looked at once per arm; this is a second look at it overall, so it is reported as a pre-registered comparison, not as fresh held-out data.
 
 ## Unverified / open
 - Argo paper link and basecalling model tier (see below)

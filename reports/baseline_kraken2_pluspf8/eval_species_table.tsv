@@ -1,0 +1,18 @@
+taxid	species	domain	dna_pct	expected_reads	observed_reads	observed_over_expected	genus_clade_reads	distinct_minimizers	evaluable	status_T148
+853	Faecalibacterium prausnitzii	Bacteria	14.000	25900.000	32081	1.240	33428	46330	yes	detected
+423477	Veillonella rogosae	Bacteria	14.000	25900.000	22751	0.880	22901	31122	yes	detected
+301301	Roseburia hominis	Bacteria	14.000	25900.000	10714	0.410	10752	65623	yes	detected
+817	Bacteroides fragilis	Bacteria	14.000	25900.000	24825	0.960	25347	79221	yes	detected
+562	Escherichia coli	Bacteria	14.000	25900.000	14818	0.570	16161	24484	yes	detected
+28128	Prevotella corporis	Bacteria	6.000	11100.000	10472	0.940	10496	52851	yes	detected
+1680	Bifidobacterium adolescentis	Bacteria	6.000	11100.000	2477	0.220	5762	10829	yes	detected
+851	Fusobacterium nucleatum	Bacteria	6.000	11100.000	8476	0.760	9080	415	yes	detected
+1613	Limosilactobacillus fermentum	Bacteria	6.000	11100.000	18459	1.660	18490	38418	yes	detected
+1496	Clostridioides difficile	Bacteria	1.500	2775.000	2770	1.000	2788	45770	yes	detected
+239935	Akkermansia muciniphila	Bacteria	1.500	2775.000	2618	0.940	2644	50062	yes	detected
+5476	Candida albicans	Fungi	1.500	2775.000	2694	0.970	2698	150902	yes	detected
+4932	Saccharomyces cerevisiae	Fungi	1.400	2590.000	1901	0.730	1919	117847	yes	detected
+2173	Methanobrevibacter smithii	Archaea	0.100	185.000	163	0.880	163	8424	yes	detected
+28901	Salmonella enterica	Bacteria	0.010	18.500	59	3.190	71	398	no	missed (not evaluable)
+1351	Enterococcus faecalis	Bacteria	0.001	1.900	0	0.000	8	0	no	missed (not evaluable)
+1502	Clostridium perfringens	Bacteria	0.000	0.200	1	5.410	7	18	no	missed (not evaluable)

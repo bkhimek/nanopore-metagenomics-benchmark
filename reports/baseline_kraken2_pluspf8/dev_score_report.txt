@@ -1,0 +1,42 @@
+Score for data/classify/dev/baseline_c0 (dev pool): 185,000 reads, 174,153 classified, 10,847 unclassified
+Reads in the 17 mock species: 154,916 (83.74% of all reads); classified elsewhere (other taxa or above species rank): 10.4%
+Evaluable species (expected >= 20 reads): 14 of 17. Not evaluable: Salmonella enterica (expected 18.5 reads); Enterococcus faecalis (expected 1.9 reads); Clostridium perfringens (expected 0.2 reads)
+Alias applied: Fusobacterium animalis (taxid 76859) reads count as Fusobacterium nucleatum; observed 8,597 reads moved
+
+
+Mock species (status at T=148):
+species                             DNA%  expected  observed obs/exp  status
+Faecalibacterium prausnitzii          14   25900.0     31853   1.230  detected
+Veillonella rogosae                   14   25900.0     22622   0.870  detected
+Roseburia hominis                     14   25900.0     10882   0.420  detected
+Bacteroides fragilis                  14   25900.0     24645   0.950  detected
+Escherichia coli                      14   25900.0     14646   0.570  detected
+Prevotella corporis                    6   11100.0     10471   0.940  detected
+Bifidobacterium adolescentis           6   11100.0      2421   0.220  detected
+Fusobacterium nucleatum                6   11100.0      8689   0.780  detected
+Limosilactobacillus fermentum          6   11100.0     18529   1.670  detected
+Clostridioides difficile             1.5    2775.0      2668   0.960  detected
+Akkermansia muciniphila              1.5    2775.0      2691   0.970  detected
+Candida albicans                     1.5    2775.0      2650   0.950  detected
+Saccharomyces cerevisiae             1.4    2590.0      1941   0.750  detected
+Methanobrevibacter smithii           0.1     185.0       151   0.820  detected
+Salmonella enterica                 0.01      18.5        56   3.030  missed (not evaluable)
+Enterococcus faecalis              0.001       1.9         0   0.000  missed (not evaluable)
+Clostridium perfringens           0.0001       0.2         1   5.410  missed (not evaluable)
+
+Threshold T=148 reads = 0.0800% of all reads (--min-frac 0.0008)
+Genus-level recall (secondary): 14/14 evaluable species have genus clade reads >= T
+At T=148: called 15 species; correct 14, false positives 1; evaluable detected 14/14
+precision 0.933  recall(evaluable) 1.000  recall(all 17) 0.824  F1 0.966  L1 0.333  Bray-Curtis 0.166
+
+False-positive audit (non-mock species with >= 148 reads), 1 species:
+  Homo sapiens                              923 reads  [eukaryote (fungi, human, other)]
+
+Cross-check, report vs per-read output (species read counts of the 17 mock species): all identical
+Block bootstrap (1000 resamples of 37 blocks, seed 20261016); 95% intervals:
+  precision                0.867 to    0.933   mean   0.927
+  recall (evaluable)       0.929 to    1.000   mean   0.970
+  F1                       0.897 to    0.966   mean   0.948
+  Bray-Curtis              0.164 to    0.169   mean   0.167
+  false positives (n)      1.000 to    2.000   mean   1.070
+  detection frequency of mock species across resamples (T applied): Salmonella enterica 0.00; Enterococcus faecalis 0.00; Clostridium perfringens 0.00; Methanobrevibacter smithii 0.58

@@ -104,7 +104,11 @@ State: bin/04_score.py committed (895e437) and run on the real dev baseline (swe
 Next steps, in order (supersedes the 2026-10-16 morning list):
 1. DONE: candidate comparison; threshold frozen at 0.0008 (D14b).
 2. DONE: eval pool classified and scored once; compared with predictions.
-2a. Depth series: design, D15 (draw from the EVAL pool, default) and predictions are registered in PROJECT_STATE.md; bin/05_depth_series.py written and tested on synthetic data. Next: copy it into the repo, commit (so the registration precedes the run), then run `bin/05_depth_series.py --pool eval --allow-eval` and compare with the predictions.
+2a. DONE: depth series on the eval pool (tag depth-registered precedes it); all registered predictions met; results table in PROJECT_STATE.md; small outputs to be copied to reports/baseline_kraken2_pluspf8/ (depth_summary.tsv, depth_species.tsv, depth_report.txt).
+2f. 04_score.py edge-case fix (no species called) and the results/ -> reports/ move (results/ is gitignored) are described in PROJECT_STATE.md; the arms-registered tag was deleted and recreated after the real commit.
+2e. Chosen by the user: arm 1 = Kraken2 confidence sweep (D16, registered in PROJECT_STATE.md). Steps: copy bin/06_confidence_arms.py, commit + tag arms-registered, run `--stage dev` (about 5-10 min), paste the dev tuning table, then commit reports/arms and tag arms-frozen, then `--stage eval --allow-eval`.
+2d. (original list of candidates, others still open) Next: choose Phase 2 arms. Candidates: (i) Kraken2 --confidence sweep (0.05/0.1/0.2) as a cheap check on false positives; (ii) large database on AWS to test what the 8 GB cap costs (abundance bias); (iii) a long-read-aware profiler (Sylph, minimap2-based); (iv) trace the human reads (about 0.4% in every run).
+    RULE for any arm that has a tunable setting: tune it on the dev pool with the same rule (bootstrap-mean F1, ties to the smaller), register the full list of arms and predictions in advance, then score ALL arms on eval and report all of them (no picking the best arm on eval).
 2c. DONE 2026-10-16: plan refreshed to revision 5 (Nanopore_Metagenomics_Project_Plan_Rev5.docx) and the workflow guide to v2 (Nanopore_Metagenomics_Workflow_Guide_v2.docx), both in OneDrive. Delete the old guide file once happy.
 2b. Optional small checks: where the human reads come from (BLAST/minimap2 of a sample of them), genome accession of the Fusobacterium strain, whether L. fermentum 1.66x is relatives' reads.
 3. (merged into step 2 above)

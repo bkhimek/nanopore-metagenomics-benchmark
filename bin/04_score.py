@@ -123,7 +123,8 @@ def metrics(counts, T):
     prec = len(correct) / len(called) if called else float("nan")
     rec_e = len(tp_eval) / len(evaluable) if evaluable else float("nan")
     rec_a = len(correct) / len(truth)
-    f1 = 2 * prec * rec_e / (prec + rec_e) if called and (prec + rec_e) > 0 else float("nan")
+    # F1 is 0 (not undefined) when nothing is called or nothing called is right: recall is 0 in that case
+    f1 = (0.0 if not called else (2 * prec * rec_e / (prec + rec_e) if (prec + rec_e) > 0 else 0.0)) if evaluable else float("nan")
     obs_tot = sum(counts[t] for t in called)
     l1 = bc = float("nan")
     if obs_tot:
@@ -289,13 +290,13 @@ if T_show is not None:
                 res[k].append(mm[k])
             for t in truth:
                 det[t] += c.get(t, 0) >= T_show
-        q = lambda v: (lambda s: (s[int(0.025 * (len(s) - 1))], s[int(0.975 * (len(s) - 1))]))(sorted(x for x in v if not (isinstance(x, float) and math.isnan(x))))
+        q = lambda v: (lambda s: (s[int(0.025 * (len(s) - 1))], s[int(0.975 * (len(s) - 1))]) if s else (float("nan"), float("nan")))(sorted(x for x in v if not (isinstance(x, float) and math.isnan(x))))
         out.append(f"Block bootstrap ({a.bootstrap} resamples of {len(blocks)} blocks, seed {a.seed}); 95% intervals:")
         ci, means = {}, {}
         for k, lab in (("precision", "precision"), ("recall_evaluable", "recall (evaluable)"), ("f1", "F1"), ("bray_curtis", "Bray-Curtis"), ("fp", "false positives (n)")):
             lo, hi = q(res[k]); ci[k] = [lo, hi]
             vals = [x for x in res[k] if not (isinstance(x, float) and math.isnan(x))]
-            mean = sum(vals) / len(vals)
+            mean = sum(vals) / len(vals) if vals else float("nan")
             means[k] = mean
             out.append(f"  {lab:22s}{fmt(float(lo)):>8s} to {fmt(float(hi)):>8s}   mean {fmt(float(mean)):>7s}")
         out.append("  detection frequency of mock species across resamples (T applied): " +

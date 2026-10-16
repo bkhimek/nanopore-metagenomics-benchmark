@@ -1,0 +1,10 @@
+Depth series, eval pool, frozen threshold 0.0008 of reads (D14b), evaluable minimum 20 expected reads at each depth (D14a)
+Replicates overlap and come from one pool: spread = within-pool variation only. 1.0 Gb row = full pool, a single run (no replicates).
+   Gb runs    reads     T eval sp    prec mean (min-max)   recall(eval) mean (min-max)      F1 mean (min-max)   FP mean (min-max)     BC
+  0.1    5   18,298    15      13    0.910 (0.824-0.933)           1.000 (1.000-1.000)    0.953 (0.903-0.966)           1.4 (1-3)  0.171
+ 0.25    5   45,890    37      14    0.932 (0.929-0.933)           0.986 (0.929-1.000)    0.958 (0.929-0.966)           1.0 (1-1)  0.169
+  0.5    5   91,318    74      14    0.933 (0.933-0.933)           1.000 (1.000-1.000)    0.966 (0.966-0.966)           1.0 (1-1)  0.168
+    1    1  185,000   148      14    0.933 (0.933-0.933)           1.000 (1.000-1.000)    0.966 (0.966-0.966)           1.0 (1-1)  0.168
+
+Species that were evaluable but not detected in every run (detections/evaluable runs):
+  0.25 Gb  Methanobrevibacter smithii       4/5  (obs/exp mean 0.85)
