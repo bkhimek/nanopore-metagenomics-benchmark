@@ -1,0 +1,89 @@
+{
+  "arms": {
+    "pluspf8": {
+      "label": "db_pluspf8",
+      "fraction": 0.0008,
+      "dev_max_boot_mean_f1": 0.9479367816091955,
+      "rule": "baseline frozen by D14b",
+      "database": {
+        "arm": "pluspf8",
+        "dir": "data/db/pluspf_08_20260626",
+        "files": {
+          "hash.k2d": {
+            "bytes": 8000000032
+          },
+          "opts.k2d": {
+            "bytes": 64,
+            "md5": "0bdf0ee1621b0c0783bf98c9cce28ae8"
+          },
+          "taxo.k2d": {
+            "bytes": 4859991,
+            "md5": "626f4e8cd33cfaa0e1420987a17c08a0"
+          }
+        }
+      },
+      "dev_wall_seconds": 81.0
+    },
+    "pluspf16": {
+      "label": "db_pluspf16",
+      "fraction": 0.0008,
+      "dev_max_boot_mean_f1": 0.9529845648604269,
+      "rule": "smallest fraction with bootstrap-mean F1 >= max - 0.002",
+      "database": {
+        "arm": "pluspf16",
+        "dir": "data/db/pluspf_16_20260626",
+        "files": {
+          "hash.k2d": {
+            "bytes": 16000000032
+          },
+          "opts.k2d": {
+            "bytes": 64,
+            "md5": "9c98c500a8f28f84f831b698437f4016"
+          },
+          "taxo.k2d": {
+            "bytes": 4859991,
+            "md5": "626f4e8cd33cfaa0e1420987a17c08a0"
+          }
+        }
+      },
+      "dev_wall_seconds": 56.3
+    },
+    "pluspf": {
+      "label": "db_pluspf",
+      "fraction": 0.0008,
+      "dev_max_boot_mean_f1": 0.9522474548440066,
+      "rule": "smallest fraction with bootstrap-mean F1 >= max - 0.002",
+      "database": {
+        "arm": "pluspf",
+        "dir": "data/db/pluspf_20260626",
+        "files": {
+          "hash.k2d": {
+            "bytes": 117958174752
+          },
+          "opts.k2d": {
+            "bytes": 64,
+            "md5": "bf18289ba0dd3ae0a998ec3981c11ad4"
+          },
+          "taxo.k2d": {
+            "bytes": 4859991,
+            "md5": "626f4e8cd33cfaa0e1420987a17c08a0"
+          }
+        }
+      },
+      "dev_wall_seconds": 114.3
+    }
+  },
+  "grid": [
+    5e-05,
+    0.0001,
+    0.0002,
+    0.0005,
+    0.0008,
+    0.001,
+    0.002,
+    0.005
+  ],
+  "tie": 0.002,
+  "bootstrap": 1000,
+  "control_reproduced": true
+}
