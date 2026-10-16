@@ -93,11 +93,13 @@ State: bin/04_score.py committed (895e437) and run on the real dev baseline (swe
   so this is a truth-table naming mismatch, not low sensitivity. Fixed by an alias file (D13), reported in the score output. Found after seeing results; recorded as such.
 - Other low recoveries are real classifier behaviour (Bifidobacterium adolescentis stops at genus level; Roseburia loses reads above genus/unclassified; E. coli shares reads with relatives).
 - 04_score.py updated: --min-frac, --sweep-frac, --aliases, genus-level recall, wider default grid. Regression-tested against the previous version.
-- User has not yet answered the two D14 proposals (see PROJECT_STATE.md). The F1 curve changes with the alias, so rerun the sweep first.
+- Alias applied (commit e161f77): Fusobacterium nucleatum 8,689 reads (0.78x). Sweep rerun; F1 peaks at T=150 (0.966) one read below Methanobrevibacter smithii (151 reads): a knife edge.
+- User decided: evaluable minimum stays 20 (D14a); threshold = fraction of reads maximising F1 on dev (D14b, in principle). Value not yet fixed; bootstrap comparison of candidates is next.
+- 04_score.py now also prints the bootstrap MEAN of each metric (transfer copy, not yet committed).
 
 Next steps, in order (supersedes the 2026-10-16 morning list):
-1. Copy the new 04_score.py, reference/d6331_taxid_aliases.csv and reference/README.md into the repo; commit. Rerun `bin/04_score.py --run data/classify/dev/baseline_c0` (sweep, now with alias) and `--sweep-frac`; paste output.
-2. Decide D14 (evaluable minimum; fraction threshold and F1 rule); then `--min-frac F` on dev for bootstrap and FP audit.
+1. Copy the updated 04_score.py (bootstrap mean) into the repo and run --min-frac with bootstrap for candidates 0.0002, 0.0005, 0.0008, 0.001, 0.002, 0.005 on dev; compare mean F1, M. smithii detection frequency and the false-positive audit.
+2. Fix the threshold value and tie rule (D14b) from that comparison; record it; then freeze.
 3. Freeze, then bin/03_classify.py --pool eval --allow-eval --label baseline_c0, and score it once with the frozen threshold.
 4. Phase 1 extras: depth series (0.1/0.25/0.5 Gb x 5 replicates; the fraction threshold carries over), then Phase 2 (AWS large database to test the capped index, long-read-aware profiler, AMR).
 5. Optional: lot CoA, basecalling model tier, Argo paper link, genome accession for the Fusobacterium strain.

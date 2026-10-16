@@ -291,13 +291,16 @@ if T_show is not None:
                 det[t] += c.get(t, 0) >= T_show
         q = lambda v: (lambda s: (s[int(0.025 * (len(s) - 1))], s[int(0.975 * (len(s) - 1))]))(sorted(x for x in v if not (isinstance(x, float) and math.isnan(x))))
         out.append(f"Block bootstrap ({a.bootstrap} resamples of {len(blocks)} blocks, seed {a.seed}); 95% intervals:")
-        ci = {}
+        ci, means = {}, {}
         for k, lab in (("precision", "precision"), ("recall_evaluable", "recall (evaluable)"), ("f1", "F1"), ("bray_curtis", "Bray-Curtis"), ("fp", "false positives (n)")):
             lo, hi = q(res[k]); ci[k] = [lo, hi]
-            out.append(f"  {lab:22s}{fmt(float(lo)):>8s} to {fmt(float(hi)):>8s}")
+            vals = [x for x in res[k] if not (isinstance(x, float) and math.isnan(x))]
+            mean = sum(vals) / len(vals)
+            means[k] = mean
+            out.append(f"  {lab:22s}{fmt(float(lo)):>8s} to {fmt(float(hi)):>8s}   mean {fmt(float(mean)):>7s}")
         out.append("  detection frequency of mock species across resamples (T applied): " +
                    "; ".join(f"{truth[t]['name']} {det[t] / a.bootstrap:.2f}" for t in sorted(truth, key=lambda x: det[x]) if det[t] / a.bootstrap < 0.999))
-        summary["bootstrap"] = {"n": a.bootstrap, "seed": a.seed, "ci95": ci, "crosscheck_mismatch": bad}
+        summary["bootstrap"] = {"n": a.bootstrap, "seed": a.seed, "ci95": ci, "mean": means, "crosscheck_mismatch": bad}
     else:
         out.append("")
         out.append("Block bootstrap skipped (needs --bootstrap > 0, kraken_output.txt.gz, the sampling manifest, nodes.dmp).")

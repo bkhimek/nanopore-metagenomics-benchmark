@@ -1,11 +1,11 @@
 # PROJECT_STATE: decision log and findings
 
-Last updated: 2026-10-16 (afternoon)
+Last updated: 2026-10-16 (late afternoon)
 
 ## Status
 Phase 0 (dataset audit) essentially complete; Phase 1 (baseline benchmark) started. Done: run record, chemistry/basecaller, pools sampled and QC'd,
-theoretical composition checked, baseline database and classifier frozen (D12), baseline run on the dev pool, first scoring done (sweep on dev, see Scoring). Truth-table naming issue found and fixed by alias (D13). Next: rerun the
-sweep with the alias and a wider grid, then settle the threshold rule and the evaluable-species minimum (D14, still open) before touching the eval pool.
+theoretical composition checked, baseline database and classifier frozen (D12), baseline run on the dev pool, first scoring done (sweep on dev, see Scoring). Truth-table naming issue found and fixed by alias (D13), sweep rerun with it. Evaluable minimum fixed at 20 (D14a). Threshold rule agreed in principle
+(fraction of reads, maximise F1 on dev; D14b) but the value is NOT yet fixed: the F1 optimum sits on a knife edge (see Scoring). Eval pool untouched.
 Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper link. Plan is at revision 4 (minor update 15 October).
 
 ## Environment
@@ -43,7 +43,9 @@ Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper l
   reads: the D6331 reference genome cut into 489 x 5 kb pieces and classified with the frozen baseline gave 475 (97.1%) F. animalis, 3 F. nucleatum. Stored in
   reference/d6331_taxid_aliases.csv with the evidence; 04_score.py reports every alias it applies. Caveat: found after seeing results, strain not checked against an
   assembly accession (the FASTA header is only the file name). Not a classifier error: a taxonomy-name mismatch in the truth table, same family as the Lactobacillus rename.
-- D14 (OPEN) Threshold rule and evaluable-species minimum; see Scoring.
+- D14a (2026-10-16, user) Evaluable-species minimum = 20 expected reads (set before results, kept). Salmonella (18.5 expected) is "detected, not evaluable".
+- D14b (2026-10-16, user, in principle) Detection threshold is a FRACTION of all reads, chosen to maximise F1 on the dev pool; the value is frozen before the eval pool is touched.
+  Open refinements proposed (not yet accepted): evaluate F1 as the bootstrap mean rather than the point estimate, and break ties towards the SMALLER threshold (see Scoring).
 - D11 (2026-10-13) Database must contain fungi and archaea (standard Kraken2 indices lack fungi); otherwise those
   mock members are declared out of evaluable scope. Check coverage before running. Refines D4.
 
@@ -115,6 +117,17 @@ Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper l
   (about 3,000 reads stay at genus level: shared between close relatives); Escherichia 15,956 vs 14,646 with close relatives (Shigella, E. albertii, E. fergusonii) taking some.
   Limosilactobacillus genus 18,560 vs fermentum 18,529 (1.67x: possible absorption from relatives or composition difference; not investigated).
 - Note: fp_audit.tsv is written only in --min-reads / --min-frac mode, not in sweep mode.
+
+### Sweep after the D13 alias (dev pool, baseline_c0; 2026-10-16)
+- Reads in the 17 mock species: 154,916 (83.74%); classified elsewhere 10.4%; Fusobacterium nucleatum now 8,689 (obs/exp 0.78); Bray-Curtis about 0.17 at every T.
+- T (reads, % of reads): called / FP / precision / evaluable recall / F1: 50 (0.027%) 26/11/0.577/1.000/0.732; 100 (0.054%) 17/3/0.824/1.000/0.903;
+  150 (0.081%) 15/1/0.933/1.000/0.966 (maximum); 200-500 14/1/0.929/0.929/0.929; 1000 (0.54%) 13/0/1.000/0.929/0.963; 2000 (1.08%) 12/0/1.000/0.857/0.923.
+- Fraction grid run (pre-listed): 0.0001 -> T 19, F1 0.577; 0.0005 -> 93, 0.875; 0.001 -> 185, 0.929; 0.005 -> 925, 0.963; 0.01 -> 1850, 0.963.
+- KNIFE EDGE: the F1 maximum (T=150) lies one read below Methanobrevibacter smithii (151 observed reads, 0.1% DNA). Poisson noise alone is about +/-12 reads, so on another pool this
+  species would be missed about half the time. The two near-equal options: T about 150 (all 14 evaluable found, 1 false positive, fragile) or T about 925 or more (0 false positives,
+  loses M. smithii by design; F1 0.963 vs 0.966). The F1 difference is far smaller than the sampling noise. Ties-to-larger would push the choice to 1% of reads, which is silly for a mock whose
+  lowest evaluable species is 0.1%, hence the proposal to break ties towards the smaller threshold and to compare candidates by bootstrap mean F1.
+- The 1 remaining false positive at T=150 (same-genus count 0, other 1) not yet identified; run with --min-frac to get fp_audit.tsv.
 - Open (D14), proposals not yet accepted by the user: (a) keep the evaluable minimum at 20 expected reads (pre-specified before results; Salmonella, 18.5 expected, is then "detected, not evaluable");
   (b) choose the threshold as a FRACTION of reads (not a read count) on the dev pool, maximising F1 over a wide grid, ties to the larger value, after the D13 alias is applied; report the whole curve with
   bootstrap intervals; freeze before touching eval.
