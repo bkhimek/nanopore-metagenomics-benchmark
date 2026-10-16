@@ -1,11 +1,11 @@
 # PROJECT_STATE: decision log and findings
 
-Last updated: 2026-10-16 (evening, confidence arms registered)
+Last updated: 2026-10-16 (afternoon, confidence arms DONE: eval scored once per arm)
 
 ## Status
 Phase 0 (dataset audit) essentially complete; Phase 1 (baseline benchmark) started. Done: run record, chemistry/basecaller, pools sampled and QC'd,
 theoretical composition checked, baseline database and classifier frozen (D12), baseline run on the dev pool, first scoring done (sweep on dev, see Scoring). Truth-table naming issue found and fixed by alias (D13), sweep rerun with it. Evaluable minimum fixed at 20 (D14a). Threshold FROZEN at 0.08% of reads (D14b), chosen on the dev pool by bootstrap-mean F1.
-Eval pool classified and scored ONCE with the frozen threshold (result below, within the written predictions). Depth series run on the eval pool and compared with the registered predictions (all met). Phase 2 arm 1 (Kraken2 confidence, D16) designed and registered; script written and tested on synthetic data; dev stage not yet run.
+Eval pool classified and scored ONCE with the frozen threshold (result below, within the written predictions). Depth series run on the eval pool and compared with the registered predictions (all met). Phase 2 arm 1 (Kraken2 confidence, D16) done: registered (tag arms-registered, f3c9ba7), dev-tuned and frozen (tag arms-frozen, 15e92f3), eval scored once per arm (result committed a427e54); the baseline (confidence 0) is best; result and comparison with the registered expectations below.
 Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper link. Plan is at revision 5 (16 October; Rev4 kept). Workflow guide is at version 2 (16 October; OneDrive only; new section 4 explains thresholds and scoring for a novice).
 
 ## Environment
@@ -209,6 +209,31 @@ Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper l
   (3) human stays a false positive in every arm whose chosen fraction is below about 0.4%;
   (4) evaluable recall stays 14/14 for c <= 0.1 and may drop at c >= 0.2 (rare species lose species-level reads); (5) the already-low species (Bifidobacterium adolescentis 0.22, Roseburia hominis 0.42) fall further as confidence rises;
   (6) Bray-Curtis changes by less than 0.03 for c <= 0.1. A result far outside this is a finding. The eval pool is looked at once per arm; this is a second look at it overall, so it is reported as a pre-registered comparison, not as fresh held-out data.
+
+### Confidence arms RESULT (2026-10-16; dev tuned, frozen at tag arms-frozen = 15e92f3, eval scored once per arm; summary in reports/arms/arms_summary.txt, commit a427e54)
+Dev tuning, bootstrap-mean F1 (grid fractions 5e-5 ... 0.005; chosen = smallest within 0.002 of the arm's maximum):
+- c0 (baseline, frozen 0.0008): 0.479, 0.584, 0.690, 0.874, 0.948, 0.929, 0.929, 0.947 (re-tuned would also be 0.0008)
+- c0.05: 0.924, 0.901, 0.923, 0.880, 0.839, 0.833, 0.783, 0.600; chosen 5e-5 (T=10), the EDGE of the registered grid, so the true optimum may lie lower (not explored; would need a labelled exploratory run on dev only)
+- c0.1: 0.604, 0.496, 0.251, 0.133, 0.131, 0.040, 0, 0; chosen 5e-5. c0.2 and c0.4: 0 everywhere (no species reaches even 10 reads at species rank); chosen 5e-5 by the tie rule (meaningless).
+EVAL pool at each arm's frozen fraction (all arms reported):
+| conf | frac (T) | classified % | reads in mock species % | precision | recall (evaluable) | F1 | F1 boot mean (95%) | FP | Bray-Curtis | genus recall |
+| 0 | 0.0008 (148) | 94.2 | 83.9 | 0.933 | 14/14 (1.000) | 0.966 | 0.962 (0.929-0.966) | 1 (human 818) | 0.168 | 1.000 |
+| 0.05 | 5e-5 (10) | 57.5 | 19.4 | 0.929 | 13/14 (0.929) | 0.929 | 0.943 (0.929-0.966) | 1 (human 21) | 0.336 | 1.000 |
+| 0.1 | 5e-5 (10) | 0.4 | 0.2 | 1.000 | 6/14 (0.429) | 0.600 | 0.596 (0.571-0.600) | 0 | 0.516 | 0.500 |
+| 0.2 | 5e-5 (10) | 0.0 | 0.0 | n/a | 0 | 0 | 0 | 0 | n/a | 0 |
+| 0.4 | 5e-5 (10) | 0.0 | 0.0 | n/a | 0 | 0 | 0 | 0 | n/a | 0 |
+Dev (same columns, abbreviated): c0 F1 0.966 (boot mean 0.948), c0.05 0.929 (0.924), c0.1 0.600 (0.604), c0.2/c0.4 0. Dev and eval agree for every arm.
+Reading: confidence does not help at species rank on this data. c0.05 reaches a similar F1 only because its threshold falls to 10 reads; it moves 37% of reads above species rank (classified 94 -> 57%), cuts reads at species rank in mock species from 84% to 19%
+and doubles Bray-Curtis (0.17 -> 0.34), so abundance estimates get much worse for no gain in presence/absence. c0.1 and above are unusable at species rank. Genus recall is 1.000 for c0 and c0.05 and 0.500 on eval for c0.1; whether a high confidence is useful at GENUS level is open (not tested as a separate arm).
+Human DNA is a false positive only where anything is classified at species rank with a threshold below its read count (c0, c0.05); it is not called in c0.1 to c0.4 because almost nothing is classified.
+Comparison with the registered expectations (text above unchanged):
+- (1) MET: classified 94.2, 57.5, 0.4, 0.0, 0.0 and mock species at species rank 83.9, 19.4, 0.2, 0.0, 0.0 (monotone); c0.4 far below 80%.
+- (2) PARTLY MET: chosen fraction is at or below 0.0008 in every arm (all 5e-5), but at the grid edge. The second half (non-human false positives at fraction 0.0002 fall monotonically) is NOT checked from the summary; the summary shows no non-human false positive at any chosen fraction.
+- (3) PARTLY CONTRADICTED: human is a false positive for c0 and c0.05, but not for c0.1, c0.2, c0.4 (chosen fraction below 0.4% in each) because almost nothing is classified at species rank.
+- (4) CONTRADICTED: evaluable recall is 14/14 only for c0; c0.05 13/14 and c0.1 6/14 (the registration note recorded that the dev crash at c0.1 probably breaks this).
+- (5) NOT YET CHECKED per species (Roseburia hominis and Bifidobacterium adolescentis obs/exp in each arm's score_report.txt); the overall fall in reads in mock species at species rank is consistent with it.
+- (6) CONTRADICTED: Bray-Curtis 0.168 -> 0.336 (c0.05) -> 0.516 (c0.1).
+Verdict: baseline c0 at 0.0008 stays the frozen baseline. The eval pool has now been looked at once per arm; do not re-score with other settings.
 
 ## Unverified / open
 - Argo paper link and basecalling model tier (see below)
