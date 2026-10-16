@@ -1,0 +1,37 @@
+Database-size arms (registered design; thresholds chosen on dev, eval scored once per arm)
+
+DEV pool, at each arm's frozen fraction:
+arm           frac     T classif%  mock%   prec rec(ev)     F1       F1 boot mean (95%)  FP     BC genus rec wall s  false positives
+pluspf8     0.0008   148     94.1   83.7  0.933   1.000  0.966      0.948 (0.897-0.966)   1  0.166     1.000     81  Homo sapiens (923)
+pluspf16    0.0008   148     95.6   87.1  0.933   1.000  0.966      0.953 (0.929-0.966)   1  0.152     1.000     56  Homo sapiens (1249)
+pluspf      0.0008   148     97.9   92.2  0.933   1.000  0.966      0.952 (0.929-0.966)   1  0.136     1.000    114  Homo sapiens (2155)
+
+DEV pool, at the baseline fraction 0.0008 (like for like):
+arm           frac     T classif%  mock%   prec rec(ev)     F1       F1 boot mean (95%)  FP     BC genus rec wall s  false positives
+pluspf8     0.0008   148     94.1   83.7  0.933   1.000  0.966      0.948 (0.897-0.966)   1  0.166     1.000     81  Homo sapiens (923)
+pluspf16    0.0008   148     95.6   87.1  0.933   1.000  0.966      0.953 (0.929-0.966)   1  0.152     1.000     56  Homo sapiens (1249)
+pluspf      0.0008   148     97.9   92.2  0.933   1.000  0.966      0.952 (0.929-0.966)   1  0.136     1.000    114  Homo sapiens (2155)
+
+DEV observed/expected reads at 0.0008 (the abundance-bias species):
+  pluspf8   Roseburia hominis 0.420; Escherichia coli 0.570; Bifidobacterium adolescentis 0.220; Limosilactobacillus fermentum 1.670
+  pluspf16  Roseburia hominis 0.430; Escherichia coli 0.680; Bifidobacterium adolescentis 0.260; Limosilactobacillus fermentum 1.730
+  pluspf    Roseburia hominis 0.440; Escherichia coli 0.860; Bifidobacterium adolescentis 0.360; Limosilactobacillus fermentum 1.790
+
+EVAL pool, at each arm's frozen fraction:
+arm           frac     T classif%  mock%   prec rec(ev)     F1       F1 boot mean (95%)  FP     BC genus rec wall s  false positives
+pluspf8     0.0008   148     94.2   83.9  0.933   1.000  0.966      0.962 (0.929-0.966)   1  0.168     1.000     42  Homo sapiens (818)
+pluspf16    0.0008   148     95.7   87.3  0.933   1.000  0.966      0.963 (0.929-0.966)   1  0.153     1.000     56  Homo sapiens (1143)
+pluspf      0.0008   148     98.0   92.3  0.933   1.000  0.966      0.964 (0.929-0.966)   1  0.137     1.000    231  Homo sapiens (1997)
+
+EVAL pool, at the baseline fraction 0.0008 (like for like):
+arm           frac     T classif%  mock%   prec rec(ev)     F1       F1 boot mean (95%)  FP     BC genus rec wall s  false positives
+pluspf8     0.0008   148     94.2   83.9  0.933   1.000  0.966      0.962 (0.929-0.966)   1  0.168     1.000     42  Homo sapiens (818)
+pluspf16    0.0008   148     95.7   87.3  0.933   1.000  0.966      0.963 (0.929-0.966)   1  0.153     1.000     56  Homo sapiens (1143)
+pluspf      0.0008   148     98.0   92.3  0.933   1.000  0.966      0.964 (0.929-0.966)   1  0.137     1.000    231  Homo sapiens (1997)
+
+EVAL observed/expected reads at 0.0008 (the abundance-bias species):
+  pluspf8   Roseburia hominis 0.410; Escherichia coli 0.570; Bifidobacterium adolescentis 0.220; Limosilactobacillus fermentum 1.660
+  pluspf16  Roseburia hominis 0.420; Escherichia coli 0.690; Bifidobacterium adolescentis 0.260; Limosilactobacillus fermentum 1.720
+  pluspf    Roseburia hominis 0.430; Escherichia coli 0.860; Bifidobacterium adolescentis 0.360; Limosilactobacillus fermentum 1.770
+
+dev tuning table: reports/dbarms/dev_tuning.tsv. pluspf8 is the frozen baseline and the control (fraction 0.0008, D14b).

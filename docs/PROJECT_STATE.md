@@ -1,11 +1,11 @@
 # PROJECT_STATE: decision log and findings
 
-Last updated: 2026-10-16 (late afternoon, database-size arms REGISTERED, AWS set-up in progress)
+Last updated: 2026-10-16 (evening, database-size arms DONE on AWS; instance to be terminated)
 
 ## Status
 Phase 0 (dataset audit) essentially complete; Phase 1 (baseline benchmark) started. Done: run record, chemistry/basecaller, pools sampled and QC'd,
 theoretical composition checked, baseline database and classifier frozen (D12), baseline run on the dev pool, first scoring done (sweep on dev, see Scoring). Truth-table naming issue found and fixed by alias (D13), sweep rerun with it. Evaluable minimum fixed at 20 (D14a). Threshold FROZEN at 0.08% of reads (D14b), chosen on the dev pool by bootstrap-mean F1.
-Eval pool classified and scored ONCE with the frozen threshold (result below, within the written predictions). Depth series run on the eval pool and compared with the registered predictions (all met). Phase 2 arm 1 (Kraken2 confidence, D16) done: registered (tag arms-registered, f3c9ba7), dev-tuned and frozen (tag arms-frozen, 15e92f3), eval scored once per arm (result committed a427e54); the baseline (confidence 0) is best; result and comparison with the registered expectations below.
+Eval pool classified and scored ONCE with the frozen threshold (result below, within the written predictions). Depth series run on the eval pool and compared with the registered predictions (all met). Phase 2 arm 2 (database size, D17: PlusPF-8/16/full on AWS) done: registered (dbarms-registered, 820490a), control reproduced, frozen (dbarms-frozen, afe5577), eval scored once per arm; the 8 GB cap is NOT the main cause of the abundance bias (see Database arms RESULT). Phase 2 arm 1 (Kraken2 confidence, D16) done: registered (tag arms-registered, f3c9ba7), dev-tuned and frozen (tag arms-frozen, 15e92f3), eval scored once per arm (result committed a427e54); the baseline (confidence 0) is best; result and comparison with the registered expectations below.
 Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper link. Plan is at revision 5 (16 October; Rev4 kept). Workflow guide is at version 2 (16 October; OneDrive only; new section 4 explains thresholds and scoring for a novice).
 
 ## Environment
@@ -254,6 +254,29 @@ Verdict: baseline c0 at 0.0008 stays the frozen baseline. The eval pool has now 
   Wall-clock per pool and the instance cost are recorded as results (the practical trade-off), without a prediction. The eval pool is looked at once per arm; overall this is another look at it, so the result is reported as a pre-registered comparison, not as fresh held-out data.
 - Run order on the instance: install docker and git, clone the repo, download the three indexes from s3 genome-idx (kraken/k2_pluspf_08_GB_20260626, k2_pluspf_16_GB_20260626, k2_pluspf_20260626), upload both pools from WSL, run 07 --stage dev, commit and tag dbarms-frozen, run 07 --stage eval --allow-eval, copy reports/dbarms back, terminate.
 
+### Database arms RESULT (2026-10-16; AWS r5.4xlarge eu-north-1, 16 vCPU, 124 GB; dev tuned and frozen at tag dbarms-frozen = afe5577; eval scored once per arm; summary in reports/dbarms/dbarms_summary.txt)
+Control: PlusPF-8 on the instance reproduced the local dev baseline species counts exactly (and its archive md5 79a153b9... matched the local download). Both pools verified by sha256 after upload. Dev-chosen fraction for PlusPF-16 and PlusPF full: 0.0008 (same as baseline); dev bootstrap-mean F1 at 0.0008: 0.948 / 0.953 / 0.952.
+EVAL pool at 0.0008 (T=148; all arms report the same fraction):
+| arm (index) | classified % | reads in mock species % | precision | recall (evaluable) | F1 | F1 boot mean (95%) | FP | Bray-Curtis | genus recall | wall s |
+| PlusPF-8 (7.5 GB) | 94.2 | 83.9 | 0.933 | 14/14 | 0.966 | 0.962 (0.929-0.966) | 1 (human 818) | 0.168 | 1.000 | 42 |
+| PlusPF-16 (14.9 GB) | 95.7 | 87.3 | 0.933 | 14/14 | 0.966 | 0.963 (0.929-0.966) | 1 (human 1,143) | 0.153 | 1.000 | 56 |
+| PlusPF full (109.9 GB) | 98.0 | 92.3 | 0.933 | 14/14 | 0.966 | 0.964 (0.929-0.966) | 1 (human 1,997) | 0.137 | 1.000 | 231 |
+Observed/expected reads at 0.0008 (eval; dev in brackets): Roseburia hominis 0.41 -> 0.42 -> 0.43 (0.42, 0.43, 0.44); Bifidobacterium adolescentis 0.22 -> 0.26 -> 0.36 (0.22, 0.26, 0.36); Escherichia coli 0.57 -> 0.69 -> 0.86 (0.57, 0.68, 0.86); Limosilactobacillus fermentum 1.66 -> 1.72 -> 1.77 (1.67, 1.73, 1.79).
+Wall seconds include index loading (full index 118 GB from gp3 disk); times were not measured under controlled conditions (first PlusPF-8 run also pulled the docker image).
+Decision rule (registered): both Roseburia hominis and B. adolescentis end at <= 0.50 with PlusPF full (0.43 and 0.36) on eval, and the same on dev (0.44 and 0.36) -> VERDICT: the 8 GB cap is NOT the main cause of the abundance bias.
+Reading: a 15-fold larger index improves the picture modestly and unevenly. Reads classified +3.8 points, reads in mock species at species rank +8.4 points, Bray-Curtis 0.168 -> 0.137 (-0.031); E. coli recovers most (0.57 -> 0.86) and B. adolescentis a little (0.22 -> 0.36),
+but Roseburia hominis barely moves (0.41 -> 0.43) and the Limosilactobacillus fermentum over-count grows (1.66 -> 1.77). Presence/absence is unchanged (F1 at the ceiling 0.966 in every arm, 14/14 recall, human the only false positive), so for 'which species are there' the capped index is enough on this mock.
+So most of the remaining bias belongs to the classifier and reference (k-mer sharing within genera, read errors, strain divergence from the reference genomes), not to the size cap. Larger indexes also add human reads at species rank (818 -> 1,143 -> 1,997 on eval; 0.44% -> 1.08% of reads); their origin is still unresolved (see open items).
+Comparison with the registered expectations (text above unchanged):
+- (1) MET: classified 94.2 / 95.7 / 98.0 and mock-species reads 83.9 / 87.3 / 92.3 (non-decreasing); full >= 95%.
+- (2) PARTLY: both species rise monotonically with index size (met), but the written guess that PlusPF full would land in 'partly' with Roseburia at 0.5-0.8 is CONTRADICTED (Roseburia 0.43); B. adolescentis stayed below 0.5 as guessed (0.36).
+- (3) MET: Bray-Curtis for PlusPF full 0.137, lower than 0.168.
+- (4) MET: recall 14/14 in every arm.
+- (5) MET: human the only false positive in every arm (0 non-human false positives), all F1 equal at 0.966.
+- (6) MET: dev-chosen fraction 0.0008 for both PlusPF-16 and PlusPF full (inside 0.0002-0.001, not at the grid edge).
+Caveat: the eval pool has now been looked at once per arm for this experiment too (a third look at the same pool overall); the result is reported as a pre-registered comparison, not as fresh held-out data. Dev and eval agree on every number to within 0.02.
+Cost: instance r5.4xlarge at USD 1.072/h, about 2 h before termination (estimated USD 2.5 including disk); the instance was started 16:56 BST on 2026-10-16 and has Shutdown behavior = Terminate.
+
 ## Unverified / open
 - Argo paper link and basecalling model tier (see below)
 - Lot-specific CoA for the sequenced tube: lot number unknown. Ask Zymo (tech@zymoresearch.com) or the Argo paper authors. Do not block the project on it; label results as against theoretical composition.
@@ -263,6 +286,8 @@ Verdict: baseline c0 at 0.0008 stays the frozen baseline. The eval pool has now 
 - LomanLab ENA accessions (if any)
 - PRJNA751627, PRJEB41184, PRJNA1335824, PRJNA554461 (clinical leads, deferred)
 - Disk: 647 GB free at 2026-10-15 (df, after the database download)
+- Human reads (about 0.35-0.5% of reads with the 8 GB index, 1.08% with the full index): where they come from is unresolved (sample or kit contamination, misassigned low-complexity or conserved sequence, or something else). Candidate check: BLAST or minimap2 a sample of those reads.
+- Where do the missing Roseburia reads go (genus level, other species, unclassified)? The genus_clade_reads column in species_table.tsv in the AWS pack (data/aws_run/dbarms_outputs.tgz, not committed) can answer this without a new run.
 
 ## Data access findings (2026-10-12)
 - ENA FASTQ for SRR31222153 is one gzip stream (no complete gzip member in the first 100 MB): no random access.
