@@ -1,11 +1,12 @@
 # PROJECT_STATE: decision log and findings
 
-Last updated: 2026-10-15 (evening)
+Last updated: 2026-10-16
 
 ## Status
-Phase 0, dataset feasibility audit, in progress. Run record, chemistry and basecaller verified; both pools sampled;
-theoretical composition checked. Remaining: QC of both pools (script ready: bin/02_pool_qc.py), lot-specific CoA (lot unknown),
-basecalling model tier, database choice (must fit 12 GB and include fungi/archaea). Plan is at revision 4 (minor update 15 October).
+Phase 0 (dataset audit) essentially complete; Phase 1 (baseline benchmark) started. Done: run record, chemistry/basecaller, pools sampled and QC'd,
+theoretical composition checked, baseline database and classifier frozen (D12), baseline run on the dev pool (not yet scored). Next: score it
+(bin/04_score.py, sweep on dev only), then settle the threshold rule and the evaluable-species minimum (Decision 2) before touching the eval pool.
+Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper link. Plan is at revision 4 (minor update 15 October).
 
 ## Environment
 - WSL2 Ubuntu, 12 GB RAM cap, 6 processors (C:\Users\krist\.wslconfig)
@@ -80,16 +81,31 @@ basecalling model tier, database choice (must fit 12 GB and include fungi/archae
   Single block, not scored.
 - Script: bin/03_classify.py (pinned image digest, docker memory cap, run.json record; refuses the eval pool without --allow-eval).
 - Reference files now carry species_taxid (reference/d6331_*.csv).
+- Baseline run on the dev pool (label baseline_c0; confidence 0.0, minimum-hit-groups 2, 6 threads, docker memory cap 10g): 185,000 reads / 1,015.91 Mbp,
+  174,153 classified (94.14%), 10,847 unclassified (5.86%); Kraken2 classification 14.0 s, wall 17 s including database load; no out-of-memory kill (supports D4).
+  Outputs: data/classify/dev/baseline_c0/ (report.txt, kraken_output.txt.gz, run.json, run.log). Evaluation pool untouched.
+
+## Scoring (2026-10-16) - bin/04_score.py
+- Truth matched by species taxid (reference/d6331_expected_reads_by_species.csv); strains roll up to species; expected reads = total reads x genomic-DNA fraction.
+- Called species = clade reads at species rank >= T. Precision = called mock species / called species (a called mock species is never a false positive). Recall is over
+  EVALUABLE species only (expected reads >= --evaluable-min-expected, default 20, PROPOSED not yet decided); recall over all 17 is also printed. F1 from precision and evaluable recall.
+  Abundance: L1 and Bray-Curtis of observed read fractions among called species vs expected DNA fractions.
+- False-positive audit lists every non-mock species called, categorised (same genus as a mock species / other bacteria / archaea / eukaryote / virus).
+- Uncertainty: bootstrap over the pool's 5,000-read blocks (37 per pool), using the per-read Kraken2 output, the manifest and nodes.dmp; cross-checks report vs per-read species counts.
+- Guard: eval pool only with --allow-eval and an explicit --min-reads (no sweep on eval). Sweep mode runs on dev only.
+- Tested on a synthetic dataset with hand-derived answers (precision 4/7, 4/5, 1.0 at T=1, 3, 5; evaluable recall 1.0; recall over all 0.75 at T>=5). Not yet run on real data.
+- Open decisions for the user (Decision 2): (a) evaluable minimum expected reads (proposed 20; Salmonella expects about 18.5 reads in a 185,000-read pool, so it sits just below the line
+  and the choice decides whether it counts); (b) how to choose T on the dev pool (proposal: smallest T that maximises F1 on dev, ties broken towards the larger T; to be fixed before looking at eval).
 
 ## Unverified / open
 - Argo paper link and basecalling model tier (see below)
 - Lot-specific CoA for the sequenced tube: lot number unknown. Ask Zymo (tech@zymoresearch.com) or the Argo paper authors. Do not block the project on it; label results as against theoretical composition.
 - Basecalling model tier (fast/hac/sup) not stated in the ENA record; look in the Argo paper methods or ask the authors.
 - Argo paper link: reported as confirmed in the paper's data availability statement; not verified by me.
-- Decisions 1 (dataset) and 2 (metrics, threshold rule) not yet formally settled
+- Decisions 1 (dataset confirmation) and 2 (threshold rule, evaluable-species minimum) not yet formally settled (see Scoring section)
 - LomanLab ENA accessions (if any)
 - PRJNA751627, PRJEB41184, PRJNA1335824, PRJNA554461 (clinical leads, deferred)
-- Disk: 664 GB free at 2026-10-12 (checked); recheck before database downloads
+- Disk: 647 GB free at 2026-10-15 (df, after the database download)
 
 ## Data access findings (2026-10-12)
 - ENA FASTQ for SRR31222153 is one gzip stream (no complete gzip member in the first 100 MB): no random access.

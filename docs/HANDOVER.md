@@ -67,12 +67,25 @@ Evening update: PlusPF-8 (2026-06-26) downloaded and verified, all 17 species pr
 bin/03_classify.py written. AWS idea: deferred to Phase 2 (large-database comparison).
 
 Next steps, in order:
-0. Run bin/03_classify.py --pool dev (label baseline_c0) and score it (scoring script to be written: species calls by taxid vs reference, FP audit, evaluable species).
+0. DONE (evening 2026-10-15): bin/03_classify.py --pool dev --label baseline_c0 (94.14% classified, 17 s wall, within the 10g cap). See the 2026-10-16 entry below for what comes next.
 1. DONE: bin/02_pool_qc.py run on the real pools; numbers recorded in PROJECT_STATE.md.
 2. Optional: lot CoA (email Zymo / Argo authors); basecalling model tier (Argo paper methods).
 3. Settle Decisions 1 and 2 (dataset confirmation; metrics and threshold rule, including the evaluable-species minimum).
 4. Choose the baseline classifier and a database that fits 12 GB and includes fungi/archaea; freeze and record.
 5. Then wrap in Nextflow (D1).
+
+## 2026-10-16 session (scoring script)
+State: Phase 1 started. Baseline run exists on the dev pool; not yet scored. NOTE: the OneDrive copies of PROJECT_STATE.md and HANDOVER.md written on 15 Oct did not overwrite
+the older versions (the repo commit 4390d57 therefore lacks the baseline-run record); this entry and the updated PROJECT_STATE.md restore it. Cause: files sent to OneDrive right after being written can arrive with stale content; send, list the folder to compare sizes, and send again if they differ.
+- Wrote bin/04_score.py (species-level scoring by taxid, threshold sweep on dev, FP audit, block bootstrap, eval-pool guard) and tested it on a synthetic dataset with hand-derived answers.
+- Method decisions still needed from the user (Decision 2): evaluable-species minimum (proposed 20 expected reads) and the rule for choosing T on the dev pool (proposed: maximise F1 on dev, ties to larger T).
+
+Next steps, in order:
+1. Copy bin/04_score.py into the repo, run `bin/04_score.py --run data/classify/dev/baseline_c0` (sweep; dev pool only) and paste the output.
+2. Decide the evaluable minimum and the T rule (Decision 2); record as D13; then run with --min-reads T on dev for the bootstrap and FP audit.
+3. Only then freeze and run bin/03_classify.py --pool eval --allow-eval --label baseline_c0, and score it once with the frozen T.
+4. Phase 1 extras: depth series (0.1/0.25/0.5 Gb x 5 replicates), then Phase 2 (AWS large database, long-read-aware profiler, AMR).
+5. Optional: lot CoA, basecalling model tier, Argo paper link.
 
 ## Paths (reference)
 - WSL repo: ~/projects/metagenomics_1_Nanopore/ (data in its gitignored data/ subfolder)

@@ -55,9 +55,9 @@ Development pool: tune thresholds only. Evaluation pool: report only, thresholds
 ## Result (2026-10-12; details in PROJECT_STATE.md)
 - Finished in 168.6 min with no failure or retry lines. Dev pool 185,000 reads, 1.016 Gb, mean 5,491 bp; eval pool
   185,000 reads, 1.012 Gb, mean 5,473 bp (run mean 5,479 bp). Mean length drift across the run about -30 bp (-0.5%).
-- Read quality and pool similarity not yet checked.
+- QC (2026-10-15): pools match on length and read quality (KS D <0.003), no drift along the run; median read Q about 18, 28% of reads Q>=20. See PROJECT_STATE.md.
 
-## Representativeness checks (done for length; quality still to do)
+## Representativeness checks (done 2026-10-15)
 - Pool mean read length vs run mean 5,479 bp (from ENA counts); per-block mean length across the run (any drift?).
 - `bin/02_pool_qc.py`: length and read-quality distributions for each pool and block, dev-vs-eval comparison at block level.
   Run: `bin/02_pool_qc.py` (no Docker; outputs in data/qc/).
