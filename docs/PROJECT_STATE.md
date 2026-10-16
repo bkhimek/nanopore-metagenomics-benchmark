@@ -1,12 +1,12 @@
 # PROJECT_STATE: decision log and findings
 
-Last updated: 2026-10-16 (evening, database-size arms DONE on AWS; instance to be terminated)
+Last updated: 2026-10-16 (evening, database-size arms DONE on AWS; instance terminated 18:40 BST; guide v3 and plan Rev6 written)
 
 ## Status
 Phase 0 (dataset audit) essentially complete; Phase 1 (baseline benchmark) started. Done: run record, chemistry/basecaller, pools sampled and QC'd,
 theoretical composition checked, baseline database and classifier frozen (D12), baseline run on the dev pool, first scoring done (sweep on dev, see Scoring). Truth-table naming issue found and fixed by alias (D13), sweep rerun with it. Evaluable minimum fixed at 20 (D14a). Threshold FROZEN at 0.08% of reads (D14b), chosen on the dev pool by bootstrap-mean F1.
 Eval pool classified and scored ONCE with the frozen threshold (result below, within the written predictions). Depth series run on the eval pool and compared with the registered predictions (all met). Phase 2 arm 2 (database size, D17: PlusPF-8/16/full on AWS) done: registered (dbarms-registered, 820490a), control reproduced, frozen (dbarms-frozen, afe5577), eval scored once per arm; the 8 GB cap is NOT the main cause of the abundance bias (see Database arms RESULT). Phase 2 arm 1 (Kraken2 confidence, D16) done: registered (tag arms-registered, f3c9ba7), dev-tuned and frozen (tag arms-frozen, 15e92f3), eval scored once per arm (result committed a427e54); the baseline (confidence 0) is best; result and comparison with the registered expectations below.
-Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper link. Plan is at revision 5 (16 October; Rev4 kept). Workflow guide is at version 2 (16 October; OneDrive only; new section 4 explains thresholds and scoring for a novice).
+Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper link. Plan is at revision 6 (16 October; Rev5 kept until checked). Workflow guide is at version 3 (16 October; OneDrive only; section 4 explains thresholds and scoring for a novice and the new section 5 the three Phase 1/2 experiments).
 
 ## Environment
 - WSL2 Ubuntu, 12 GB RAM cap, 6 processors (C:\Users\krist\.wslconfig)
@@ -231,7 +231,7 @@ Comparison with the registered expectations (text above unchanged):
 - (2) PARTLY MET: chosen fraction is at or below 0.0008 in every arm (all 5e-5), but at the grid edge. The second half (non-human false positives at fraction 0.0002 fall monotonically) is NOT checked from the summary; the summary shows no non-human false positive at any chosen fraction.
 - (3) PARTLY CONTRADICTED: human is a false positive for c0 and c0.05, but not for c0.1, c0.2, c0.4 (chosen fraction below 0.4% in each) because almost nothing is classified at species rank.
 - (4) CONTRADICTED: evaluable recall is 14/14 only for c0; c0.05 13/14 and c0.1 6/14 (the registration note recorded that the dev crash at c0.1 probably breaks this).
-- (5) MET: eval obs/exp Roseburia hominis 0.42 (c0) -> 0.18 (c0.05, 4,725 of 25,900 reads) -> 0.001 (c0.1, 33 reads); Bifidobacterium adolescentis 0.22 -> 0.05 (511 of 11,100) -> 0.0001 (1 read, missed). At c0.1, 8 of 14 evaluable species are missed (E. coli, F. nucleatum, C. difficile, B. adolescentis, M. smithii, S. cerevisiae, C. albicans, A. muciniphila).
+- (5) MET: eval obs/exp Roseburia hominis 0.41 (c0; 0.42 on dev) -> 0.18 (c0.05, 4,725 of 25,900 reads) -> 0.001 (c0.1, 33 reads); Bifidobacterium adolescentis 0.22 -> 0.05 (511 of 11,100) -> 0.0001 (1 read, missed). At c0.1, 8 of 14 evaluable species are missed (E. coli, F. nucleatum, C. difficile, B. adolescentis, M. smithii, S. cerevisiae, C. albicans, A. muciniphila).
 - (6) CONTRADICTED: Bray-Curtis 0.168 -> 0.336 (c0.05) -> 0.516 (c0.1).
 Verdict: baseline c0 at 0.0008 stays the frozen baseline. The eval pool has now been looked at once per arm; do not re-score with other settings.
 
@@ -275,7 +275,7 @@ Comparison with the registered expectations (text above unchanged):
 - (5) MET: human the only false positive in every arm (0 non-human false positives), all F1 equal at 0.966.
 - (6) MET: dev-chosen fraction 0.0008 for both PlusPF-16 and PlusPF full (inside 0.0002-0.001, not at the grid edge).
 Caveat: the eval pool has now been looked at once per arm for this experiment too (a third look at the same pool overall); the result is reported as a pre-registered comparison, not as fresh held-out data. Dev and eval agree on every number to within 0.02.
-Cost: instance r5.4xlarge at USD 1.072/h, about 2 h before termination (estimated USD 2.5 including disk); the instance was started 16:56 BST on 2026-10-16 and has Shutdown behavior = Terminate.
+Cost: instance r5.4xlarge at USD 1.072/h, started 16:56 and terminated about 18:40 BST on 2026-10-16 (about 1.75 h), estimated USD 2 including disk (exact figure to be read from the AWS bill; it can take a day to appear).
 
 ## Unverified / open
 - Argo paper link and basecalling model tier (see below)
