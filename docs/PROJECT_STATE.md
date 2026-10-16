@@ -231,7 +231,7 @@ Comparison with the registered expectations (text above unchanged):
 - (2) PARTLY MET: chosen fraction is at or below 0.0008 in every arm (all 5e-5), but at the grid edge. The second half (non-human false positives at fraction 0.0002 fall monotonically) is NOT checked from the summary; the summary shows no non-human false positive at any chosen fraction.
 - (3) PARTLY CONTRADICTED: human is a false positive for c0 and c0.05, but not for c0.1, c0.2, c0.4 (chosen fraction below 0.4% in each) because almost nothing is classified at species rank.
 - (4) CONTRADICTED: evaluable recall is 14/14 only for c0; c0.05 13/14 and c0.1 6/14 (the registration note recorded that the dev crash at c0.1 probably breaks this).
-- (5) NOT YET CHECKED per species (Roseburia hominis and Bifidobacterium adolescentis obs/exp in each arm's score_report.txt); the overall fall in reads in mock species at species rank is consistent with it.
+- (5) MET: eval obs/exp Roseburia hominis 0.42 (c0) -> 0.18 (c0.05, 4,725 of 25,900 reads) -> 0.001 (c0.1, 33 reads); Bifidobacterium adolescentis 0.22 -> 0.05 (511 of 11,100) -> 0.0001 (1 read, missed). At c0.1, 8 of 14 evaluable species are missed (E. coli, F. nucleatum, C. difficile, B. adolescentis, M. smithii, S. cerevisiae, C. albicans, A. muciniphila).
 - (6) CONTRADICTED: Bray-Curtis 0.168 -> 0.336 (c0.05) -> 0.516 (c0.1).
 Verdict: baseline c0 at 0.0008 stays the frozen baseline. The eval pool has now been looked at once per arm; do not re-score with other settings.
 
