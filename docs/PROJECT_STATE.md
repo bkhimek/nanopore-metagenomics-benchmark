@@ -1,11 +1,11 @@
 # PROJECT_STATE: decision log and findings
 
-Last updated: 2026-10-16 (evening)
+Last updated: 2026-10-16 (evening, after eval run)
 
 ## Status
 Phase 0 (dataset audit) essentially complete; Phase 1 (baseline benchmark) started. Done: run record, chemistry/basecaller, pools sampled and QC'd,
 theoretical composition checked, baseline database and classifier frozen (D12), baseline run on the dev pool, first scoring done (sweep on dev, see Scoring). Truth-table naming issue found and fixed by alias (D13), sweep rerun with it. Evaluable minimum fixed at 20 (D14a). Threshold FROZEN at 0.08% of reads (D14b), chosen on the dev pool by bootstrap-mean F1.
-Next: classify the eval pool with the frozen baseline and score it ONCE with the frozen threshold.
+Eval pool classified and scored ONCE with the frozen threshold (result below, within the written predictions). Next: depth series (0.1/0.25/0.5 Gb x 5 replicates), then Phase 2.
 Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper link. Plan is at revision 4 (minor update 15 October).
 
 ## Environment
@@ -132,6 +132,18 @@ Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper l
 - The 1 remaining false positive at T=148 is Homo sapiens: 923 reads (0.5% of reads), 8,053 distinct minimizers. The mock has no human DNA, so this is host/lab contamination or a
   misassignment; not resolved (many distinct minimizers lean towards real human reads, but this is not shown). Kept as a false positive (strict truth). Note the 0.5% option (T=925) is zero-FP
   only because human has 923 reads: both candidate thresholds sit within a few reads of an edge (M. smithii 151 vs 148; human 923 vs 925).
+
+### Eval-pool result (2026-10-16, scored once, --min-frac 0.0008 = T 148, no tuning; data/score/eval/baseline_c0_f0.0008/)
+- 185,000 reads; 174,323 classified (94.23%); 155,279 (83.93%) in the 17 mock species; 10.29% classified elsewhere; Fusobacterium alias moved 8,388 reads.
+- Called 15 species, 14 correct, 1 false positive (Homo sapiens, 818 reads; dev had 923). Evaluable recall 14/14, recall over all 17 = 0.824. Precision 0.933, F1 0.966 (bootstrap mean 0.962, 95% 0.929-0.966), Bray-Curtis 0.168.
+  Report vs per-read cross-check identical. Methanobrevibacter smithii 163 reads (dev 151), detected in 91% of resamples. Genus-level recall 14/14.
+- Obs/exp vs dev: F. prausnitzii 1.24, Roseburia 0.41, E. coli 0.57, B. adolescentis 0.22, F. nucleatum 0.76, L. fermentum 1.66, M. smithii 0.88; Salmonella 59 reads (3.2x, below T, not evaluable).
+- Against the written predictions: recall 14/14 (predicted 13-14) OK; 1 FP (1-2) OK, human is the FP as expected; F1 0.966 (0.90-0.97) OK, at the top of the range; Fusobacterium 0.76x (about 0.78) OK;
+  Roseburia, Bifidobacterium, E. coli the same as dev OK. The result is a within-run held-out check only (same sample, run, chemistry): it shows the threshold was not over-fitted to the dev blocks, not that it transfers
+  to other runs or chemistries. Both pools put M. smithii within 3 to 15 reads of the threshold (151, 163 vs 148), so this species stays fragile at this depth. Human at about 0.45-0.5% of reads in both pools
+  looks systematic (library or database), not random; origin not resolved.
+- Baseline conclusions for Kraken2 PlusPF-8 (confidence 0): presence/absence is good at a sensible threshold (14/14 evaluable, 1 FP), but abundance is biased: Bray-Curtis 0.17; Roseburia 0.41x,
+  Bifidobacterium adolescentis 0.22x, E. coli 0.57x low (reads stop above species or go unclassified) and Limosilactobacillus fermentum 1.66x high. Whether the 8 GB capped index causes the low values is the Phase 2 question (large database on AWS).
 
 ### Threshold choice on dev (bootstrap, 1000 resamples of 37 blocks, seed 20261016)
 - frac (T) : precision / F1 (point; mean; 95% interval) / false positives (mean)

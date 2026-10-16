@@ -98,10 +98,14 @@ State: bin/04_score.py committed (895e437) and run on the real dev baseline (swe
 - 04_score.py prints the bootstrap MEAN of each metric (commit 8f6c741). Candidate comparison done: best is --min-frac 0.0008 (T=148 on 185,000 reads), FROZEN. Remaining FP at that threshold is Homo sapiens (923 reads).
   Predictions for the eval run are written in PROJECT_STATE.md before it is run.
 
+- EVAL RUN DONE (freeze-d14 tag precedes it; commit 8e1e2d3): 14/14 evaluable detected, 1 false positive (human, 818 reads), precision 0.933, F1 0.966, Bray-Curtis 0.168; all written predictions met. Details in PROJECT_STATE.md.
+  The eval pool has now been used once: do not re-score it with other thresholds or tune on it.
+
 Next steps, in order (supersedes the 2026-10-16 morning list):
 1. DONE: candidate comparison; threshold frozen at 0.0008 (D14b).
-2. Commit the frozen record (git tag freeze-d14), then bin/03_classify.py --pool eval --allow-eval --label baseline_c0 and bin/04_score.py --run data/classify/eval/baseline_c0 --allow-eval --min-frac 0.0008 (ONCE; no sweep, no retuning).
-   Compare with the written predictions; record the result honestly.
+2. DONE: eval pool classified and scored once; compared with predictions.
+2a. Next: design and run the depth series (0.1/0.25/0.5 Gb x 5 replicates) with the same frozen fraction threshold; decide first which pool the replicates are drawn from (the eval pool has been used once).
+2b. Optional small checks: where the human reads come from (BLAST/minimap2 of a sample of them), genome accession of the Fusobacterium strain, whether L. fermentum 1.66x is relatives' reads.
 3. (merged into step 2 above)
 4. Phase 1 extras: depth series (0.1/0.25/0.5 Gb x 5 replicates; the fraction threshold carries over), then Phase 2 (AWS large database to test the capped index, long-read-aware profiler, AMR).
 5. Optional: lot CoA, basecalling model tier, Argo paper link, genome accession for the Fusobacterium strain.
