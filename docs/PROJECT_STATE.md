@@ -6,7 +6,7 @@ Last updated: 2026-10-16 (evening, after eval run)
 Phase 0 (dataset audit) essentially complete; Phase 1 (baseline benchmark) started. Done: run record, chemistry/basecaller, pools sampled and QC'd,
 theoretical composition checked, baseline database and classifier frozen (D12), baseline run on the dev pool, first scoring done (sweep on dev, see Scoring). Truth-table naming issue found and fixed by alias (D13), sweep rerun with it. Evaluable minimum fixed at 20 (D14a). Threshold FROZEN at 0.08% of reads (D14b), chosen on the dev pool by bootstrap-mean F1.
 Eval pool classified and scored ONCE with the frozen threshold (result below, within the written predictions). Next: depth series (0.1/0.25/0.5 Gb x 5 replicates), then Phase 2.
-Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper link. Plan is at revision 4 (minor update 15 October).
+Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper link. Plan is at revision 5 (16 October; Rev4 kept). Workflow guide is at version 2 (16 October; OneDrive only; new section 4 explains thresholds and scoring for a novice).
 
 ## Environment
 - WSL2 Ubuntu, 12 GB RAM cap, 6 processors (C:\Users\krist\.wslconfig)
