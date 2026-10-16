@@ -127,3 +127,8 @@ State: Phase 2 arm 1 (Kraken2 confidence, D16) complete. Tags: arms-registered (
 - Open from this arm: c0.05's optimum is at the grid edge (5e-5); the second half of expectation 2 (non-human false positives at fraction 0.0002) not checked; genus-level use of higher confidence is untested.
 - Next: choose Phase 2 arm 2. Candidates: (ii) large database on AWS (tests whether the 8 GB cap causes the abundance bias: Roseburia 0.41x, B. adolescentis 0.22x, E. coli 0.57x, L. fermentum 1.66x); (iii) long-read-aware profiler (Sylph or minimap2); (iv) trace the human reads. Same rule: register arms and predictions first, tune on dev, score all arms on eval.
 - Still to do: refresh the guide (depth series, confidence arms, reports/ path instead of results/) and the plan (Rev6); housekeeping (LICENSE, README line, stray cd.docx).
+
+## 2026-10-16 late afternoon (database arms registered, AWS in progress)
+State: Phase 2 arm 2 (database size, D17) registered in PROJECT_STATE.md with decision rule and six expectations; bin/07_database_arms.py written and dry-run tested (not yet run on data). Commit it and tag `dbarms-registered` BEFORE uploading any reads to AWS.
+- AWS set-up done so far: region eu-north-1 (Stockholm), account budget $15 with alerts at 50% and 85%, key pair nanopore-bench (private key in ~/.ssh/nanopore-bench.pem, mode 600, not in the repo), vCPU quota 32, no leftover EC2 resources.
+- Next: launch r6i.4xlarge (Ubuntu 24.04, 200 GB gp3, SSH from my IP only), run the steps in 'Run order' above, TERMINATE the instance and check Volumes = 0 afterwards.

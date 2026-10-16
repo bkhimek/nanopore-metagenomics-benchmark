@@ -1,6 +1,6 @@
 # PROJECT_STATE: decision log and findings
 
-Last updated: 2026-10-16 (afternoon, confidence arms DONE: eval scored once per arm)
+Last updated: 2026-10-16 (late afternoon, database-size arms REGISTERED, AWS set-up in progress)
 
 ## Status
 Phase 0 (dataset audit) essentially complete; Phase 1 (baseline benchmark) started. Done: run record, chemistry/basecaller, pools sampled and QC'd,
@@ -234,6 +234,25 @@ Comparison with the registered expectations (text above unchanged):
 - (5) MET: eval obs/exp Roseburia hominis 0.42 (c0) -> 0.18 (c0.05, 4,725 of 25,900 reads) -> 0.001 (c0.1, 33 reads); Bifidobacterium adolescentis 0.22 -> 0.05 (511 of 11,100) -> 0.0001 (1 read, missed). At c0.1, 8 of 14 evaluable species are missed (E. coli, F. nucleatum, C. difficile, B. adolescentis, M. smithii, S. cerevisiae, C. albicans, A. muciniphila).
 - (6) CONTRADICTED: Bray-Curtis 0.168 -> 0.336 (c0.05) -> 0.516 (c0.1).
 Verdict: baseline c0 at 0.0008 stays the frozen baseline. The eval pool has now been looked at once per arm; do not re-score with other settings.
+
+## Database-size arms (Phase 2, arm 2; REGISTERED 2026-10-16 before any run; bin/07_database_arms.py; runs on AWS)
+- D17 (user chose AWS as the next experiment): does the 8 GB cap on the Kraken2 index cause the abundance bias (Roseburia hominis 0.42x, Bifidobacterium adolescentis 0.22x, E. coli 0.57x, Limosilactobacillus fermentum 1.66x at the frozen baseline)?
+- Arms, all from the same Langmead index build (2026-06-26, collection PlusPF): PlusPF-8 (7.5 GB index; baseline and CONTROL), PlusPF-16 (14.9 GB), PlusPF full (109.9 GB). Everything else identical to D12: kraken2 image digest db5d772d..., --confidence 0.0, --minimum-hit-groups 2, the same dev and eval pools, the same 04_score.py and truth/alias files.
+- Machine: one EC2 instance in eu-north-1 (Stockholm), r6i.4xlarge (128 GB RAM, 16 vCPU) or r5.4xlarge, Ubuntu 24.04, 200 GB gp3; terminated and its volume deleted after the run. Budget alert exists (account budget $15, alerts at 50% and 85%). Estimated cost USD 5-8.
+- Control: PlusPF-8 on the instance must reproduce the local dev baseline species counts exactly (columns taxid to genus_clade_reads of reports/baseline_kraken2_pluspf8/dev_species_table.tsv); the script refuses the eval stage if it does not. This checks that machine, threads and image do not change results.
+- Rule (same as D14b/D16): PlusPF-8 keeps the frozen fraction 0.0008. For PlusPF-16 and PlusPF full, score the dev pool with the block bootstrap at fractions 0.00005 ... 0.005 (the D16 grid) and choose the SMALLEST fraction whose bootstrap-mean F1 is within 0.002 of that arm's maximum.
+  Selections go to reports/dbarms/dev_selection.json, committed and tagged `dbarms-frozen` BEFORE the eval pool is touched (the script refuses otherwise). Then each arm is scored ONCE on eval at its frozen fraction, and also at 0.0008 for a like-for-like column. ALL arms are reported.
+- Decision rule for the question (written before the run; applied to obs/exp at fraction 0.0008 on the EVAL pool, and checked for the same verdict on dev): 'the cap is the main cause' if Roseburia hominis AND Bifidobacterium adolescentis both reach >= 0.70 with PlusPF full and rise monotonically 8 -> 16 -> full;
+  'the cap is not the main cause' if both stay <= 0.50 with PlusPF full; anything else is 'partly' (reported as such). If dev and eval give different verdicts the result is 'inconclusive'.
+- Expectations written before the run (low confidence):
+  (1) reads classified at any rank and reads in the mock species at species rank do not fall with index size (8 -> 16 -> full), and PlusPF full classifies >= 95% of reads;
+  (2) Roseburia hominis and B. adolescentis obs/exp rise monotonically with index size; PlusPF full lands in 'partly' (Roseburia 0.5-0.8; B. adolescentis stays below 0.5 because many Bifidobacterium genomes share k-mers and reads stop at genus level);
+  (3) Bray-Curtis for PlusPF full is within +-0.03 of the baseline 0.168 or lower;
+  (4) evaluable recall stays 14/14 in every arm at 0.0008;
+  (5) human remains a false positive in every arm, so F1 stays at or near the ceiling 0.966 (all arms within 0.03); non-human false positives at 0.0008 are 0-2 for PlusPF full (a larger database can add low-level misassignments) and 0 for the others;
+  (6) the dev-chosen fraction for PlusPF-16 and PlusPF full lies between 0.0002 and 0.001, not at the edge of the grid.
+  Wall-clock per pool and the instance cost are recorded as results (the practical trade-off), without a prediction. The eval pool is looked at once per arm; overall this is another look at it, so the result is reported as a pre-registered comparison, not as fresh held-out data.
+- Run order on the instance: install docker and git, clone the repo, download the three indexes from s3 genome-idx (kraken/k2_pluspf_08_GB_20260626, k2_pluspf_16_GB_20260626, k2_pluspf_20260626), upload both pools from WSL, run 07 --stage dev, commit and tag dbarms-frozen, run 07 --stage eval --allow-eval, copy reports/dbarms back, terminate.
 
 ## Unverified / open
 - Argo paper link and basecalling model tier (see below)
