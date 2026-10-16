@@ -1,0 +1,19 @@
+Kraken2 confidence arms (registered design; thresholds chosen on dev, eval scored once per arm)
+
+DEV pool, at each arm's frozen fraction:
+ conf     frac     T classif%  mock%   prec rec(ev)     F1         F1 boot mean (95%)  FP     BC genus rec  false positives
+    0   0.0008   148     94.1   83.7  0.933   1.000  0.966        0.948 (0.897-0.966)   1  0.166     1.000  Homo sapiens (923)
+ 0.05    5e-05    10     57.3   19.2  0.929   0.929  0.929        0.924 (0.889-0.966)   1  0.332     1.000  Homo sapiens (21)
+  0.1    5e-05    10      0.4    0.2  1.000   0.429  0.600        0.604 (0.571-0.667)   0  0.547     0.429  
+  0.2    5e-05    10      0.0    0.0    n/a   0.000  0.000        0.000 (0.000-0.000)   0    n/a     0.000  
+  0.4    5e-05    10      0.0    0.0    n/a   0.000  0.000        0.000 (0.000-0.000)   0    n/a     0.000  
+
+EVAL pool, at each arm's frozen fraction:
+ conf     frac     T classif%  mock%   prec rec(ev)     F1         F1 boot mean (95%)  FP     BC genus rec  false positives
+    0   0.0008   148     94.2   83.9  0.933   1.000  0.966        0.962 (0.929-0.966)   1  0.168     1.000  Homo sapiens (818)
+ 0.05    5e-05    10     57.5   19.4  0.929   0.929  0.929        0.943 (0.929-0.966)   1  0.336     1.000  Homo sapiens (21)
+  0.1    5e-05    10      0.4    0.2  1.000   0.429  0.600        0.596 (0.571-0.600)   0  0.516     0.500  
+  0.2    5e-05    10      0.0    0.0    n/a   0.000  0.000        0.000 (0.000-0.000)   0    n/a     0.000  
+  0.4    5e-05    10      0.0    0.0    n/a   0.000  0.000        0.000 (0.000-0.000)   0    n/a     0.000  
+
+dev tuning table: reports/arms/dev_tuning.tsv. The 0.0 arm is the frozen baseline (fraction 0.0008, D14b).
