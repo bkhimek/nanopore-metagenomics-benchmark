@@ -9,7 +9,12 @@ Rules fixed here (see PROJECT_STATE D9/D10, plan Section 6):
 - Precision = called truth species / called species. FP audit lists every non-truth species called, with a category.
 - Uncertainty: with --min-reads, a bootstrap over the pool's 5,000-read BLOCKS (not reads) gives 95% intervals (needs the per-read
   Kraken2 output, the sampling manifest and the database nodes.dmp).
-- Without --min-reads the script prints a sweep over thresholds (development pool only). The evaluation pool is scored only with
+- The threshold can be given as a fraction of ALL reads (--min-frac, e.g. 0.0005 = 0.05%) instead of a read count; T = ceil(frac x total reads).
+  A fraction keeps its meaning when the depth changes (depth series), a fixed read count does not.
+- Taxonomy aliases (--aliases, default reference/d6331_taxid_aliases.csv): extra taxids whose species-level reads count as a mock species,
+  for strains that NCBI now files under a different species name (for example the D6331 Fusobacterium nucleatum strain, now F. animalis).
+  Each alias needs recorded evidence (see that file). Reported in the output, never silent.
+- Without --min-reads/--min-frac the script prints a sweep over thresholds (development pool only). The evaluation pool is scored only with
   --allow-eval AND an explicit --min-reads: no sweep, no tuning on it.
 Outputs: data/score/<pool>/<label>/ species_table.tsv, sweep.tsv (sweep mode), fp_audit.tsv, score_summary.json, score_report.txt
 """
@@ -20,7 +25,10 @@ ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDe
 ap.add_argument("--run", required=True, help="classify run folder, e.g. data/classify/dev/baseline_c0")
 ap.add_argument("--truth", default="reference/d6331_expected_reads_by_species.csv")
 ap.add_argument("--min-reads", type=int, help="detection threshold T (reads at species rank); omit for a sweep")
-ap.add_argument("--sweep", default="1,2,3,5,10,20,50,100", help="thresholds for sweep mode")
+ap.add_argument("--min-frac", type=float, help="detection threshold as a fraction of all reads (e.g. 0.0005); T = ceil(frac x total reads)")
+ap.add_argument("--sweep", default="1,2,3,5,10,20,50,100,150,200,300,500,1000,2000", help="read-count thresholds for sweep mode")
+ap.add_argument("--sweep-frac", help="comma-separated fractions of all reads for sweep mode (replaces --sweep), e.g. 0.00001,0.0001,0.0005,0.001")
+ap.add_argument("--aliases", default="reference/d6331_taxid_aliases.csv", help="taxid alias file (see docstring); ignored if absent")
 ap.add_argument("--evaluable-min-expected", type=float, default=20.0)
 ap.add_argument("--bootstrap", type=int, default=1000, help="block-bootstrap replicates (with --min-reads)")
 ap.add_argument("--seed", type=int, default=20261016)
@@ -31,14 +39,11 @@ a = ap.parse_args()
 run = os.path.join(ROOT, a.run)
 rec = json.load(open(os.path.join(run, "run.json")))
 pool, label = rec["pool"], rec["label"]
-if pool == "eval" and not (a.allow_eval and a.min_reads):
-    sys.exit("evaluation pool: needs --allow-eval and an explicit --min-reads chosen on the dev pool (no sweep on eval)")
+if a.min_reads is not None and a.min_frac is not None:
+    sys.exit("give --min-reads or --min-frac, not both")
+if pool == "eval" and not (a.allow_eval and (a.min_reads or a.min_frac)):
+    sys.exit("evaluation pool: needs --allow-eval and an explicit --min-reads or --min-frac chosen on the dev pool (no sweep on eval)")
 outdir = a.outdir or os.path.join(ROOT, "data", "score", pool, label)
-if a.min_reads is None:
-    outdir_tag = outdir
-else:
-    outdir_tag = outdir + f"_T{a.min_reads}"
-os.makedirs(outdir_tag, exist_ok=True)
 
 
 # ---------- report ----------
@@ -62,6 +67,10 @@ rows = parse_report(os.path.join(run, "report.txt"))
 unclassified = sum(r["clade"] for r in rows if r["rank"] == "U")
 classified = sum(r["clade"] for r in rows if r["taxid"] == 1)
 N = unclassified + classified
+if a.min_frac is not None:
+    a.min_reads = max(1, math.ceil(a.min_frac * N))
+outdir_tag = outdir if a.min_reads is None else outdir + (f"_f{a.min_frac:g}" if a.min_frac is not None else f"_T{a.min_reads}")
+os.makedirs(outdir_tag, exist_ok=True)
 species = {}
 for r in rows:
     if r["rank"] == "S":
@@ -78,6 +87,23 @@ for t in csv.DictReader(open(os.path.join(ROOT, a.truth))):
     truth[tid] = {"name": t["ncbi_name_in_kraken_db"], "dna_pct": float(t["genomic_dna_pct"]), "expected": exp,
                   "evaluable": exp >= a.evaluable_min_expected, "domain": t["domain"], "genus": t["ncbi_name_in_kraken_db"].split()[0]}
 truth_genera = {v["genus"] for v in truth.values()}
+aliases = []  # (truth_taxid, accepted_taxid, accepted_name, evidence)
+alias_path = os.path.join(ROOT, a.aliases)
+if os.path.exists(alias_path):
+    for x in csv.DictReader(open(alias_path)):
+        if int(x["species_taxid"]) not in truth:
+            sys.exit(f"alias file: species_taxid {x['species_taxid']} is not a truth species")
+        aliases.append((int(x["species_taxid"]), int(x["accepted_taxid"]), x["accepted_name"], x["evidence"]))
+
+
+def apply_aliases(c):
+    c = collections.Counter(c)
+    for t, acc, _n, _e in aliases:
+        c[t] += c.pop(acc, 0)
+    return c
+
+
+genus_reads = {r["name"]: r["clade"] for r in rows if r["rank"] == "G"}
 evaluable = {t for t, v in truth.items() if v["evaluable"]}
 dna_sum = sum(v["dna_pct"] for v in truth.values())
 
@@ -111,7 +137,10 @@ def metrics(counts, T):
             "f1": f1, "l1": l1, "bray_curtis": bc, "fp_taxids": sorted(fp), "missed_evaluable": sorted(evaluable - tp_eval)}
 
 
-counts = {t: v["reads"] for t, v in species.items()}
+counts = apply_aliases({t: v["reads"] for t, v in species.items()})
+for t, acc, nm, _e in aliases:
+    if acc in species and t not in species:
+        species[t] = dict(species[acc], reads=0)  # keep metadata for the table
 fmt = lambda x: "nan" if (isinstance(x, float) and math.isnan(x)) else (f"{x:.3f}" if isinstance(x, float) else str(x))
 summary = {"run": a.run, "pool": pool, "total_reads": N, "classified": classified, "unclassified": unclassified,
            "evaluable_min_expected": a.evaluable_min_expected, "evaluable": [truth[t]["name"] for t in sorted(evaluable)],
@@ -120,9 +149,11 @@ in_truth = sum(counts.get(t, 0) for t in truth)
 summary["reads_in_mock_species"] = in_truth
 summary["pct_reads_in_mock_species"] = round(100 * in_truth / N, 2)
 summary["pct_classified_elsewhere"] = round(100 * (classified - in_truth) / N, 2)
+alias_note = [f"Alias applied: {nm} (taxid {acc}) reads count as {truth[t]['name']}; observed {species[acc]['reads'] if acc in species else 0:,} reads moved" for t, acc, nm, _e in aliases]
 out = [f"Score for {a.run} ({pool} pool): {N:,} reads, {classified:,} classified, {unclassified:,} unclassified",
        f"Reads in the {len(truth)} mock species: {in_truth:,} ({summary['pct_reads_in_mock_species']}% of all reads); classified elsewhere (other taxa or above species rank): {summary['pct_classified_elsewhere']}%",
-       f"Evaluable species (expected >= {a.evaluable_min_expected:g} reads): {len(evaluable)} of {len(truth)}. Not evaluable: {'; '.join(summary['not_evaluable']) or 'none'}", ""]
+       f"Evaluable species (expected >= {a.evaluable_min_expected:g} reads): {len(evaluable)} of {len(truth)}. Not evaluable: {'; '.join(summary['not_evaluable']) or 'none'}"] + alias_note + [""]
+summary["aliases"] = [{"truth": truth[t]["name"], "accepted_taxid": acc, "accepted_name": nm, "evidence": ev} for t, acc, nm, ev in aliases]
 
 
 def fp_table(T):
@@ -143,21 +174,21 @@ def write_tsv(path, rows_, cols):
 
 
 if a.min_reads is None:
-    grid = [int(x) for x in a.sweep.split(",")]
+    grid = sorted({max(1, math.ceil(float(x) * N)) for x in a.sweep_frac.split(",")}) if a.sweep_frac else [int(x) for x in a.sweep.split(",")]
     sw = []
     for T in grid:
         m = metrics(counts, T)
         fps = fp_table(T)
         cat = collections.Counter(x["category"] for x in fps)
-        m.update({"fp_same_genus": cat.get("same genus as a mock species", 0), "fp_other": len(fps) - cat.get("same genus as a mock species", 0)})
+        m.update({"pct_of_reads": 100.0 * T / N, "fp_same_genus": cat.get("same genus as a mock species", 0), "fp_other": len(fps) - cat.get("same genus as a mock species", 0)})
         sw.append(m)
-    cols = ["T", "called", "correct", "fp", "fp_same_genus", "fp_other", "tp_evaluable", "fn_evaluable", "precision", "recall_evaluable",
+    cols = ["T", "pct_of_reads", "called", "correct", "fp", "fp_same_genus", "fp_other", "tp_evaluable", "fn_evaluable", "precision", "recall_evaluable",
             "recall_all_truth", "f1", "bray_curtis"]
     write_tsv(os.path.join(outdir_tag, "sweep.tsv"), sw, cols)
     out.append("Threshold sweep (T = minimum reads at species rank):")
-    out.append(f"{'T':>4} {'called':>6} {'FP':>4} {'FPsame':>6} {'FPother':>7} {'prec':>6} {'rec(eval)':>9} {'rec(all)':>8} {'F1':>6} {'BC':>6}")
+    out.append(f"{'T':>5} {'%reads':>7} {'called':>6} {'FP':>4} {'FPsame':>6} {'FPother':>7} {'prec':>6} {'rec(eval)':>9} {'rec(all)':>8} {'F1':>6} {'BC':>6}")
     for m in sw:
-        out.append(f"{m['T']:>4} {m['called']:>6} {m['fp']:>4} {m['fp_same_genus']:>6} {m['fp_other']:>7} {fmt(m['precision']):>6} "
+        out.append(f"{m['T']:>5} {m['pct_of_reads']:>7.4f} {m['called']:>6} {m['fp']:>4} {m['fp_same_genus']:>6} {m['fp_other']:>7} {fmt(m['precision']):>6} "
                    f"{fmt(m['recall_evaluable']):>9} {fmt(m['recall_all_truth']):>8} {fmt(m['f1']):>6} {fmt(m['bray_curtis']):>6}")
     summary["sweep"] = [{k: v for k, v in m.items() if k not in ("fp_taxids", "missed_evaluable")} for m in sw]
     T_show = None
@@ -172,7 +203,7 @@ for t, v in sorted(truth.items(), key=lambda kv: -kv[1]["dna_pct"]):
     status = ("detected" if obs >= T0 else "missed") + ("" if v["evaluable"] else " (not evaluable)")
     tab.append({"taxid": t, "species": v["name"], "domain": v["domain"], "dna_pct": v["dna_pct"], "expected_reads": round(v["expected"], 1),
                 "observed_reads": obs, "observed_over_expected": (round(obs / v["expected"], 2) if v["expected"] else float("nan")),
-                "distinct_minimizers": species[t]["distinct"] if t in species else 0, "evaluable": "yes" if v["evaluable"] else "no",
+                "genus_clade_reads": genus_reads.get(v["genus"], 0), "distinct_minimizers": species[t]["distinct"] if t in species else 0, "evaluable": "yes" if v["evaluable"] else "no",
                 f"status_T{T0}": status})
 write_tsv(os.path.join(outdir_tag, "species_table.tsv"), tab, list(tab[0]))
 out.append("")
@@ -186,8 +217,11 @@ if T_show is not None:
     fps = fp_table(T_show)
     write_tsv(os.path.join(outdir_tag, "fp_audit.tsv"), fps, ["taxid", "name", "reads", "distinct_minimizers", "domain", "genus", "category"])
     out.append("")
+    g_ok = [t for t in evaluable if genus_reads.get(truth[t]["genus"], 0) >= T_show]
+    out.append(f"Threshold T={T_show} reads = {100.0 * T_show / N:.4f}% of all reads" + (f" (--min-frac {a.min_frac:g})" if a.min_frac is not None else ""))
+    out.append(f"Genus-level recall (secondary): {len(g_ok)}/{len(evaluable)} evaluable species have genus clade reads >= T")
     out.append(f"At T={T_show}: called {m['called']} species; correct {m['correct']}, false positives {m['fp']}; evaluable detected {m['tp_evaluable']}/{len(evaluable)}")
-    out.append(f"precision {fmt(m['precision'])}  recall(evaluable) {fmt(m['recall_evaluable'])}  recall(all 17) {fmt(m['recall_all_truth'])}  F1 {fmt(m['f1'])}  "
+    out.append(f"precision {fmt(m['precision'])}  recall(evaluable) {fmt(m['recall_evaluable'])}  recall(all {len(truth)}) {fmt(m['recall_all_truth'])}  F1 {fmt(m['f1'])}  "
                f"L1 {fmt(m['l1'])}  Bray-Curtis {fmt(m['bray_curtis'])}")
     if m["missed_evaluable"]:
         out.append("missed evaluable: " + ", ".join(truth[t]["name"] for t in m["missed_evaluable"]))
@@ -197,6 +231,7 @@ if T_show is not None:
         out.append(f"  {x['name']:38s}{x['reads']:>7d} reads  [{x['category']}]")
     if len(fps) > 25:
         out.append(f"  ... {len(fps) - 25} more in fp_audit.tsv")
+    summary["threshold"] = {"min_reads": T_show, "min_frac": a.min_frac, "pct_of_reads": 100.0 * T_show / N, "genus_recall_evaluable": len(g_ok) / len(evaluable)}
     summary["at_T"] = {k: v for k, v in m.items() if k not in ("fp_taxids", "missed_evaluable")}
     summary["fp_by_category"] = dict(collections.Counter(x["category"] for x in fps))
 
@@ -235,6 +270,7 @@ if T_show is not None:
                 n = int(p[1].rsplit(".", 1)[1])
                 bi = bisect.bisect_right(starts, n) - 1
                 per_block[bi][s] += 1
+        per_block = [apply_aliases(c) for c in per_block]
         tot = collections.Counter()
         for c in per_block:
             tot.update(c)

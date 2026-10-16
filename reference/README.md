@@ -27,3 +27,7 @@ Which column to use
 Taxonomy IDs (added 2026-10-15)
 - species_taxid and ncbi_name_in_kraken_db come from the PlusPF-8 (2026-06-26) index listing (inspect.txt, rank S rows). Score by taxid, not by name:
   Zymo's "Lactobacillus fermentum" is "Limosilactobacillus fermentum" (taxid 1613) in the current NCBI taxonomy. All five E. coli strains map to species 562.
+
+Taxonomy aliases (added 2026-10-16, D13)
+- d6331_taxid_aliases.csv: extra taxids whose species-level reads count as a mock species. One entry so far: Fusobacterium animalis (76859) counts as the D6331 "Fusobacterium nucleatum" strain (851).
+  The evidence is in the file (the reference genome classifies 97.1% as F. animalis with the frozen baseline). It was added AFTER the first dev scoring; the composition and expected-reads files are unchanged.

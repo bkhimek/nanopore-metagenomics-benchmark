@@ -87,6 +87,21 @@ Next steps, in order:
 4. Phase 1 extras: depth series (0.1/0.25/0.5 Gb x 5 replicates), then Phase 2 (AWS large database, long-read-aware profiler, AMR).
 5. Optional: lot CoA, basecalling model tier, Argo paper link.
 
+## 2026-10-16 afternoon (first real scoring, Fusobacterium finding)
+State: bin/04_score.py committed (895e437) and run on the real dev baseline (sweep). Results and numbers: PROJECT_STATE.md, Scoring. Repo docs restored (baseline-run record present).
+- Finding: Fusobacterium nucleatum showed 92 of 11,100 expected reads; the reads are under F. animalis (8,597). The D6331 reference genome, classified in 5 kb pieces with the frozen baseline, is 97.1% F. animalis,
+  so this is a truth-table naming mismatch, not low sensitivity. Fixed by an alias file (D13), reported in the score output. Found after seeing results; recorded as such.
+- Other low recoveries are real classifier behaviour (Bifidobacterium adolescentis stops at genus level; Roseburia loses reads above genus/unclassified; E. coli shares reads with relatives).
+- 04_score.py updated: --min-frac, --sweep-frac, --aliases, genus-level recall, wider default grid. Regression-tested against the previous version.
+- User has not yet answered the two D14 proposals (see PROJECT_STATE.md). The F1 curve changes with the alias, so rerun the sweep first.
+
+Next steps, in order (supersedes the 2026-10-16 morning list):
+1. Copy the new 04_score.py, reference/d6331_taxid_aliases.csv and reference/README.md into the repo; commit. Rerun `bin/04_score.py --run data/classify/dev/baseline_c0` (sweep, now with alias) and `--sweep-frac`; paste output.
+2. Decide D14 (evaluable minimum; fraction threshold and F1 rule); then `--min-frac F` on dev for bootstrap and FP audit.
+3. Freeze, then bin/03_classify.py --pool eval --allow-eval --label baseline_c0, and score it once with the frozen threshold.
+4. Phase 1 extras: depth series (0.1/0.25/0.5 Gb x 5 replicates; the fraction threshold carries over), then Phase 2 (AWS large database to test the capped index, long-read-aware profiler, AMR).
+5. Optional: lot CoA, basecalling model tier, Argo paper link, genome accession for the Fusobacterium strain.
+
 ## Paths (reference)
 - WSL repo: ~/projects/metagenomics_1_Nanopore/ (data in its gitignored data/ subfolder)
 - OneDrive project folder (Windows): C:\Users\krist\OneDrive\Documents\Projects\metagenomics\metagenomics_1_Nanopore

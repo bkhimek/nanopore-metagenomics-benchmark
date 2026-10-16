@@ -1,11 +1,11 @@
 # PROJECT_STATE: decision log and findings
 
-Last updated: 2026-10-16
+Last updated: 2026-10-16 (afternoon)
 
 ## Status
 Phase 0 (dataset audit) essentially complete; Phase 1 (baseline benchmark) started. Done: run record, chemistry/basecaller, pools sampled and QC'd,
-theoretical composition checked, baseline database and classifier frozen (D12), baseline run on the dev pool (not yet scored). Next: score it
-(bin/04_score.py, sweep on dev only), then settle the threshold rule and the evaluable-species minimum (Decision 2) before touching the eval pool.
+theoretical composition checked, baseline database and classifier frozen (D12), baseline run on the dev pool, first scoring done (sweep on dev, see Scoring). Truth-table naming issue found and fixed by alias (D13). Next: rerun the
+sweep with the alias and a wider grid, then settle the threshold rule and the evaluable-species minimum (D14, still open) before touching the eval pool.
 Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper link. Plan is at revision 4 (minor update 15 October).
 
 ## Environment
@@ -38,6 +38,12 @@ Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper l
 - D12 (2026-10-15) Baseline classifier = Kraken2 2.17.2 (image quay.io/biocontainers/kraken2@sha256:db5d772d9df323cf0ddc644fb9793c0fca25b61f86469be42f1a9f5b903b9fdf)
   with the PlusPF-8 index dated 2026-06-26 (7.5 GB, includes fungi and archaea; FROZEN as the baseline database, D3). Run with a docker memory cap
   (10g default). AWS deferred: a large-database run on a big-RAM instance is the Phase 2 experiment to measure what the 8 GB cap costs.
+- D13 (2026-10-16) Truth-table alias: reads classified as Fusobacterium animalis (taxid 76859) count as the D6331 "Fusobacterium nucleatum" strain (taxid 851).
+  Found after the first dev scoring (F. nucleatum 92 reads vs 11,100 expected; F. animalis 8,597; genus Fusobacterium 9,300). Evidence independent of the
+  reads: the D6331 reference genome cut into 489 x 5 kb pieces and classified with the frozen baseline gave 475 (97.1%) F. animalis, 3 F. nucleatum. Stored in
+  reference/d6331_taxid_aliases.csv with the evidence; 04_score.py reports every alias it applies. Caveat: found after seeing results, strain not checked against an
+  assembly accession (the FASTA header is only the file name). Not a classifier error: a taxonomy-name mismatch in the truth table, same family as the Lactobacillus rename.
+- D14 (OPEN) Threshold rule and evaluable-species minimum; see Scoring.
 - D11 (2026-10-13) Database must contain fungi and archaea (standard Kraken2 indices lack fungi); otherwise those
   mock members are declared out of evaluable scope. Check coverage before running. Refines D4.
 
@@ -93,9 +99,25 @@ Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper l
 - False-positive audit lists every non-mock species called, categorised (same genus as a mock species / other bacteria / archaea / eukaryote / virus).
 - Uncertainty: bootstrap over the pool's 5,000-read blocks (37 per pool), using the per-read Kraken2 output, the manifest and nodes.dmp; cross-checks report vs per-read species counts.
 - Guard: eval pool only with --allow-eval and an explicit --min-reads (no sweep on eval). Sweep mode runs on dev only.
-- Tested on a synthetic dataset with hand-derived answers (precision 4/7, 4/5, 1.0 at T=1, 3, 5; evaluable recall 1.0; recall over all 0.75 at T>=5). Not yet run on real data.
-- Open decisions for the user (Decision 2): (a) evaluable minimum expected reads (proposed 20; Salmonella expects about 18.5 reads in a 185,000-read pool, so it sits just below the line
-  and the choice decides whether it counts); (b) how to choose T on the dev pool (proposal: smallest T that maximises F1 on dev, ties broken towards the larger T; to be fixed before looking at eval).
+- Tested on a synthetic dataset with hand-derived answers (precision 4/7, 4/5, 1.0 at T=1, 3, 5; evaluable recall 1.0; recall over all 0.75 at T>=5). Real-data run: see below.
+- Added 2026-10-16: --min-frac / --sweep-frac (threshold as a fraction of ALL reads, T = ceil(frac x N), so it keeps its meaning across the depth series); --aliases (D13);
+  genus-level recall as a secondary figure (genus clade reads >= T); sweep grid widened to 2000. Regression-tested: identical metrics and bootstrap to the previous version when no alias file is present.
+
+### First real scoring (dev pool, baseline_c0, sweep, BEFORE the alias; 2026-10-16)
+- 185,000 reads; 174,153 classified; 146,319 reads (79.09%) in the 17 mock species; 15.05% classified elsewhere. 14 of 17 species evaluable at the proposed minimum 20
+  (not evaluable: Salmonella enterica 18.5 expected, Enterococcus faecalis 1.9, Clostridium perfringens 0.2).
+- Sweep (T = min reads): called / FP / precision / evaluable recall / F1 = T1 497/481/0.032/1.000/0.062; T5 71/56/0.211/1.000/0.349; T20 36/21/0.417/1.000/0.588;
+  T50 27/12/0.556/1.000/0.714; T100 17/4/0.765/0.929/0.839 (loses Fusobacterium, 92 reads). Bray-Curtis about 0.22 at every T (composition error is not a thresholding effect).
+  F1 was still rising at the edge of the grid (T=100), so the optimum had not been reached.
+- Observed/expected (T=1): F. prausnitzii 1.23, V. rogosae 0.87, R. hominis 0.42, B. fragilis 0.95, E. coli 0.57, P. corporis 0.94, B. adolescentis 0.22, F. nucleatum 0.01 (see D13),
+  L. fermentum 1.67, C. difficile 0.96, A. muciniphila 0.97, C. albicans 0.95, S. cerevisiae 0.75, M. smithii 0.82, Salmonella 3.03, E. faecalis 0 (missed), C. perfringens 5.4.
+- Where reads went (genus clade vs species clade): Roseburia 10,914 vs 10,882 (shortfall is above genus or unclassified); Bifidobacterium 5,737 vs 2,421 for adolescentis
+  (about 3,000 reads stay at genus level: shared between close relatives); Escherichia 15,956 vs 14,646 with close relatives (Shigella, E. albertii, E. fergusonii) taking some.
+  Limosilactobacillus genus 18,560 vs fermentum 18,529 (1.67x: possible absorption from relatives or composition difference; not investigated).
+- Note: fp_audit.tsv is written only in --min-reads / --min-frac mode, not in sweep mode.
+- Open (D14), proposals not yet accepted by the user: (a) keep the evaluable minimum at 20 expected reads (pre-specified before results; Salmonella, 18.5 expected, is then "detected, not evaluable");
+  (b) choose the threshold as a FRACTION of reads (not a read count) on the dev pool, maximising F1 over a wide grid, ties to the larger value, after the D13 alias is applied; report the whole curve with
+  bootstrap intervals; freeze before touching eval.
 
 ## Unverified / open
 - Argo paper link and basecalling model tier (see below)
