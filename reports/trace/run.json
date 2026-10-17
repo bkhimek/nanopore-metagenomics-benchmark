@@ -1,0 +1,58 @@
+{
+  "script": "bin/08_trace_reads.py",
+  "pool": "dev",
+  "args": {
+    "pool": "dev",
+    "reads": "data/subsets/SRR31222153.dev.seed20261012.blocks.fastq.gz",
+    "refdir": "data/reference/D6331.refseq/genomes",
+    "kraken_run": "data/classify/dev/baseline_c0",
+    "db": "data/db/pluspf_08_20260626",
+    "species_table": "reports/baseline_kraken2_pluspf8/dev_species_table.tsv",
+    "workdir": "data/trace/dev",
+    "outdir": "reports/trace",
+    "image": "quay.io/biocontainers/minimap2:2.31--h118bc1c_0",
+    "threads": 6,
+    "memory": "8g",
+    "paf": null,
+    "min_cov": 0.5,
+    "amb": 0.9
+  },
+  "started": "2026-10-17 15:01:57",
+  "reference_md5": {
+    "Akkermansia_muciniphila.fasta": "1d042ac6054ce1e88f8553aaeb83dd87",
+    "Bacteroides_fragilis.fasta": "b03ccffcf2ddba87c0926e89a30f32e3",
+    "Bifidobacterium_adolescentis.fasta": "2d7078680fc31849bd0ec902f54b0c9d",
+    "Candida_albican.fasta": "ae623897aa29b0067771d7aa39e36bcb",
+    "Clostridioides_difficile.fasta": "fb145d239eeb355f3f38aa703f14ff13",
+    "Clostridium_perfringens.fasta": "69af62c8aaabcf3ae1fab153e329e398",
+    "Enterococcus_faecalis.fasta": "3ba9cfb53013d30ca08f7b0347bd3b1f",
+    "Escherichia_coli_B1109.fasta": "c4331940c769a5754414e3a6301d86d9",
+    "Escherichia_coli_B3008.fasta": "cad5d42d9bb1401bd84916fea706e8eb",
+    "Escherichia_coli_B766.fasta": "4907a1c8c1f0a5c8c022948bb51cf926",
+    "Escherichia_coli_JM109.fasta": "840fb7a6705e864270840bd16c8db4ad",
+    "Escherichia_coli_b2207.fasta": "b85fdb403e909f482b125084bbfc98ff",
+    "Faecalibacterium_prausnitzii.fasta": "178a4ed7ca0162961ae0f1bbdf33d97a",
+    "Fusobacterium_nucleatum.fasta": "c5b921126b7660d74756bb7834588405",
+    "Lactobacillus_fermentum.fasta": "d1b551c4280893371cd3368cabacdb2a",
+    "Methanobrevibacter_smithii.fasta": "61c9dd97d0c55d17b734b70490be99d3",
+    "Prevotella_corporis.fasta": "af2c24e6f31537cf5a5d29ba570d11a1",
+    "Roseburia_hominis.fasta": "f351e1d4f8788011045652ed3b524565",
+    "Saccharomyces_cerevisiae.fasta": "865d920f451ed5d88444627c29b82dc4",
+    "Salmonella_enterica.fasta": "770d45caeb8c0d86a13b251b2238f08b",
+    "Veillonella_rogosae.fasta": "003bdcb8f3bc1d4847394d62e88940f4"
+  },
+  "minimap2": {
+    "image": "quay.io/biocontainers/minimap2:2.31--h118bc1c_0",
+    "repo_digests": "[\"quay.io/biocontainers/minimap2@sha256:f7e4a9a17912eea542500988ee96013e37a887b3746673636f2773cc81052590\"]",
+    "minimap2_version": "2.31-r1302",
+    "command": "docker run --rm -u 1000:1000 -m 8g --cpus 6 -v /home/himek/projects/metagenomics_1_Nanopore/data/trace/dev:/ref:ro -v /home/himek/projects/metagenomics_1_Nanopore/data/subsets:/reads:ro -v /home/himek/projects/metagenomics_1_Nanopore/data/trace/dev:/out quay.io/biocontainers/minimap2:2.31--h118bc1c_0 minimap2 -x map-ont --secondary=no -t 6 -o /out/dev_vs_refs.paf /ref/ref_combined.fa /reads/SRR31222153.dev.seed20261012.blocks.fastq.gz",
+    "wall_s": 30.1
+  },
+  "counts": {
+    "mapped": 166598,
+    "weak": 13614,
+    "none": 4773,
+    "ambiguous": 15
+  },
+  "finished": "2026-10-17 15:02:33"
+}

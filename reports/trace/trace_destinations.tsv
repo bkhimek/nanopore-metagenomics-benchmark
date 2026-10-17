@@ -1,0 +1,143 @@
+true_species	destination	reads
+Akkermansia muciniphila	species (correct)	2582
+Akkermansia muciniphila	up_genus: Akkermansia [genus]	21
+Akkermansia muciniphila	unclassified	7
+Bacteroides fragilis	species (correct)	23598
+Bacteroides fragilis	up_genus: Bacteroides [genus]	398
+Bacteroides fragilis	unclassified	87
+Bacteroides fragilis	up_higher: Bacteroidales [order]	61
+Bacteroides fragilis	up_family: Bacteroidaceae [family]	28
+Bacteroides fragilis	sister: Bacteroides hominis	19
+Bifidobacterium adolescentis	up_genus: Bifidobacterium [genus]	2933
+Bifidobacterium adolescentis	species (correct)	2314
+Bifidobacterium adolescentis	sister: Bifidobacterium sp. KRGSERBCFTRI	35
+Bifidobacterium adolescentis	sister: Bifidobacterium pseudocatenulatum	29
+Bifidobacterium adolescentis	sister: Bifidobacterium dentium	28
+Bifidobacterium adolescentis	sister: Bifidobacterium longum	27
+Bifidobacterium adolescentis	unclassified	20
+Bifidobacterium adolescentis	sister: Bifidobacterium catenulatum	17
+Bifidobacterium adolescentis	sister: Bifidobacterium breve	13
+Bifidobacterium adolescentis	sister: unclassified Bifidobacterium	11
+Bifidobacterium adolescentis	sister: Bifidobacterium pullorum	7
+Bifidobacterium adolescentis	sister: Bifidobacterium pseudolongum	7
+Bifidobacterium adolescentis	sister: Bifidobacterium choerinum	6
+Bifidobacterium adolescentis	sister: Bifidobacterium angulatum	5
+Bifidobacterium adolescentis	sister: Bifidobacterium canis	5
+Candida albicans	species (correct)	1992
+Candida albicans	unclassified	66
+Candida albicans	elsewhere: Avibacterium sp. 20-126	13
+Candida albicans	up_higher: cellular organisms [cellular root]	13
+Candida albicans	up_higher: Saccharomycotina [subphylum]	6
+Clostridioides difficile	species (correct)	2584
+Clostridioides difficile	up_higher: Bacillota [phylum]	18
+Clostridioides difficile	up_genus: Clostridioides [genus]	15
+Clostridioides difficile	unclassified	13
+Escherichia coli	species (correct)	14113
+Escherichia coli	up_family: Enterobacteriaceae [family]	7175
+Escherichia coli	up_genus: Escherichia [genus]	914
+Escherichia coli	sister: Escherichia albertii	117
+Escherichia coli	same_family: Shigella flexneri	99
+Escherichia coli	same_family: Shigella dysenteriae	95
+Escherichia coli	sister: Escherichia fergusonii	76
+Escherichia coli	sister: Escherichia marmotae	71
+Escherichia coli	unclassified	70
+Escherichia coli	same_family: Citrobacter	58
+Escherichia coli	sister: Escherichia sp. E4742	54
+Escherichia coli	up_higher: root [no rank]	51
+Escherichia coli	same_family: Shigella boydii	50
+Escherichia coli	same_family: Enterobacter	41
+Escherichia coli	up_higher: Enterobacterales [order]	38
+Escherichia coli	same_family: Salmonella enterica	32
+Escherichia coli	up_higher: Gammaproteobacteria [class]	31
+Escherichia coli	same_family: Klebsiella pneumoniae	31
+Escherichia coli	same_family: Klebsiella	28
+Escherichia coli	same_family: Shigella	25
+Escherichia coli	same_family: Shigella sonnei	19
+Escherichia coli	same_family: Citrobacter werkmanii	15
+Escherichia coli	same_family: Enterobacter hormaechei	15
+Escherichia coli	up_higher: Bacteria [domain]	14
+Escherichia coli	same_family: Citrobacter braakii	12
+Escherichia coli	elsewhere: Faecalibacterium prausnitzii	10
+Escherichia coli	same_family: Kosakonia radicincitans	10
+Escherichia coli	same_family: Kluyvera	10
+Escherichia coli	up_higher: Pseudomonadati [kingdom]	9
+Escherichia coli	same_family: Citrobacter sp. RHB25-C09	9
+Escherichia coli	same_family: Salmonella	8
+Escherichia coli	sister: Escherichia ruysiae	8
+Escherichia coli	same_family: Klebsiella michiganensis	8
+Escherichia coli	same_family: Citrobacter farmeri	7
+Escherichia coli	same_family: Yokenella regensburgei	7
+Escherichia coli	elsewhere: Limosilactobacillus fermentum	7
+Escherichia coli	same_family: Citrobacter koseri	7
+Escherichia coli	same_family: Klebsiella quasipneumoniae	7
+Escherichia coli	same_family: Enterobacter cloacae complex	7
+Escherichia coli	same_family: Leclercia	6
+Escherichia coli	same_family: Klebsiella aerogenes	6
+Escherichia coli	same_family: Salmonella bongori	6
+Escherichia coli	same_family: Enterobacter mori	6
+Escherichia coli	same_family: Citrobacter freundii	6
+Escherichia coli	same_family: Klebsiella pneumoniae complex	5
+Escherichia coli	same_family: unclassified Klebsiella	5
+Escherichia coli	same_family: Kosakonia	5
+Escherichia coli	same_family: Citrobacter sp. LJND-P06	5
+Escherichia coli	same_family: Leclercia pneumoniae	5
+Escherichia coli	same_family: Citrobacter portucalensis	5
+Escherichia coli	same_family: Kosakonia beeri	5
+Faecalibacterium prausnitzii	species (correct)	30769
+Faecalibacterium prausnitzii	up_genus: Faecalibacterium [genus]	1248
+Faecalibacterium prausnitzii	unclassified	244
+Faecalibacterium prausnitzii	up_higher: Eubacteriales [order]	114
+Faecalibacterium prausnitzii	up_higher: Clostridia [class]	103
+Faecalibacterium prausnitzii	up_family: Oscillospiraceae [family]	74
+Faecalibacterium prausnitzii	sister: Faecalibacterium taiwanense	18
+Faecalibacterium prausnitzii	up_higher: Bacillota [phylum]	14
+Faecalibacterium prausnitzii	elsewhere: Limosilactobacillus fermentum	10
+Faecalibacterium prausnitzii	up_higher: Bacteria [domain]	10
+Faecalibacterium prausnitzii	sister: Faecalibacterium duncaniae	8
+Faecalibacterium prausnitzii	elsewhere: Bacteroides fragilis	6
+Fusobacterium nucleatum	species (correct)	8444
+Fusobacterium nucleatum	up_genus: Fusobacterium [genus]	315
+Fusobacterium nucleatum	sister: Fusobacterium polymorphum	82
+Fusobacterium nucleatum	unclassified	50
+Fusobacterium nucleatum	sister: Fusobacterium vincentii	48
+Fusobacterium nucleatum	sister: Fusobacterium massiliense	42
+Fusobacterium nucleatum	sister: Fusobacterium pseudoperiodonticum	27
+Fusobacterium nucleatum	sister: Fusobacterium canifelinum	15
+Fusobacterium nucleatum	elsewhere: Limosilactobacillus fermentum	7
+Fusobacterium nucleatum	elsewhere: Faecalibacterium prausnitzii	5
+Fusobacterium nucleatum	elsewhere: Veillonella rogosae	5
+Limosilactobacillus fermentum	species (correct)	17986
+Limosilactobacillus fermentum	unclassified	425
+Limosilactobacillus fermentum	up_family: Lactobacillaceae [family]	364
+Limosilactobacillus fermentum	up_higher: Lactobacillales [order]	66
+Limosilactobacillus fermentum	up_higher: Bacillati [kingdom]	27
+Limosilactobacillus fermentum	up_genus: Limosilactobacillus [genus]	25
+Limosilactobacillus fermentum	up_higher: Bacteria [domain]	11
+Limosilactobacillus fermentum	elsewhere: Faecalibacterium prausnitzii	7
+Limosilactobacillus fermentum	same_family: Lactiplantibacillus plantarum	5
+Methanobrevibacter smithii	species (correct)	143
+Prevotella corporis	species (correct)	9968
+Prevotella corporis	up_higher: Bacteroidales [order]	55
+Prevotella corporis	unclassified	39
+Prevotella corporis	up_genus: Prevotella [genus]	9
+Roseburia hominis	species (correct)	10527
+Roseburia hominis	up_family: Lachnospiraceae [family]	211
+Roseburia hominis	up_higher: Clostridia [class]	137
+Roseburia hominis	unclassified	48
+Roseburia hominis	up_genus: Roseburia [genus]	27
+Roseburia hominis	up_higher: Bacillota [phylum]	17
+Roseburia hominis	elsewhere: Faecalibacterium prausnitzii	8
+Saccharomyces cerevisiae	species (correct)	1874
+Saccharomyces cerevisiae	elsewhere: Homo sapiens	91
+Saccharomyces cerevisiae	unclassified	23
+Saccharomyces cerevisiae	elsewhere: Candida albicans	15
+Saccharomyces cerevisiae	elsewhere: Actinomyces oris	12
+Saccharomyces cerevisiae	up_genus: Saccharomyces [genus]	12
+Saccharomyces cerevisiae	elsewhere: Escherichia coli	6
+Saccharomyces cerevisiae	up_higher: cellular organisms [cellular root]	5
+Saccharomyces cerevisiae	sister: Saccharomyces paradoxus	5
+Salmonella enterica	species (correct)	15
+Veillonella rogosae	species (correct)	21688
+Veillonella rogosae	up_genus: Veillonella [genus]	87
+Veillonella rogosae	unclassified	62
+Veillonella rogosae	elsewhere: Limosilactobacillus fermentum	5
