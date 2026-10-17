@@ -1,0 +1,54 @@
+{
+  "script": "bin/10_sylph_crosswalk.py",
+  "args": {
+    "refdir": "data/reference/D6331.refseq/genomes",
+    "dbs": [
+      "data/db/sylph/gtdb-r232-c200-dbv2.syl2db",
+      "data/db/sylph/fungi-refseq-2024-07-25-c200-v0.3.syldb"
+    ],
+    "gtdb_taxonomy": [
+      "data/db/gtdb_tax/bac120_taxonomy_r232.tsv.gz",
+      "data/db/gtdb_tax/ar53_taxonomy_r232.tsv.gz"
+    ],
+    "image": "quay.io/biocontainers/sylph:1.0.0--hb42e459_0",
+    "tsv": null,
+    "workdir": "data/sylph/crosswalk",
+    "outdir": "reports/sylph",
+    "crosswalk": "reference/d6331_gtdb_crosswalk.csv",
+    "truth": "reference/d6331_expected_reads_by_species.csv",
+    "threads": 6,
+    "sample_threads": 2,
+    "memory": "10g",
+    "min_ani": 95.0
+  },
+  "started": "2026-10-17 19:37:51",
+  "n_reference_files": 21,
+  "sylph": {
+    "image": "quay.io/biocontainers/sylph:1.0.0--hb42e459_0",
+    "repo_digests": "[\"quay.io/biocontainers/sylph@sha256:ffce974c39eea9d7f2b5e53bdd9e5697a7826b452779774c23205108d2e7b022\"]",
+    "command": "docker run --rm --name sylph_cw_14578 -u 1000:1000 -m 10g --cpus 6 -v /home/himek/projects/metagenomics_1_Nanopore/data/db/sylph:/db:ro -v /home/himek/projects/metagenomics_1_Nanopore/data/reference/D6331.refseq/genomes:/ref:ro -v /home/himek/projects/metagenomics_1_Nanopore/data/sylph/crosswalk:/out quay.io/biocontainers/sylph:1.0.0--hb42e459_0 sylph profile -t 6 -s 2 -d /db/gtdb-r232-c200-dbv2.syl2db /db/fungi-refseq-2024-07-25-c200-v0.3.syldb -r /ref/Akkermansia_muciniphila.fasta /ref/Bacteroides_fragilis.fasta /ref/Bifidobacterium_adolescentis.fasta /ref/Candida_albican.fasta /ref/Clostridioides_difficile.fasta /ref/Clostridium_perfringens.fasta /ref/Enterococcus_faecalis.fasta /ref/Escherichia_coli_B1109.fasta /ref/Escherichia_coli_B3008.fasta /ref/Escherichia_coli_B766.fasta /ref/Escherichia_coli_JM109.fasta /ref/Escherichia_coli_b2207.fasta /ref/Faecalibacterium_prausnitzii.fasta /ref/Fusobacterium_nucleatum.fasta /ref/Lactobacillus_fermentum.fasta /ref/Methanobrevibacter_smithii.fasta /ref/Prevotella_corporis.fasta /ref/Roseburia_hominis.fasta /ref/Saccharomyces_cerevisiae.fasta /ref/Salmonella_enterica.fasta /ref/Veillonella_rogosae.fasta -o /out/refs_vs_dbs.tsv",
+    "returncode": 0,
+    "wall_s": 9.6,
+    "peak_container_mem_gib_polled": 2.87,
+    "memory_cap": "10g"
+  },
+  "sylph_header": [
+    "Sample_file",
+    "Genome_file",
+    "Taxonomic_abundance",
+    "Sequence_abundance",
+    "Adjusted_ANI",
+    "Eff_cov",
+    "ANI_5-95_percentile",
+    "Eff_lambda",
+    "Lambda_5-95_percentile",
+    "Median_cov",
+    "Mean_cov_geq1",
+    "Containment_ind",
+    "Naive_ANI",
+    "kmers_reassigned",
+    "Contig_name"
+  ],
+  "finished": "2026-10-17 19:38:02",
+  "not_represented": []
+}

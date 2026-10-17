@@ -1,0 +1,58 @@
+reference_file	mock_species	database_species	source	accession	adjusted_ani	eff_cov	contig_name
+Akkermansia_muciniphila	Akkermansia muciniphila	Akkermansia sp905200945	gtdb	GCA_905200945.1	100.00	0.039	CAJKMG010000001.1 MAG TPA_asm: uncultured Akkermansia sp. isolate ERR414247-bin.14 genome assembly, contig: NODE_1_length_362532_cov_11.812060, whole genome shotgun sequence
+Akkermansia_muciniphila	Akkermansia muciniphila	Akkermansia muciniphila_A	gtdb	GCF_030848305.1	100.00	0.015	NZ_CP114598.1 Akkermansia muciniphila strain MmAkk3 chromosome, complete genome
+Akkermansia_muciniphila	Akkermansia muciniphila	Akkermansia muciniphila	gtdb	GCF_000020225.1	100.00	0.002	NC_010655.1 Akkermansia muciniphila ATCC BAA-835, complete sequence
+Bacteroides_fragilis	Bacteroides fragilis	Bacteroides fragilis_B	gtdb	GCF_050703425.1	100.00	0.011	NZ_CP192724.1 Bacteroides hominis strain Tbg-374 chromosome, complete genome
+Bacteroides_fragilis	Bacteroides fragilis	Bacteroides fragilis	gtdb	GCF_000025985.1	100.00	0.005	NC_003228.3 Bacteroides fragilis NCTC 9343, complete sequence
+Bacteroides_fragilis	Bacteroides fragilis	Bacteroides sp947646015	gtdb	GCA_947646015.1	99.06	0.028	CANSEY010000001.1 MAG TPA_asm: uncultured Bacteroides sp. isolate SRR17794261_bin.38_metawrap_v1.3_MAG genome assembly, contig: NODE.7_length_469444_cov_412_271029, whole genome shotgun sequence
+Bacteroides_fragilis	Bacteroides fragilis	Bacteroides hominis	gtdb	GCF_040094755.1	96.37	0.035	NZ_JBBNHB010000004.1 Bacteroides hominis strain CLA-AA-H207 CLAAAH207_contig_112_length_626, whole genome shotgun sequence
+Bifidobacterium_adolescentis	Bifidobacterium adolescentis	Bifidobacterium adolescentis	gtdb	GCF_000010425.1	100.00	1.000	NC_008618.1 Bifidobacterium adolescentis ATCC 15703, complete sequence
+Candida_albican	Candida albicans	Candida albicans	contig_name	GCF_000182965.3	100.00	0.057	NC_032089.1 Candida albicans SC5314 chromosome 1, complete sequence
+Clostridioides_difficile	Clostridioides difficile	Clostridioides difficile	gtdb	GCF_001077535.1	100.00	0.001	NZ_CP011968.1 Clostridioides difficile ATCC 9689 = DSM 1296 strain DSM 1296T chromosome, complete genome
+Clostridioides_difficile	Clostridioides difficile	Clostridioides difficile_D	gtdb	GCA_945861085.1	98.85	0.029	OX244046.1 Clostridioides difficile genome assembly, chromosome: 1
+Clostridium_perfringens	Clostridium perfringens	Sarcina perfringens	gtdb	GCF_016027375.1	100.00	0.001	NZ_CP065681.1 Clostridium perfringens strain FDAARGOS_903 chromosome, complete genome
+Clostridium_perfringens	Clostridium perfringens	Sarcina sp029258205	gtdb	GCF_029258205.1	98.13	0.040	NZ_JARHZJ010000098.1 MAG: Clostridium sp. isolate cluster1_bin.43 k127_101124, whole genome shotgun sequence
+Enterococcus_faecalis	Enterococcus faecalis	Enterococcus faecalis	gtdb	GCF_029024925.1	100.00	0.001	NZ_CP118962.1 Enterococcus faecalis strain DSM 20478 chromosome, complete genome
+Escherichia_coli_B1109	Escherichia coli	G047199095 sp047199095	gtdb	GCA_047199095.1	100.00	0.023	CP178306.1 Escherichia coli strain ECGI0523 chromosome, complete genome
+Escherichia_coli_B1109	Escherichia coli	Escherichia hormaechei_A	gtdb	GCA_042434945.1	100.00	0.009	CP170191.1 Enterobacter hormaechei strain B56 chromosome, complete genome
+Escherichia_coli_B1109	Escherichia coli	G047199115 sp047199115	gtdb	GCA_047199115.1	100.00	0.005	CP178308.1 Escherichia coli strain ECDA1023 chromosome, complete genome
+Escherichia_coli_B1109	Escherichia coli	Escherichia boydii	gtdb	GCA_041890495.1	100.00	0.001	CP169086.1 Enterobacter hormaechei strain B17-3 chromosome, complete genome
+Escherichia_coli_B1109	Escherichia coli	Escherichia coli_F	gtdb	GCF_036503815.1	99.74	0.025	NZ_AP027764.1 Escherichia coli strain 2017-02-2CC chromosome, complete genome
+Escherichia_coli_B3008	Escherichia coli	Enterobacter flexneri_A	gtdb	GCA_048288485.1	100.00	0.027	CP182557.1 Shigella flexneri strain SFBU0723 chromosome, complete genome
+Escherichia_coli_B3008	Escherichia coli	ECMA0423 sp047199055	gtdb	GCA_047199055.1	100.00	0.027	CP178302.1 Escherichia coli strain ECMA0423 chromosome, complete genome
+Escherichia_coli_B3008	Escherichia coli	G047199115 sp047199115	gtdb	GCA_047199115.1	100.00	0.004	CP178308.1 Escherichia coli strain ECDA1023 chromosome, complete genome
+Escherichia_coli_B3008	Escherichia coli	Escherichia coli_F	gtdb	GCF_036503815.1	100.00	0.004	NZ_AP027764.1 Escherichia coli strain 2017-02-2CC chromosome, complete genome
+Escherichia_coli_B3008	Escherichia coli	Escherichia coli	gtdb	GCF_003697165.2	100.00	0.001	NZ_CP033092.2 Escherichia coli DSM 30083 = JCM 1649 = ATCC 11775 chromosome, complete genome
+Escherichia_coli_B766	Escherichia coli	G047199095 sp047199095	gtdb	GCA_047199095.1	100.00	0.076	CP178306.1 Escherichia coli strain ECGI0523 chromosome, complete genome
+Escherichia_coli_B766	Escherichia coli	Enterobacter flexneri_A	gtdb	GCA_048288485.1	100.00	0.057	CP182557.1 Shigella flexneri strain SFBU0723 chromosome, complete genome
+Escherichia_coli_B766	Escherichia coli	ECMA0423 sp047199055	gtdb	GCA_047199055.1	100.00	0.041	CP178302.1 Escherichia coli strain ECMA0423 chromosome, complete genome
+Escherichia_coli_B766	Escherichia coli	Enterobacter flexneri_B	gtdb	GCA_048288465.1	98.51	0.060	CP182556.1 Shigella flexneri strain SFBU1023 chromosome, complete genome
+Escherichia_coli_B766	Escherichia coli	Escherichia coli_F	gtdb	GCF_036503815.1	98.03	0.035	NZ_AP027764.1 Escherichia coli strain 2017-02-2CC chromosome, complete genome
+Escherichia_coli_JM109	Escherichia coli	G047199115 sp047199115	gtdb	GCA_047199115.1	100.00	0.021	CP178308.1 Escherichia coli strain ECDA1023 chromosome, complete genome
+Escherichia_coli_JM109	Escherichia coli	Enterobacter flexneri_B	gtdb	GCA_048288465.1	100.00	0.021	CP182556.1 Shigella flexneri strain SFBU1023 chromosome, complete genome
+Escherichia_coli_JM109	Escherichia coli	Escherichia coli_F	gtdb	GCF_036503815.1	100.00	0.019	NZ_AP027764.1 Escherichia coli strain 2017-02-2CC chromosome, complete genome
+Escherichia_coli_JM109	Escherichia coli	Escherichia coli	gtdb	GCF_003697165.2	100.00	0.007	NZ_CP033092.2 Escherichia coli DSM 30083 = JCM 1649 = ATCC 11775 chromosome, complete genome
+Escherichia_coli_JM109	Escherichia coli	ECMA0423 sp047199055	gtdb	GCA_047199055.1	100.00	0.005	CP178302.1 Escherichia coli strain ECMA0423 chromosome, complete genome
+Escherichia_coli_b2207	Escherichia coli	G047199115 sp047199115	gtdb	GCA_047199115.1	100.00	0.007	CP178308.1 Escherichia coli strain ECDA1023 chromosome, complete genome
+Escherichia_coli_b2207	Escherichia coli	Enterobacter flexneri_A	gtdb	GCA_048288485.1	100.00	0.004	CP182557.1 Shigella flexneri strain SFBU0723 chromosome, complete genome
+Escherichia_coli_b2207	Escherichia coli	Escherichia hormaechei_A	gtdb	GCA_042434945.1	100.00	0.001	CP170191.1 Enterobacter hormaechei strain B56 chromosome, complete genome
+Escherichia_coli_b2207	Escherichia coli	ECMA0423 sp047199055	gtdb	GCA_047199055.1	97.61	0.050	CP178302.1 Escherichia coli strain ECMA0423 chromosome, complete genome
+Escherichia_coli_b2207	Escherichia coli	Escherichia coli	gtdb	GCF_003697165.2	97.30	0.075	NZ_CP033092.2 Escherichia coli DSM 30083 = JCM 1649 = ATCC 11775 chromosome, complete genome
+Faecalibacterium_prausnitzii	Faecalibacterium prausnitzii	Faecalibacterium prausnitzii_N	gtdb	GCF_049532945.1	100.00	0.025	NZ_CP186691.1 Faecalibacterium prausnitzii strain 2 chromosome, complete genome
+Faecalibacterium_prausnitzii	Faecalibacterium prausnitzii	Faecalibacterium prausnitzii_E	gtdb	GCF_019967995.1	100.00	0.011	NZ_CP065377.1 Faecalibacterium prausnitzii strain Fp77 chromosome, complete genome
+Faecalibacterium_prausnitzii	Faecalibacterium prausnitzii	Faecalibacterium taiwanense	gtdb	GCF_036632915.2	95.18	0.049	NZ_CP155552.1 Faecalibacterium taiwanense strain HLW78 chromosome, complete genome
+Fusobacterium_nucleatum	Fusobacterium nucleatum	Fusobacterium watanabei	gtdb	GCF_965119615.1	100.00	0.031	NZ_OZ221964.1 Fusobacterium watanabei isolate CCUG74246T chromosome CCUG74246, complete sequence
+Fusobacterium_nucleatum	Fusobacterium nucleatum	Fusobacterium paranimalis	gtdb	GCA_965278035.1	100.00	0.026	OZ256152.1 Fusobacterium sp. oral taxon C10 isolate NCTC15132 genome assembly, chromosome: Vestland19
+Fusobacterium_nucleatum	Fusobacterium nucleatum	Fusobacterium animalis	gtdb	GCF_000158275.2	100.00	0.006	NZ_CP007062.1 Fusobacterium animalis 7_1 chromosome, complete genome
+Lactobacillus_fermentum	Lactobacillus fermentum	Limosilactobacillus fermentum	gtdb	GCF_013394085.1	100.00	0.004	NZ_CP040910.1 Limosilactobacillus fermentum strain DSM 20052 chromosome
+Methanobrevibacter_smithii	Methanobrevibacter smithii	Methanocatella intestini	gtdb	GCF_002252585.1	100.00	0.022	NZ_NQLD01000012.1 Methanobrevibacter intestini strain WWM1085 Contig_1, whole genome shotgun sequence
+Methanobrevibacter_smithii	Methanobrevibacter smithii	Methanocatella smithii	gtdb	GCF_000016525.1	99.17	1.000	NC_009515.1 Methanobrevibacter smithii ATCC 35061, complete sequence
+Prevotella_corporis	Prevotella corporis	Prevotella corporis	gtdb	GCF_000430525.1	100.00	0.012	NZ_AUME01000001.1 Prevotella corporis DSM 18810 = JCM 8529 strain DSM 18810 H515DRAFT_scaffold00001.1_C, whole genome shotgun sequence
+Roseburia_hominis	Roseburia hominis	Roseburia hominis	gtdb	GCF_000225345.1	100.00	0.001	NC_015977.1 Roseburia hominis A2-183, complete sequence
+Saccharomyces_cerevisiae	Saccharomyces cerevisiae	Saccharomyces paradoxus	contig_name	GCF_002079055.1	97.29	0.121	NC_047487.1 Saccharomyces paradoxus chromosome I, complete sequence
+Salmonella_enterica	Salmonella enterica	Salmonella enterica	gtdb	GCF_000006945.2	100.00	0.004	NC_003197.2 Salmonella enterica subsp. enterica serovar Typhimurium str. LT2, complete genome
+Salmonella_enterica	Salmonella enterica	Salmonella arizonae	gtdb	GCF_008692845.1	98.67	0.029	NZ_VXJW01000001.1 Salmonella enterica subsp. arizonae strain CCUG 6322T contig_0000001, whole genome shotgun sequence
+Salmonella_enterica	Salmonella enterica	Salmonella diarizonae	gtdb	GCF_008692785.1	95.60	0.079	NZ_VXJV01000001.1 Salmonella enterica subsp. diarizonae strain CCUG 30040T contig_0000001, whole genome shotgun sequence
+Veillonella_rogosae	Veillonella rogosae	Veillonella sp900552445	gtdb	GCA_900552445.1	100.00	0.021	URZS01000001.1 uncultured Veillonella sp. isolate UMGS1506 genome assembly, contig: NODE_808_length_23056_cov_4.717664, whole genome shotgun sequence
+Veillonella_rogosae	Veillonella rogosae	Veillonella sp018381775	gtdb	GCF_018381775.1	100.00	0.017	NZ_JAGZRH010000001.1 MAG: Veillonella sp. isolate L2_021_124G1_dasL2_021_124G1_maxbin2.maxbin.003 L2_021_124G1_scaffold_0, whole genome shotgun sequence
+Veillonella_rogosae	Veillonella rogosae	Veillonella rogosae	gtdb	GCF_002959775.1	100.00	0.001	NZ_PPCX01000010.1 Veillonella rogosae JCM 15642 Contig_10_len_561265, whole genome shotgun sequence

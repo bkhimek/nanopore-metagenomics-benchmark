@@ -1,0 +1,20 @@
+mock_species,mock_taxid,database_species,status,adjusted_ani,eff_cov,genome_accession,source,reference_files
+Akkermansia muciniphila,239935,Akkermansia sp905200945,ok,100.00,0.039,GCA_905200945.1,gtdb,Akkermansia_muciniphila
+Bacteroides fragilis,817,Bacteroides fragilis_B,ok,100.00,0.011,GCF_050703425.1,gtdb,Bacteroides_fragilis
+Bifidobacterium adolescentis,1680,Bifidobacterium adolescentis,ok,100.00,1.000,GCF_000010425.1,gtdb,Bifidobacterium_adolescentis
+Candida albicans,5476,Candida albicans,ok,100.00,0.057,GCF_000182965.3,contig_name,Candida_albican
+Clostridioides difficile,1496,Clostridioides difficile,ok,100.00,0.001,GCF_001077535.1,gtdb,Clostridioides_difficile
+Clostridium perfringens,1502,Sarcina perfringens,ok,100.00,0.001,GCF_016027375.1,gtdb,Clostridium_perfringens
+Enterococcus faecalis,1351,Enterococcus faecalis,ok,100.00,0.001,GCF_029024925.1,gtdb,Enterococcus_faecalis
+Escherichia coli,562,Enterobacter flexneri_A,ok,100.00,0.027,GCA_048288485.1,gtdb,Escherichia_coli_B3008
+Escherichia coli,562,G047199095 sp047199095,ok,100.00,0.023,GCA_047199095.1,gtdb,Escherichia_coli_B1109;Escherichia_coli_B766
+Escherichia coli,562,G047199115 sp047199115,ok,100.00,0.021,GCA_047199115.1,gtdb,Escherichia_coli_JM109;Escherichia_coli_b2207
+Faecalibacterium prausnitzii,853,Faecalibacterium prausnitzii_N,ok,100.00,0.025,GCF_049532945.1,gtdb,Faecalibacterium_prausnitzii
+Fusobacterium nucleatum,851,Fusobacterium watanabei,ok,100.00,0.031,GCF_965119615.1,gtdb,Fusobacterium_nucleatum
+Lactobacillus fermentum,1613,Limosilactobacillus fermentum,ok,100.00,0.004,GCF_013394085.1,gtdb,Lactobacillus_fermentum
+Methanobrevibacter smithii,2173,Methanocatella intestini,ok,100.00,0.022,GCF_002252585.1,gtdb,Methanobrevibacter_smithii
+Prevotella corporis,28128,Prevotella corporis,ok,100.00,0.012,GCF_000430525.1,gtdb,Prevotella_corporis
+Roseburia hominis,301301,Roseburia hominis,ok,100.00,0.001,GCF_000225345.1,gtdb,Roseburia_hominis
+Saccharomyces cerevisiae,4932,Saccharomyces paradoxus,ok,97.29,0.121,GCF_002079055.1,contig_name,Saccharomyces_cerevisiae
+Salmonella enterica,28901,Salmonella enterica,ok,100.00,0.004,GCF_000006945.2,gtdb,Salmonella_enterica
+Veillonella rogosae,423477,Veillonella sp900552445,ok,100.00,0.021,GCA_900552445.1,gtdb,Veillonella_rogosae
