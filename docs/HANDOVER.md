@@ -151,3 +151,13 @@ Next steps, in order:
 2. Email Zymo (tech@zymoresearch.com) for the lot CoA / or ask the Argo authors; the trace makes this the most valuable open item.
 3. Phase 2 arm 3: a long-read-aware profiler (Sylph or minimap2-based). Register arms and predictions first, tune on dev, tag, score eval once per arm. Score every arm against BOTH references (theoretical composition = registered; mapped composition = exploratory) and decide in advance which one is primary.
 4. Housekeeping: LICENSE, README line 'research use only, not clinically validated', stray cd.docx, delete Guide_v2 and Plan_Rev5 once checked, optionally the unused AWS key pair; confirm the AWS bill (about USD 2 expected).
+
+## 2026-10-17 afternoon (Sylph arm registered; downloads running)
+State: Phase 2 arm 3 (Sylph, D18) REGISTERED in PROJECT_STATE.md (section 'Sylph arm'); nothing run on reads yet. Commit this file set and tag `sylph-registered` BEFORE any read is sketched or profiled. Zymo email sent (reply pending).
+- Running (user's WSL, tmux session sylpdl): download of gtdb-r232-c200-dbv2.syl2db (20,044,737,329 bytes) and fungi-refseq-2024-07-25-c200-v0.3.syldb (710,490,375 bytes) into data/db/sylph/; done when dl_done.txt exists. Check sizes and the .headers files (server hashes).
+- Sylph 1.0.0 image pulled (quay.io/biocontainers/sylph:1.0.0--hb42e459_0).
+Next steps, in order:
+1. Commit PROJECT_STATE.md and HANDOVER.md; tag `sylph-registered`; push (tags: git push --tags).
+2. Verify the downloads (sizes, hash), then the crosswalk step (sketch the 21 D6331 genomes, profile against the two databases, map to GTDB species with the GTDB r232 taxonomy file); commit reference/d6331_gtdb_crosswalk.csv before any reads are profiled. I write bin/10 (crosswalk) and bin/11 (sketch, profile, bootstrap, score).
+3. Small test of joint profiling (-d with .syl2db plus .syldb) and peak memory (/usr/bin/time -v) on one block; then dev: sketch, profile, bootstrap, tune 3b, commit, tag `sylph-frozen`; then eval once per arm.
+4. Housekeeping as before; ask the study authors for lot number and basecalling model tier (short email).
