@@ -1,11 +1,12 @@
 # PROJECT_STATE: decision log and findings
 
-Last updated: 2026-10-16 (evening, database-size arms DONE on AWS; instance terminated 18:40 BST; guide v3 and plan Rev6 written)
+Last updated: 2026-10-17 (exploratory read trace and composition check added; see 'Read trace and composition check'; guide v3 and plan Rev6 need a wording correction, see HANDOVER)
 
 ## Status
 Phase 0 (dataset audit) essentially complete; Phase 1 (baseline benchmark) started. Done: run record, chemistry/basecaller, pools sampled and QC'd,
 theoretical composition checked, baseline database and classifier frozen (D12), baseline run on the dev pool, first scoring done (sweep on dev, see Scoring). Truth-table naming issue found and fixed by alias (D13), sweep rerun with it. Evaluable minimum fixed at 20 (D14a). Threshold FROZEN at 0.08% of reads (D14b), chosen on the dev pool by bootstrap-mean F1.
 Eval pool classified and scored ONCE with the frozen threshold (result below, within the written predictions). Depth series run on the eval pool and compared with the registered predictions (all met). Phase 2 arm 2 (database size, D17: PlusPF-8/16/full on AWS) done: registered (dbarms-registered, 820490a), control reproduced, frozen (dbarms-frozen, afe5577), eval scored once per arm; the 8 GB cap is NOT the main cause of the abundance bias (see Database arms RESULT). Phase 2 arm 1 (Kraken2 confidence, D16) done: registered (tag arms-registered, f3c9ba7), dev-tuned and frozen (tag arms-frozen, 15e92f3), eval scored once per arm (result committed a427e54); the baseline (confidence 0) is best; result and comparison with the registered expectations below.
+Exploratory addendum 2026-10-17 (dev pool only, after the registered arms; commit c3d3fa2 and the next one): most of the abundance 'bias' versus the theoretical composition is the tube's own composition (Roseburia, L. fermentum, F. prausnitzii), not the classifier; the classifier loss is confined to E. coli and B. adolescentis and the larger index helps those; see the new section. The registered verdicts are unchanged.
 Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper link. Plan is at revision 6 (16 October; Rev5 kept until checked). Workflow guide is at version 3 (16 October; OneDrive only; section 4 explains thresholds and scoring for a novice and the new section 5 the three Phase 1/2 experiments).
 
 ## Environment
@@ -144,6 +145,7 @@ Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper l
   looks systematic (library or database), not random; origin not resolved.
 - Baseline conclusions for Kraken2 PlusPF-8 (confidence 0): presence/absence is good at a sensible threshold (14/14 evaluable, 1 FP), but abundance is biased: Bray-Curtis 0.17; Roseburia 0.41x,
   Bifidobacterium adolescentis 0.22x, E. coli 0.57x low (reads stop above species or go unclassified) and Limosilactobacillus fermentum 1.66x high. Whether the 8 GB capped index causes the low values is the Phase 2 question (large database on AWS).
+  [Addendum 2026-10-17: the exploratory read trace shows that Roseburia, L. fermentum and F. prausnitzii deviations are present in the mapped reads themselves (composition of the tube), so 'abundance is biased' above mixes tube composition with classifier error; see 'Read trace and composition check'.]
 
 ### Threshold choice on dev (bootstrap, 1000 resamples of 37 blocks, seed 20261016)
 - frac (T) : precision / F1 (point; mean; 95% interval) / false positives (mean)
@@ -267,6 +269,7 @@ Decision rule (registered): both Roseburia hominis and B. adolescentis end at <=
 Reading: a 15-fold larger index improves the picture modestly and unevenly. Reads classified +3.8 points, reads in mock species at species rank +8.4 points, Bray-Curtis 0.168 -> 0.137 (-0.031); E. coli recovers most (0.57 -> 0.86) and B. adolescentis a little (0.22 -> 0.36),
 but Roseburia hominis barely moves (0.41 -> 0.43) and the Limosilactobacillus fermentum over-count grows (1.66 -> 1.77). Presence/absence is unchanged (F1 at the ceiling 0.966 in every arm, 14/14 recall, human the only false positive), so for 'which species are there' the capped index is enough on this mock.
 So most of the remaining bias belongs to the classifier and reference (k-mer sharing within genera, read errors, strain divergence from the reference genomes), not to the size cap. Larger indexes also add human reads at species rank (818 -> 1,143 -> 1,997 on eval; 0.44% -> 1.08% of reads); their origin is still unresolved (see open items).
+[Addendum 2026-10-17: the sentence 'most of the remaining bias belongs to the classifier and reference' above overstated it. The trace shows the Roseburia, L. fermentum and F. prausnitzii deviations are in the mapped reads (tube composition); the classifier part is E. coli and B. adolescentis, and for those a larger index does help (obs/mapped 0.62 -> 0.94 and 0.44 -> 0.72). The registered verdict is left as written because its rule compared reads with the theoretical composition.]
 Comparison with the registered expectations (text above unchanged):
 - (1) MET: classified 94.2 / 95.7 / 98.0 and mock-species reads 83.9 / 87.3 / 92.3 (non-decreasing); full >= 95%.
 - (2) PARTLY: both species rise monotonically with index size (met), but the written guess that PlusPF full would land in 'partly' with Roseburia at 0.5-0.8 is CONTRADICTED (Roseburia 0.43); B. adolescentis stayed below 0.5 as guessed (0.36).
@@ -277,17 +280,39 @@ Comparison with the registered expectations (text above unchanged):
 Caveat: the eval pool has now been looked at once per arm for this experiment too (a third look at the same pool overall); the result is reported as a pre-registered comparison, not as fresh held-out data. Dev and eval agree on every number to within 0.02.
 Cost: instance r5.4xlarge at USD 1.072/h, started 16:56 and terminated about 18:40 BST on 2026-10-16 (about 1.75 h), estimated USD 2 including disk (exact figure to be read from the AWS bill; it can take a day to appear).
 
+## Read trace and composition check (EXPLORATORY, dev pool only, 2026-10-17; bin/08_trace_reads.py commit c3d3fa2, bin/09_composition_vs_mapping.py)
+Why: the question 'where do the missing Roseburia reads go?' could not be answered from the species tables. Method (rules fixed in the scripts before the first run, none tuned on results): map all 185,000 dev reads with minimap2 2.31-r1302 (image quay.io/biocontainers/minimap2:2.31--h118bc1c_0, digest sha256:f7e4a9a17912eea542500988ee96013e37a887b3746673636f2773cc81052590; -x map-ont --secondary=no, 30 s) to the 21 D6331 genome FASTA files (E. coli strains = one species), label each read by the species with the most matching bases (needs >= 50% of read length; ambiguous if runner-up >= 90% of best), then cross the label with the Kraken2 taxon of the same read (frozen baseline, data/classify/dev/baseline_c0). Eval pool not used; registered results not touched. Both scripts tested on synthetic data with hand-derived answers.
+Pool: 185,000 reads; 166,598 (90.05%) map to one species; 15 ambiguous; 13,614 weak (<50% of length matched); 4,773 no alignment. Of the 18,402 unmapped/ambiguous reads Kraken2 classified 8,709 and left 9,693 unclassified (consistent with the 8.9% of reads <500 bp, not checked directly).
+Per species (mapped reads vs expected reads from theoretical DNA %, and where Kraken2 put the mapped reads, PlusPF-8):
+| species | expected | mapped | mapped/exp | Kraken2 correct species | stops above species | notes |
+| Roseburia hominis | 25,900 | 11,003 | 0.42 | 95.7% | 3.6% | only 346 unmapped reads called Roseburia (+12 Lachnospiraceae) |
+| Limosilactobacillus fermentum | 11,100 | 18,944 | 1.71 | 94.9% | 2.6% | over-count is real, not absorbed from relatives |
+| Faecalibacterium prausnitzii | 25,900 | 32,657 | 1.26 | 94.2% | 4.8% | |
+| Bifidobacterium adolescentis | 11,100 | 5,500 | 0.50 | 42.1% | 53.3% | 2,933 reads at genus Bifidobacterium; only 228 to named sister species |
+| Escherichia coli | 25,900 | 23,643 | 0.91 | 59.7% | 34.8% | 7,175 at family Enterobacteriaceae, 914 at genus; 1,192 to named relatives (332 sister species such as E. albertii, 860 other genera of the family such as Shigella) |
+| Bacteroides fragilis | 25,900 | 24,219 | 0.94 | 97.4% | 2.0% | |
+(all 14 evaluable species are in reports/trace/trace_by_species.tsv; destinations in trace_destinations.tsv; Kraken2 calls on unmapped reads in trace_unmapped_kraken.tsv.)
+Composition check, dev pool, called mock species at 0.0008, Bray-Curtis = half L1 (recomputed against theory 0.165/0.150/0.131 versus registered 0.166/0.152/0.136, within 0.001-0.005, convention confirmed):
+| arm | vs theoretical composition | vs mapping composition |
+| PlusPF-8 | 0.165 | 0.065 |
+| PlusPF-16 | 0.150 | 0.048 |
+| PlusPF full | 0.131 | 0.022 |
+Observed Kraken2 reads / mapped reads (PlusPF-8 / 16 / full): Roseburia 0.99/1.01/1.03; L. fermentum 0.98/1.01/1.05; F. prausnitzii 0.98/1.00/1.03; B. fragilis 1.02/1.03/1.06; E. coli 0.62/0.75/0.94; B. adolescentis 0.44/0.52/0.72; Candida albicans 1.25/1.27/1.29; the other species 0.94-1.08.
+Findings: (1) The Roseburia deficit (0.42) is already in the mapped reads and Kraken2 recovers 95.7-99% of them; even if every unclassified unmapped read were Roseburia (9,693 + 346 + 12) that is about 10,000 against about 14,900 missing, so at least about 4,800 and in all likelihood nearly all of the shortfall is Roseburia that the sequenced tube does not contain (or that the library under-represents). The same holds for the L. fermentum (1.71) and F. prausnitzii (1.26) excesses. The lot CoA is unknown, so 'tube differs from theoretical' cannot be separated from library/extraction bias with one sample. (2) The classifier loss is confined to species with close relatives: B. adolescentis (stops at genus, 53%) and E. coli (stops at family, 35%); Kraken2 is cautious rather than wrong (about 5% of E. coli reads and 4% of B. adolescentis reads go to named relatives, against 35% and 53% that stop at a higher rank). A larger index recovers part of it (E. coli 0.62 -> 0.94, B. adolescentis 0.44 -> 0.72), so for these two the 8 GB cap does matter. (3) Against the tube's own composition the full index reaches Bray-Curtis 0.022 (0.065 with PlusPF-8), so the registered 0.17 -> 0.14 understates what the index does. (4) Human: 825 of the roughly 923 dev reads called human at species rank are on reads that match none of the 21 genomes, so they are not mock reads misassigned to human; consistent with real human DNA in the library, not proved.
+Relation to the registered verdict (D17): unchanged and not edited. Its rule compared reads with the THEORETICAL composition (Roseburia and B. adolescentis <= 0.50 with PlusPF full), which mixes tube composition with classifier error; on that rule the verdict was 'cap not the main cause'. This addendum changes the interpretation: for Roseburia the deficit was never the classifier; for B. adolescentis the cap does matter. Found after seeing results, dev only.
+Caveats: mapping is a proxy for truth (reference genomes must be close to the sequenced strains; both yeast references are drafts, so C. albicans (12.58 of 14.68 Mb) is undercounted by mapping, which is the likely cause of its 1.25-1.29); 9.95% of reads do not map to a single species and are outside this comparison; the mapping composition was defined after seeing results and is not used for any registered metric; one run, one chemistry, one pool (dev).
+
 ## Unverified / open
 - Argo paper link and basecalling model tier (see below)
-- Lot-specific CoA for the sequenced tube: lot number unknown. Ask Zymo (tech@zymoresearch.com) or the Argo paper authors. Do not block the project on it; label results as against theoretical composition.
+- Lot-specific CoA for the sequenced tube: lot number unknown. NOW THE MOST VALUABLE OPEN ITEM (the trace shows the tube differs from the theoretical composition by up to 2.4x for single species). Ask Zymo (tech@zymoresearch.com) or the Argo paper authors. Do not block the project on it; label results as against theoretical composition.
 - Basecalling model tier (fast/hac/sup) not stated in the ENA record; look in the Argo paper methods or ask the authors.
 - Argo paper link: reported as confirmed in the paper's data availability statement; not verified by me.
 - Decisions 1 (dataset confirmation) and 2 (threshold rule, evaluable-species minimum) not yet formally settled (see Scoring section)
 - LomanLab ENA accessions (if any)
 - PRJNA751627, PRJEB41184, PRJNA1335824, PRJNA554461 (clinical leads, deferred)
 - Disk: 647 GB free at 2026-10-15 (df, after the database download)
-- Human reads (about 0.35-0.5% of reads with the 8 GB index, 1.08% with the full index): where they come from is unresolved (sample or kit contamination, misassigned low-complexity or conserved sequence, or something else). Candidate check: BLAST or minimap2 a sample of those reads.
-- Where do the missing Roseburia reads go (genus level, other species, unclassified)? The genus_clade_reads column in species_table.tsv in the AWS pack (data/aws_run/dbarms_outputs.tgz, not committed) can answer this without a new run.
+- Human reads (about 0.35-0.5% of reads with the 8 GB index, 1.08% with the full index; 825 of about 923 on dev are on reads that map to none of the 21 mock genomes): where they come from is unresolved (sample or kit contamination, misassigned low-complexity or conserved sequence, or something else). Candidate check: BLAST or minimap2 a sample of those reads.
+- RESOLVED 2026-10-17 (exploratory trace): the 'missing' Roseburia reads are not Kraken2 losses; the mapped reads are already 0.42 of the theoretical amount. Open instead: is that the tube (lot CoA) or library/extraction bias? One sample cannot separate them.
 
 ## Data access findings (2026-10-12)
 - ENA FASTQ for SRR31222153 is one gzip stream (no complete gzip member in the first 100 MB): no random access.

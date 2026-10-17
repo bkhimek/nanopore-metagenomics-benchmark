@@ -1,0 +1,23 @@
+Bray-Curtis (half L1) on the dev pool, called mock species at fraction 0.0008
+
+arm          species registered  vs theory vs mapping
+PlusPF-8          14      0.166      0.165      0.065
+PlusPF-16         14      0.152      0.150      0.048
+PlusPF full       14      0.136      0.131      0.022
+
+observed Kraken2 reads / mapped reads (1.00 = Kraken2 finds as many reads as map to the genome)
+species                              PlusPF-8    PlusPF-16  PlusPF full
+Faecalibacterium prausnitzii             0.98         1.00         1.03
+Bacteroides fragilis                     1.02         1.03         1.06
+Escherichia coli                         0.62         0.75         0.94
+Veillonella rogosae                      1.04         1.05         1.06
+Limosilactobacillus fermentum            0.98         1.01         1.05
+Roseburia hominis                        0.99         1.01         1.03
+Prevotella corporis                      1.04         1.05         1.07
+Fusobacterium nucleatum                  0.96         0.99         1.02
+Bifidobacterium adolescentis             0.44         0.52         0.72
+Clostridioides difficile                 1.00         1.02         1.03
+Akkermansia muciniphila                  1.03         1.04         1.07
+Candida albicans                         1.25         1.27         1.29
+Saccharomyces cerevisiae                 0.94         0.95         0.97
+Methanobrevibacter smithii               1.06         1.08         1.08
