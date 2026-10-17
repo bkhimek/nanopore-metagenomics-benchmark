@@ -1,0 +1,10 @@
+{
+  "script": "bin/11_sylph_arm.py",
+  "time": "2026-10-17 19:54:12",
+  "image": "quay.io/biocontainers/sylph:1.0.0--hb42e459_0",
+  "repo_digests": "[\"quay.io/biocontainers/sylph@sha256:ffce974c39eea9d7f2b5e53bdd9e5697a7826b452779774c23205108d2e7b022\"]",
+  "returncode": 0,
+  "wall_s": 4.0,
+  "peak_gib": 2.57,
+  "command": "docker run --rm --name sylph_profile_15952 -u 1000:1000 -m 10g --memory-swap 10g --cpus 6 -v /home/himek/projects/metagenomics_1_Nanopore/data:/data quay.io/biocontainers/sylph:1.0.0--hb42e459_0 sylph profile /data/sylph/dev/sketch_nodedup/SRR31222153.dev.seed20261012.blocks.fastq.gz.sylsp -d /data/db/sylph/gtdb-r232-c200-dbv2.syl2db /data/db/sylph/fungi-refseq-2024-07-25-c200-v0.3.syldb -t 6 -o /data/sylph/dev/arm_3a_nodedup.tsv"
+}
