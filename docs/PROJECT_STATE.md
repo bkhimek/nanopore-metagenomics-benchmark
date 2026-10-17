@@ -1,13 +1,13 @@
 # PROJECT_STATE: decision log and findings
 
-Last updated: 2026-10-17 (exploratory read trace and composition check added; see 'Read trace and composition check'; guide v3 and plan Rev6 need a wording correction, see HANDOVER)
+Last updated: 2026-10-17 (exploratory read trace and composition check added, see 'Read trace and composition check'; plan Rev7 and guide v4 written with the corrected wording)
 
 ## Status
 Phase 0 (dataset audit) essentially complete; Phase 1 (baseline benchmark) started. Done: run record, chemistry/basecaller, pools sampled and QC'd,
 theoretical composition checked, baseline database and classifier frozen (D12), baseline run on the dev pool, first scoring done (sweep on dev, see Scoring). Truth-table naming issue found and fixed by alias (D13), sweep rerun with it. Evaluable minimum fixed at 20 (D14a). Threshold FROZEN at 0.08% of reads (D14b), chosen on the dev pool by bootstrap-mean F1.
 Eval pool classified and scored ONCE with the frozen threshold (result below, within the written predictions). Depth series run on the eval pool and compared with the registered predictions (all met). Phase 2 arm 2 (database size, D17: PlusPF-8/16/full on AWS) done: registered (dbarms-registered, 820490a), control reproduced, frozen (dbarms-frozen, afe5577), eval scored once per arm; the 8 GB cap is NOT the main cause of the abundance bias (see Database arms RESULT). Phase 2 arm 1 (Kraken2 confidence, D16) done: registered (tag arms-registered, f3c9ba7), dev-tuned and frozen (tag arms-frozen, 15e92f3), eval scored once per arm (result committed a427e54); the baseline (confidence 0) is best; result and comparison with the registered expectations below.
 Exploratory addendum 2026-10-17 (dev pool only, after the registered arms; commit c3d3fa2 and the next one): most of the abundance 'bias' versus the theoretical composition is the tube's own composition (Roseburia, L. fermentum, F. prausnitzii), not the classifier; the classifier loss is confined to E. coli and B. adolescentis and the larger index helps those; see the new section. The registered verdicts are unchanged.
-Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper link. Plan is at revision 6 (16 October; Rev5 kept until checked). Workflow guide is at version 3 (16 October; OneDrive only; section 4 explains thresholds and scoring for a novice and the new section 5 the three Phase 1/2 experiments).
+Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper link. Plan is at revision 7 (17 October; Rev6 kept until checked). Workflow guide is at version 4 (17 October; OneDrive only; section 4 explains thresholds and scoring for a novice, section 5 the three Phase 1/2 experiments plus the exploratory read trace in 5.4).
 
 ## Environment
 - WSL2 Ubuntu, 12 GB RAM cap, 6 processors (C:\Users\krist\.wslconfig)
