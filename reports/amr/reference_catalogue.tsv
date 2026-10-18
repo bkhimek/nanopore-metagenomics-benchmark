@@ -1,0 +1,39 @@
+genome	species	category	symbol	name	class	scope	subtype	method	identity	ref_coverage	contig	start	stop	carrier_dev_cov	evaluable
+Bacteroides_fragilis	Bacteroides fragilis	high-confidence	tet(Q)	tetracycline resistance ribosomal protection protein Tet(Q)	TETRACYCLINE	core	AMR	BLASTX	97.97	100.00	Bacteroides_fragilis	48906	50828	34.58	yes
+Bacteroides_fragilis	Bacteroides fragilis	high-confidence	cepA	CepA family extended-spectrum class A beta-lactamase	BETA-LACTAM	core	AMR	BLASTX	99.67	100.00	Bacteroides_fragilis	380289	381188	34.58	yes
+Bacteroides_fragilis	Bacteroides fragilis	candidate	mef(En2)	macrolide efflux MFS transporter Mef(En2)	MACROLIDE	core	AMR	BLASTX	99.25	100.00	Bacteroides_fragilis	402236	403438	34.58	yes
+Bacteroides_fragilis	Bacteroides fragilis	high-confidence	lnu(AN2)	lincosamide nucleotidyltransferase Lnu(AN2)	LINCOSAMIDE	core	AMR	EXACTX	100.00	100.00	Bacteroides_fragilis	403466	403975	34.58	yes
+Clostridioides_difficile	Clostridioides difficile	high-confidence	blaCDD	CDD family class D beta-lactamase	BETA-LACTAM	core	AMR	BLASTX	98.72	100.00	Clostridium_difficille	367386	368321	3.93	yes
+Clostridioides_difficile	Clostridioides difficile	candidate	blaAHM	AHM family subclass B3-like metallo-beta-lactamase	BETA-LACTAM	core	AMR	PARTIALX	98.42	62.50	Clostridium_difficille	890677	891246	3.93	yes
+Clostridioides_difficile	Clostridioides difficile	candidate	mreE_V497L	Clostridioides difficile cephalosporin resistant MreE	BETA-LACTAM	core	POINT	POINTX	99.60	100.00	Clostridium_difficille	1084477	1087452	3.93	yes
+Clostridioides_difficile	Clostridioides difficile	candidate	vanZ1	glycopeptide resistance protein VanZ1	GLYCOPEPTIDE	plus	AMR	EXACTX	100.00	100.00	Clostridium_difficille	1184042	1184548	3.93	yes
+Clostridioides_difficile	Clostridioides difficile	candidate	nimB-Cd	putative 5-nitroimidazole reductase NimB-Cd	NITROIMIDAZOLE	plus	AMR	EXACTX	100.00	100.00	Clostridium_difficille	1430570	1431034	3.93	yes
+Clostridioides_difficile	Clostridioides difficile	candidate	PnimB_G	Clostridioides difficile metronidazole resistant nimB promoter	NITROIMIDAZOLE	core	POINT	POINTN	99.50	100.00	Clostridium_difficille	1430880	1431280	3.93	yes
+Clostridioides_difficile	Clostridioides difficile	candidate	vanR-Cd	vancomycin resistance response regulator transcription factor VanR-G-Cd	GLYCOPEPTIDE	plus	AMR	BLASTX	99.57	100.00	Clostridium_difficille	1677480	1678178	3.93	yes
+Clostridioides_difficile	Clostridioides difficile	candidate	vanS-Cd	VanG-Cd-type vancomycin resistance histidine kinase VanS	GLYCOPEPTIDE	plus	AMR	BLASTX	99.74	100.00	Clostridium_difficille	1678171	1679310	3.93	yes
+Clostridioides_difficile	Clostridioides difficile	candidate	vanG	D-alanine--D-serine ligase VanG-Cd	GLYCOPEPTIDE	plus	AMR	BLASTX	99.18	100.00	Clostridium_difficille	1679574	1680671	3.93	yes
+Clostridioides_difficile	Clostridioides difficile	candidate	vanT-Cd	membrane-bound serine racemase VanT-Cd	GLYCOPEPTIDE	plus	AMR	BLASTX	99.86	100.00	Clostridium_difficille	1681495	1683630	3.93	yes
+Clostridioides_difficile	Clostridioides difficile	high-confidence	erm(B)	23S rRNA (adenine(2058)-N(6))-methyltransferase Erm(B)	LINCOSAMIDE/MACROLIDE/STREPTOGRAMIN	core	AMR	EXACTX	100.00	100.00	Clostridium_difficille	1779519	1780253	3.93	yes
+Clostridioides_difficile	Clostridioides difficile	candidate	cplR	ABC-F type ribosomal protection protein CplR	LINCOSAMIDE/PLEUROMUTILIN/STREPTOGRAMIN	plus	AMR	BLASTX	98.36	100.00	Clostridium_difficille	2731319	2732968	3.93	yes
+Clostridioides_difficile	Clostridioides difficile	candidate	gyrA_T82I	Clostridioides difficile quinolone resistant GyrA	QUINOLONE	core	POINT	POINTX	99.50	100.00	Clostridium_difficille	4080030	4082453	3.93	yes
+Enterococcus_faecalis	Enterococcus faecalis	high-confidence	lsa(A)	ABC-F type ribosomal protection protein Lsa(A)	LINCOSAMIDE/STREPTOGRAMIN	core	AMR	EXACTX	100.00	100.00	Enterococcus_faecalis	982312	983805		no (carrier not in dev trace)
+Escherichia_coli_B1109	Escherichia coli	candidate	mdtM	multidrug efflux MFS transporter MdtM	EFFLUX	plus	AMR	BLASTX	97.80	99.76	Escherichia_coli_chromosome	2715843	2717069	34.63	yes
+Escherichia_coli_B1109	Escherichia coli	candidate	blaEC	BlaEC family class C beta-lactamase	BETA-LACTAM	plus	AMR	EXACTX	100.00	100.00	Escherichia_coli_chromosome	2916772	2917902	34.63	yes
+Escherichia_coli_B1109	Escherichia coli	candidate	acrF	multidrug efflux RND transporter permease subunit AcrF	EFFLUX	plus	AMR	EXACTX	100.00	100.00	Escherichia_coli_chromosome	3893756	3896857	34.63	yes
+Escherichia_coli_B3008	Escherichia coli	candidate	mdtM	multidrug efflux MFS transporter MdtM	EFFLUX	plus	AMR	BLASTX	93.60	99.02	Escherichia_coli_B3008	1996446	1997663	34.63	yes
+Escherichia_coli_B3008	Escherichia coli	candidate	blaEC	BlaEC family class C beta-lactamase	BETA-LACTAM	plus	AMR	EXACTX	100.00	100.00	Escherichia_coli_B3008	2136984	2138114	34.63	yes
+Escherichia_coli_B3008	Escherichia coli	candidate	acrF	multidrug efflux RND transporter permease subunit AcrF	EFFLUX	plus	AMR	BLASTX	99.61	100.00	Escherichia_coli_B3008	3141867	3144968	34.63	yes
+Escherichia_coli_B766	Escherichia coli	candidate	blaEC	BlaEC family class C beta-lactamase	BETA-LACTAM	plus	AMR	BLASTX	97.88	100.00	E.coli.B766.final.genome	47522	48652	34.63	yes
+Escherichia_coli_B766	Escherichia coli	candidate	acrF	multidrug efflux RND transporter permease subunit AcrF	EFFLUX	plus	AMR	BLASTX	99.52	100.00	E.coli.B766.final.genome	1066404	1069505	34.63	yes
+Escherichia_coli_B766	Escherichia coli	candidate	mdtM	multidrug efflux MFS transporter MdtM	EFFLUX	plus	AMR	BLASTX	98.53	99.76	E.coli.B766.final.genome	4874318	4875544	34.63	yes
+Escherichia_coli_JM109	Escherichia coli	candidate	mdtM	multidrug efflux MFS transporter MdtM	EFFLUX	plus	AMR	EXACTX	100.00	100.00	E.coli.JM109.final.genome	1585618	1586847	34.63	yes
+Escherichia_coli_JM109	Escherichia coli	candidate	blaEC	BlaEC family class C beta-lactamase	BETA-LACTAM	plus	AMR	EXACTX	100.00	100.00	E.coli.JM109.final.genome	1776741	1777871	34.63	yes
+Escherichia_coli_JM109	Escherichia coli	candidate	acrF	multidrug efflux RND transporter permease subunit AcrF	EFFLUX	plus	AMR	EXACTX	100.00	100.00	E.coli.JM109.final.genome	2738748	2741849	34.63	yes
+Escherichia_coli_JM109	Escherichia coli	candidate	gyrA_D87N	Escherichia quinolone resistant GyrA	QUINOLONE	core	POINT	POINTX	99.09	99.66	E.coli.JM109.final.genome	3817068	3819692	34.63	yes
+Escherichia_coli_b2207	Escherichia coli	candidate	acrF	multidrug efflux RND transporter permease subunit AcrF	EFFLUX	plus	AMR	EXACTX	100.00	100.00	E.coli.b2207.final.genome	3387777	3390878	34.63	yes
+Escherichia_coli_b2207	Escherichia coli	candidate	blaEC	BlaEC family class C beta-lactamase	BETA-LACTAM	plus	AMR	EXACTX	100.00	100.00	E.coli.b2207.final.genome	4445422	4446552	34.63	yes
+Escherichia_coli_b2207	Escherichia coli	candidate	mdtM	multidrug efflux MFS transporter MdtM	EFFLUX	plus	AMR	BLASTX	97.31	99.76	E.coli.b2207.final.genome	4686822	4688048	34.63	yes
+Faecalibacterium_prausnitzii	Faecalibacterium prausnitzii	high-confidence	tet(W)	tetracycline resistance ribosomal protection protein Tet(W)	TETRACYCLINE	core	AMR	BLASTX	99.84	100.00	Faecalibacterium_prausnitzii	1123419	1125335	34.61	yes
+Prevotella_corporis	Prevotella corporis	high-confidence	tet(Q)	tetracycline resistance ribosomal protection protein Tet(Q)	TETRACYCLINE	core	AMR	EXACTX	100.00	100.00	Prevotella_corporis.final.genome2	62174	64096	25.57	yes
+Salmonella_enterica	Salmonella enterica	candidate	mdsB	multidrug efflux RND transporter permease subunit MdsB	EFFLUX	plus	AMR	INTERNAL_STOP	99.62	100.00	Salmonella_enterica	3719984	3723148		no (carrier not in dev trace)
+Salmonella_enterica	Salmonella enterica	candidate	mdsA	multidrug efflux RND transporter periplasmic adaptor subunit MdsA	EFFLUX	plus	AMR	BLASTX	98.77	100.00	Salmonella_enterica	3723148	3724371		no (carrier not in dev trace)

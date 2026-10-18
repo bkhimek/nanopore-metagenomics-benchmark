@@ -1,0 +1,128 @@
+{
+ "amrfinder_version": "4.0.23",
+ "database_version": "Software directory: '/home/himek/miniconda3/bin/'\nSoftware version: 4.0.23\nDatabase directory: '/home/himek/miniconda3/share/amrfinderplus/data/2025-07-16.1'\nDatabase version: 2025-07-16.1\nRunning: amrfinder --database_version\namrfinder took 0 seconds to complete",
+ "genomes": {
+  "Akkermansia_muciniphila": {
+   "sha256": "e3928ff744f460bd899d440604af8cbaba9de299997f9292fe1ed6cc2411c704",
+   "organism_flag": null,
+   "point_mutations_searched": false,
+   "cmd": "amrfinder -n /home/himek/projects/metagenomics_1_Nanopore/data/reference/D6331.refseq/genomes/Akkermansia_muciniphila.fasta --plus --threads 4 -o /home/himek/projects/metagenomics_1_Nanopore/data/amr/reference/Akkermansia_muciniphila.amrfinder.tsv"
+  },
+  "Bacteroides_fragilis": {
+   "sha256": "a067eafd375c49b4d24917a39a253f7289f7c3f41655ae7ba2543c4a6af5181a",
+   "organism_flag": null,
+   "point_mutations_searched": false,
+   "cmd": "amrfinder -n /home/himek/projects/metagenomics_1_Nanopore/data/reference/D6331.refseq/genomes/Bacteroides_fragilis.fasta --plus --threads 4 -o /home/himek/projects/metagenomics_1_Nanopore/data/amr/reference/Bacteroides_fragilis.amrfinder.tsv"
+  },
+  "Bifidobacterium_adolescentis": {
+   "sha256": "76678baa1f8aa159bc4da6863035bb87ecf66dc56ca79ebb6fcecaf1f3d19864",
+   "organism_flag": null,
+   "point_mutations_searched": false,
+   "cmd": "amrfinder -n /home/himek/projects/metagenomics_1_Nanopore/data/reference/D6331.refseq/genomes/Bifidobacterium_adolescentis.fasta --plus --threads 4 -o /home/himek/projects/metagenomics_1_Nanopore/data/amr/reference/Bifidobacterium_adolescentis.amrfinder.tsv"
+  },
+  "Candida_albican": {
+   "skipped": "yeast",
+   "sha256": "18ba0313f570b80d35ed412a2d58375e2e2b6b14c9e0f4406104fae7f287bc76"
+  },
+  "Clostridioides_difficile": {
+   "sha256": "ab98d7767c2cc8cf46b8b9bcfe38333a0f27441783312ed1222f556801465bbb",
+   "organism_flag": "Clostridioides_difficile",
+   "point_mutations_searched": true,
+   "cmd": "amrfinder -n /home/himek/projects/metagenomics_1_Nanopore/data/reference/D6331.refseq/genomes/Clostridioides_difficile.fasta --plus --threads 4 -o /home/himek/projects/metagenomics_1_Nanopore/data/amr/reference/Clostridioides_difficile.amrfinder.tsv --organism Clostridioides_difficile"
+  },
+  "Clostridium_perfringens": {
+   "sha256": "6dd92a1e85ac5e4e84f0bd4ec04cffd3a2cf62edbadbb453432c70b09917931f",
+   "organism_flag": null,
+   "point_mutations_searched": false,
+   "cmd": "amrfinder -n /home/himek/projects/metagenomics_1_Nanopore/data/reference/D6331.refseq/genomes/Clostridium_perfringens.fasta --plus --threads 4 -o /home/himek/projects/metagenomics_1_Nanopore/data/amr/reference/Clostridium_perfringens.amrfinder.tsv"
+  },
+  "Enterococcus_faecalis": {
+   "sha256": "730712e359428bdd6488c94de804eccbe37ed357edc6310e9c5fdc9e4f1059f1",
+   "organism_flag": "Enterococcus_faecalis",
+   "point_mutations_searched": true,
+   "cmd": "amrfinder -n /home/himek/projects/metagenomics_1_Nanopore/data/reference/D6331.refseq/genomes/Enterococcus_faecalis.fasta --plus --threads 4 -o /home/himek/projects/metagenomics_1_Nanopore/data/amr/reference/Enterococcus_faecalis.amrfinder.tsv --organism Enterococcus_faecalis"
+  },
+  "Escherichia_coli_B1109": {
+   "sha256": "e9c586a6f98b8588aaf1f5312f86305e176e5833a8702ee3987e7f526be57d8c",
+   "organism_flag": "Escherichia",
+   "point_mutations_searched": true,
+   "cmd": "amrfinder -n /home/himek/projects/metagenomics_1_Nanopore/data/reference/D6331.refseq/genomes/Escherichia_coli_B1109.fasta --plus --threads 4 -o /home/himek/projects/metagenomics_1_Nanopore/data/amr/reference/Escherichia_coli_B1109.amrfinder.tsv --organism Escherichia"
+  },
+  "Escherichia_coli_B3008": {
+   "sha256": "af8e04fd0eb159f99a0c3a2d42ee062cf91f22c28a73a9764ba41c5860952e74",
+   "organism_flag": "Escherichia",
+   "point_mutations_searched": true,
+   "cmd": "amrfinder -n /home/himek/projects/metagenomics_1_Nanopore/data/reference/D6331.refseq/genomes/Escherichia_coli_B3008.fasta --plus --threads 4 -o /home/himek/projects/metagenomics_1_Nanopore/data/amr/reference/Escherichia_coli_B3008.amrfinder.tsv --organism Escherichia"
+  },
+  "Escherichia_coli_B766": {
+   "sha256": "21443c8912b10e8cc62f23ae1e6c4d0417acf37f9967ca2d6feab82ab9c0bc87",
+   "organism_flag": "Escherichia",
+   "point_mutations_searched": true,
+   "cmd": "amrfinder -n /home/himek/projects/metagenomics_1_Nanopore/data/reference/D6331.refseq/genomes/Escherichia_coli_B766.fasta --plus --threads 4 -o /home/himek/projects/metagenomics_1_Nanopore/data/amr/reference/Escherichia_coli_B766.amrfinder.tsv --organism Escherichia"
+  },
+  "Escherichia_coli_JM109": {
+   "sha256": "58007020cdb5b858a538a26f3c2251ccedf83907673e0f25ee993a7237e1ff11",
+   "organism_flag": "Escherichia",
+   "point_mutations_searched": true,
+   "cmd": "amrfinder -n /home/himek/projects/metagenomics_1_Nanopore/data/reference/D6331.refseq/genomes/Escherichia_coli_JM109.fasta --plus --threads 4 -o /home/himek/projects/metagenomics_1_Nanopore/data/amr/reference/Escherichia_coli_JM109.amrfinder.tsv --organism Escherichia"
+  },
+  "Escherichia_coli_b2207": {
+   "sha256": "12f852ebca7899b0c6f2e44b5699a00eb24b449f0478472bc940422552632422",
+   "organism_flag": "Escherichia",
+   "point_mutations_searched": true,
+   "cmd": "amrfinder -n /home/himek/projects/metagenomics_1_Nanopore/data/reference/D6331.refseq/genomes/Escherichia_coli_b2207.fasta --plus --threads 4 -o /home/himek/projects/metagenomics_1_Nanopore/data/amr/reference/Escherichia_coli_b2207.amrfinder.tsv --organism Escherichia"
+  },
+  "Faecalibacterium_prausnitzii": {
+   "sha256": "6425f45058ac12dd6883655ce54afd561e17e0aa892637c07295f959c687b3e0",
+   "organism_flag": null,
+   "point_mutations_searched": false,
+   "cmd": "amrfinder -n /home/himek/projects/metagenomics_1_Nanopore/data/reference/D6331.refseq/genomes/Faecalibacterium_prausnitzii.fasta --plus --threads 4 -o /home/himek/projects/metagenomics_1_Nanopore/data/amr/reference/Faecalibacterium_prausnitzii.amrfinder.tsv"
+  },
+  "Fusobacterium_nucleatum": {
+   "sha256": "310956fdbceea68d50942eec2e46a1705974f847039a04d55dc1564bb8463209",
+   "organism_flag": null,
+   "point_mutations_searched": false,
+   "cmd": "amrfinder -n /home/himek/projects/metagenomics_1_Nanopore/data/reference/D6331.refseq/genomes/Fusobacterium_nucleatum.fasta --plus --threads 4 -o /home/himek/projects/metagenomics_1_Nanopore/data/amr/reference/Fusobacterium_nucleatum.amrfinder.tsv"
+  },
+  "Lactobacillus_fermentum": {
+   "sha256": "1169a15f187d3a6b21c6fae8fe2c25319d0f543990a8eb2b5ba9cc7b77b54b1a",
+   "organism_flag": null,
+   "point_mutations_searched": false,
+   "cmd": "amrfinder -n /home/himek/projects/metagenomics_1_Nanopore/data/reference/D6331.refseq/genomes/Lactobacillus_fermentum.fasta --plus --threads 4 -o /home/himek/projects/metagenomics_1_Nanopore/data/amr/reference/Lactobacillus_fermentum.amrfinder.tsv"
+  },
+  "Methanobrevibacter_smithii": {
+   "sha256": "72715ed7147df4a973b1bd119a9ffbd8b14c5dcd80dc0e06799f0cc34e6c9069",
+   "organism_flag": null,
+   "point_mutations_searched": false,
+   "cmd": "amrfinder -n /home/himek/projects/metagenomics_1_Nanopore/data/reference/D6331.refseq/genomes/Methanobrevibacter_smithii.fasta --plus --threads 4 -o /home/himek/projects/metagenomics_1_Nanopore/data/amr/reference/Methanobrevibacter_smithii.amrfinder.tsv"
+  },
+  "Prevotella_corporis": {
+   "sha256": "f2cb1f82c8c57cda9537a7fe01beabc5dd42931ef7b9c28c87fd092cecdb79a7",
+   "organism_flag": null,
+   "point_mutations_searched": false,
+   "cmd": "amrfinder -n /home/himek/projects/metagenomics_1_Nanopore/data/reference/D6331.refseq/genomes/Prevotella_corporis.fasta --plus --threads 4 -o /home/himek/projects/metagenomics_1_Nanopore/data/amr/reference/Prevotella_corporis.amrfinder.tsv"
+  },
+  "Roseburia_hominis": {
+   "sha256": "d9547871654f1391fce7e4557b6f6a706a0a3dc32f12fa468eca326c44759e89",
+   "organism_flag": null,
+   "point_mutations_searched": false,
+   "cmd": "amrfinder -n /home/himek/projects/metagenomics_1_Nanopore/data/reference/D6331.refseq/genomes/Roseburia_hominis.fasta --plus --threads 4 -o /home/himek/projects/metagenomics_1_Nanopore/data/amr/reference/Roseburia_hominis.amrfinder.tsv"
+  },
+  "Saccharomyces_cerevisiae": {
+   "skipped": "yeast",
+   "sha256": "bc02f6bd3ec9be76240807a6b5fe2ee496c211b780637080dae8ff23ea356b86"
+  },
+  "Salmonella_enterica": {
+   "sha256": "a5090dc27fd7da5d74528c71ea7649721b6fce42d6488110e5b51b60d858fe54",
+   "organism_flag": "Salmonella",
+   "point_mutations_searched": true,
+   "cmd": "amrfinder -n /home/himek/projects/metagenomics_1_Nanopore/data/reference/D6331.refseq/genomes/Salmonella_enterica.fasta --plus --threads 4 -o /home/himek/projects/metagenomics_1_Nanopore/data/amr/reference/Salmonella_enterica.amrfinder.tsv --organism Salmonella"
+  },
+  "Veillonella_rogosae": {
+   "sha256": "dae29feafde9020f244ddac2476593261fe92c0e7134672b1e7eef97a51455f3",
+   "organism_flag": null,
+   "point_mutations_searched": false,
+   "cmd": "amrfinder -n /home/himek/projects/metagenomics_1_Nanopore/data/reference/D6331.refseq/genomes/Veillonella_rogosae.fasta --plus --threads 4 -o /home/himek/projects/metagenomics_1_Nanopore/data/amr/reference/Veillonella_rogosae.amrfinder.tsv"
+  }
+ }
+}

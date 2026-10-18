@@ -1,0 +1,47 @@
+AMR reference catalogue (A3 rules; 140 raw hits, 38 AMR/POINT rows: {'high-confidence': 8, 'candidate': 30})
+
+== high-confidence ==
+Bacteroides_fragilis       tet(Q)           TETRACYCLINE           core AMR   BLASTX        id  97.97 cov 100.00  carrier  34.58  eval: yes
+Bacteroides_fragilis       cepA             BETA-LACTAM            core AMR   BLASTX        id  99.67 cov 100.00  carrier  34.58  eval: yes
+Bacteroides_fragilis       lnu(AN2)         LINCOSAMIDE            core AMR   EXACTX        id 100.00 cov 100.00  carrier  34.58  eval: yes
+Clostridioides_difficile   blaCDD           BETA-LACTAM            core AMR   BLASTX        id  98.72 cov 100.00  carrier   3.93  eval: yes
+Clostridioides_difficile   erm(B)           LINCOSAMIDE/MACROLIDE/ core AMR   EXACTX        id 100.00 cov 100.00  carrier   3.93  eval: yes
+Enterococcus_faecalis      lsa(A)           LINCOSAMIDE/STREPTOGRA core AMR   EXACTX        id 100.00 cov 100.00  carrier      -  eval: no (carrier not in dev trace)
+Faecalibacterium_prausnitz tet(W)           TETRACYCLINE           core AMR   BLASTX        id  99.84 cov 100.00  carrier  34.61  eval: yes
+Prevotella_corporis        tet(Q)           TETRACYCLINE           core AMR   EXACTX        id 100.00 cov 100.00  carrier  25.57  eval: yes
+
+== candidate ==
+Bacteroides_fragilis       mef(En2)         MACROLIDE              core AMR   BLASTX        id  99.25 cov 100.00  carrier  34.58  eval: yes
+Clostridioides_difficile   blaAHM           BETA-LACTAM            core AMR   PARTIALX      id  98.42 cov  62.50  carrier   3.93  eval: yes
+Clostridioides_difficile   mreE_V497L       BETA-LACTAM            core POINT POINTX        id  99.60 cov 100.00  carrier   3.93  eval: yes
+Clostridioides_difficile   vanZ1            GLYCOPEPTIDE           plus AMR   EXACTX        id 100.00 cov 100.00  carrier   3.93  eval: yes
+Clostridioides_difficile   nimB-Cd          NITROIMIDAZOLE         plus AMR   EXACTX        id 100.00 cov 100.00  carrier   3.93  eval: yes
+Clostridioides_difficile   PnimB_G          NITROIMIDAZOLE         core POINT POINTN        id  99.50 cov 100.00  carrier   3.93  eval: yes
+Clostridioides_difficile   vanR-Cd          GLYCOPEPTIDE           plus AMR   BLASTX        id  99.57 cov 100.00  carrier   3.93  eval: yes
+Clostridioides_difficile   vanS-Cd          GLYCOPEPTIDE           plus AMR   BLASTX        id  99.74 cov 100.00  carrier   3.93  eval: yes
+Clostridioides_difficile   vanG             GLYCOPEPTIDE           plus AMR   BLASTX        id  99.18 cov 100.00  carrier   3.93  eval: yes
+Clostridioides_difficile   vanT-Cd          GLYCOPEPTIDE           plus AMR   BLASTX        id  99.86 cov 100.00  carrier   3.93  eval: yes
+Clostridioides_difficile   cplR             LINCOSAMIDE/PLEUROMUTI plus AMR   BLASTX        id  98.36 cov 100.00  carrier   3.93  eval: yes
+Clostridioides_difficile   gyrA_T82I        QUINOLONE              core POINT POINTX        id  99.50 cov 100.00  carrier   3.93  eval: yes
+Escherichia_coli_B1109     mdtM             EFFLUX                 plus AMR   BLASTX        id  97.80 cov  99.76  carrier  34.63  eval: yes
+Escherichia_coli_B1109     blaEC            BETA-LACTAM            plus AMR   EXACTX        id 100.00 cov 100.00  carrier  34.63  eval: yes
+Escherichia_coli_B1109     acrF             EFFLUX                 plus AMR   EXACTX        id 100.00 cov 100.00  carrier  34.63  eval: yes
+Escherichia_coli_B3008     mdtM             EFFLUX                 plus AMR   BLASTX        id  93.60 cov  99.02  carrier  34.63  eval: yes
+Escherichia_coli_B3008     blaEC            BETA-LACTAM            plus AMR   EXACTX        id 100.00 cov 100.00  carrier  34.63  eval: yes
+Escherichia_coli_B3008     acrF             EFFLUX                 plus AMR   BLASTX        id  99.61 cov 100.00  carrier  34.63  eval: yes
+Escherichia_coli_B766      blaEC            BETA-LACTAM            plus AMR   BLASTX        id  97.88 cov 100.00  carrier  34.63  eval: yes
+Escherichia_coli_B766      acrF             EFFLUX                 plus AMR   BLASTX        id  99.52 cov 100.00  carrier  34.63  eval: yes
+Escherichia_coli_B766      mdtM             EFFLUX                 plus AMR   BLASTX        id  98.53 cov  99.76  carrier  34.63  eval: yes
+Escherichia_coli_JM109     mdtM             EFFLUX                 plus AMR   EXACTX        id 100.00 cov 100.00  carrier  34.63  eval: yes
+Escherichia_coli_JM109     blaEC            BETA-LACTAM            plus AMR   EXACTX        id 100.00 cov 100.00  carrier  34.63  eval: yes
+Escherichia_coli_JM109     acrF             EFFLUX                 plus AMR   EXACTX        id 100.00 cov 100.00  carrier  34.63  eval: yes
+Escherichia_coli_JM109     gyrA_D87N        QUINOLONE              core POINT POINTX        id  99.09 cov  99.66  carrier  34.63  eval: yes
+Escherichia_coli_b2207     acrF             EFFLUX                 plus AMR   EXACTX        id 100.00 cov 100.00  carrier  34.63  eval: yes
+Escherichia_coli_b2207     blaEC            BETA-LACTAM            plus AMR   EXACTX        id 100.00 cov 100.00  carrier  34.63  eval: yes
+Escherichia_coli_b2207     mdtM             EFFLUX                 plus AMR   BLASTX        id  97.31 cov  99.76  carrier  34.63  eval: yes
+Salmonella_enterica        mdsB             EFFLUX                 plus AMR   INTERNAL_STOP id  99.62 cov 100.00  carrier      -  eval: no (carrier not in dev trace)
+Salmonella_enterica        mdsA             EFFLUX                 plus AMR   BLASTX        id  98.77 cov 100.00  carrier      -  eval: no (carrier not in dev trace)
+
+Evaluable (carrier dev coverage >= 3x, planning value): {('high-confidence', 'yes'): 7, ('candidate', 'yes'): 28, ('high-confidence', 'no'): 1, ('candidate', 'no'): 2}
+Species with a high-confidence reference ARG: Bacteroides fragilis, Clostridioides difficile, Enterococcus faecalis, Faecalibacterium prausnitzii, Prevotella corporis
+Reference annotation, not biological truth; acquired vs intrinsic is not separated automatically (A3).
