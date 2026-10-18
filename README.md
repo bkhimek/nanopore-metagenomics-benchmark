@@ -1,7 +1,127 @@
 # Nanopore metagenomics: benchmark-led taxonomy and AMR workflow
 
-Independent portfolio project. Reproducible long-read metagenomic analysis on public,
-characterised datasets. Analytical benchmarking only: no clinical validation claims.
+An independent portfolio project: a reproducible, pre-registered benchmark of taxonomic profiling for nanopore
+metagenomic reads, run on a public, characterised mock community. The aim is a defensible picture of where the
+workflow works, where it fails and why, not a pipeline for its own sake.
 
-Status: Phase 0 (dataset feasibility audit). See docs/PROJECT_STATE.md.
-Plan: Nanopore_Metagenomics_Project_Plan_Rev3.docx (kept in OneDrive project folder).
+**Research use only. Not clinically validated.** The project makes no claim about diagnostic sensitivity or
+specificity, and it does not test laboratory enrichment chemistry. Results apply to the chemistry and basecaller of
+the data used.
+
+## What has been done
+
+- **Data:** ZymoBIOMICS Gut Microbiome Standard (D6331) sequenced on a PromethION (Kit 14, Dorado v7.2.13), BioProject
+  PRJNA1181840, run SRR31222153 (23.4 M reads, 128.4 Gb; data from Chen et al., *Nature Communications* 16:1744, 2025).
+  The full run is not downloaded. A seeded, block-stratified sample is fetched from SRA and split into two disjoint
+  pools (development and evaluation), each about 1 Gb (185,000 reads). Both pools come from one run, so the held-out
+  test is within-run, not independent.
+- **Ground truth:** the manufacturer's theoretical composition (17 species), not a lot-specific measurement. The lot
+  number is unknown; the lot certificate of analysis has not been obtained.
+- **Method:** every experiment was registered before it was run (arms, rules for choosing settings, written
+  predictions), committed and tagged in Git. Settings were tuned on the development pool only, frozen by tag, and the
+  evaluation pool was scored once per arm. All arms are reported, including the ones that failed. Evaluation-pool
+  results are therefore pre-registered comparisons on a pool that earlier experiments had already examined, not fresh
+  held-out data.
+
+## Results in brief (evaluation pool)
+
+| Experiment | Outcome |
+|---|---|
+| Baseline: Kraken2 2.17.2, PlusPF-8 index (2026-06-26) | 14 of 14 evaluable species found; human DNA the only false positive; F1 0.966 (the ceiling with human counted as wrong); Bray-Curtis 0.17 against the theoretical composition |
+| Depth series (0.1, 0.25, 0.5 Gb) | F1 0.953, 0.958, 0.966; presence/absence flat down to 0.1 Gb |
+| Kraken2 confidence 0 to 0.4 | Strictness hurts on ~Q18 nanopore reads; the default (0) was best |
+| Database size (8 GB, 16 GB, full PlusPF) | F1 unchanged at 0.966; Bray-Curtis 0.168, 0.153, 0.137 |
+| Read trace (exploratory, development pool) | Much of the departure from the theoretical abundances is in the sequenced sample itself; Kraken2 loses reads mainly for species with close relatives (E. coli, Bifidobacterium adolescentis) |
+| Sylph 1.0.0 with GTDB r232 + RefSeq fungi | F1 0.963; 13 of 14 evaluable species; 0 false positives; Bray-Curtis 0.242 (Kraken2: 0.13 to 0.17). The registered B. adolescentis test is met by 0.002 (0.495 against 0.393 + 0.10), which is marginal and very likely within noise. Abundances are worse than Kraken2's |
+
+A first translation table between mock-species names and GTDB names failed on the development pool (F1 0.50 for a naming
+reason). It was replaced by a genome-to-genome fastANI table in a registered addendum, disclosed as written after the
+development read profiles had been seen; the first version is kept unchanged and reported beside the second.
+
+Full numbers, predictions and verdicts are in `docs/PROJECT_STATE.md`. Small result files are in `reports/`.
+
+## Documents
+
+- `docs/PROJECT_STATE.md`: decisions (D1 to D18), registrations, results, open items. The single source of truth.
+- `docs/HANDOVER.md`: session-by-session state and next steps.
+- `docs/Nanopore_Metagenomics_Project_Plan_Rev8.docx`: project plan.
+- `docs/Nanopore_Metagenomics_Workflow_Guide_v5.docx`: a beginner's guide that explains each step and term
+  (thresholds, precision/recall/F1, Bray-Curtis, the Sylph experiment) from scratch.
+- `docs/lessons_learned.md`, `reference/README.md` (composition table and checks).
+
+## Repository layout
+
+| Path | Content |
+|---|---|
+| `bin/00` to `bin/13` | numbered scripts, in the order they were written (see below) |
+| `reference/` | D6331 composition, expected reads by species, taxid aliases, GTDB crosswalks (v1, v2, v2 for evaluation) |
+| `reports/` | small tracked outputs: scores, species tables, false-positive audits, tuning tables, run records |
+| `metadata/` | ENA run record and the sampling manifest (seed, parameters, checksums) |
+| `docs/` | project documents |
+| `data/`, `results/` | **not tracked** (gitignored): reads, databases, large outputs |
+| `modules/`, `workflows/`, `tests/`, `nextflow.config` | placeholders; see Status |
+
+Scripts: `00_ena_metadata.sh` (run record), `01_sra_block_sample.py` (seeded block sampling from SRA),
+`02_pool_qc.py` (read QC, pool comparison), `03_classify.py` (Kraken2 in Docker), `04_score.py` (scoring),
+`05_depth_series.py`, `06_confidence_arms.py`, `07_database_arms.py` (registered experiments),
+`08_trace_reads.py`, `09_composition_vs_mapping.py` (exploratory read trace), `10` to `13` (Sylph: crosswalk v1,
+sketch/profile/bootstrap/score arm, fastANI crosswalk v2, gap rule). Each script documents its arguments in its header
+and with `--help`.
+
+## Reproducing
+
+Tools run in Docker containers with pinned image tags (Kraken2, SRA tools and Sylph are pinned; digests are recorded in
+the run records). Python scripts use the standard library plus a few packages; `scipy` and similar are installed with
+`pip` into the base environment. The development machine is WSL2 with 12 GB RAM and 6 CPUs; every step fits within
+that except the 16 GB and full PlusPF Kraken2 indexes, which were run once on a temporary 128 GB cloud machine (about
+USD 2). Reads and databases must be fetched locally:
+
+1. Run record: `bin/00_ena_metadata.sh`. Reads: `bin/01_sra_block_sample.py` (resumable; the manifest in `metadata/`
+   lists the blocks and checksums).
+2. Databases are large (Kraken2 PlusPF-8 about 7.5 GB; Sylph GTDB r232 about 20 GB, fungi about 0.7 GB). Their sources,
+   dates and checksums are recorded in `docs/PROJECT_STATE.md`.
+3. Then follow the registered order in `docs/PROJECT_STATE.md`: classify and score the development pool, tune, tag,
+   then score the evaluation pool once.
+
+Pre-registration tags (`git tag`): `freeze-d14`, `arms-registered`, `arms-frozen`, `depth-registered`,
+`dbarms-registered`, `dbarms-frozen`, `sylph-registered`, `sylph-crosswalk`, `sylph-crosswalk-v2`, `sylph-frozen`,
+`sylph-gaprule`, `sylph-eval-scored`. They prove the order in which rules, predictions and results were written.
+
+## Status
+
+Phase 1 (baseline benchmark) and Phase 2 arms 1 to 3 (Kraken2 confidence, database size, Sylph) are done and
+documented. Not done: AMR detection (Phase 3; deferred until an independent truth set is confirmed), Nextflow wrapping
+(the first modules were deliberately written as plain scripts; `modules/`, `workflows/` and `tests/` are empty
+placeholders and `nextflow.config` is a skeleton), a lot-specific composition certificate, the basecalling model tier,
+and any second run or chemistry. The scripts were tested on small synthetic fixtures with answers worked out by hand;
+those fixtures are not yet committed.
+
+## Known limits
+
+- One run, one chemistry, one mock community; two pools from the same run.
+- Evaluation-pool results are pre-registered comparisons on a pool that was used more than once, not fresh validation.
+- The theoretical composition is not a measurement of the sequenced sample. The read trace shows the sample departs
+  from it for several species (for example Roseburia hominis at about 0.4 of the expected amount); whether that is the
+  lot, extraction or library preparation is unresolved.
+- Reads classified as human (about 0.35 to 1% depending on the database) are counted as false positives; their origin
+  is unresolved.
+- The Sylph comparison is between two whole set-ups (reference collection, taxonomy and algorithm), not two algorithms
+  alone, and it depends on a name-translation table that had to be revised.
+
+## Licence and data
+
+Code and documents are released under the MIT licence (see `LICENSE`). Sequencing data, reference genomes and databases
+are not included and keep their own terms: the reads are public under BioProject PRJNA1181840; the Zymo reference
+genomes, Kraken2 indexes, GTDB and Sylph databases have their own licences and are downloaded by the user.
+
+## Provenance
+
+Developed by Krzysztof Gizynski with the help of an AI assistant (Claude, Anthropic); commits carry a co-author trailer.
+Dataset facts were read from the public records (ENA, the paper and its supplement) or recomputed; anything not verified
+is labelled as such in `docs/PROJECT_STATE.md`.
+
+## Citing the data
+
+Chen X., Yin X., Xu X., Zhang T. Species-resolved profiling of antibiotic resistance genes in complex metagenomes
+through long-read overlapping with Argo. *Nature Communications* 16, 1744 (2025).
+https://doi.org/10.1038/s41467-025-57088-y . Data: PRJNA1181840.
