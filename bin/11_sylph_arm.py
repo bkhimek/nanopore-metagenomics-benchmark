@@ -77,14 +77,16 @@ def load_truth(truth_path, N, min_expected):
 
 
 def load_crosswalk(path):
-    m = {}
+    """-> ({database species: mock taxid}, set of all mock taxids listed incl. 'not_represented' ones)"""
+    m, listed = {}, set()
     for r in csv.DictReader(open(P(path))):
+        tid = int(r["mock_taxid"])
+        listed.add(tid)
         if r["status"] != "ok":
             continue
-        tid = int(r["mock_taxid"])
         if m.setdefault(r["database_species"], tid) != tid:
             sys.exit(f"crosswalk: database species {r['database_species']} maps to two mock species")
-    return m
+    return m, listed
 
 
 def read_profile(path, gtdb):
@@ -276,10 +278,13 @@ def context(a):
     man = manifest()
     N = man["pools"][a.pool]["reads"]
     truth = load_truth(a.truth, N, a.evaluable_min_expected)
-    cwmap = load_crosswalk(a.crosswalk)
-    miss = set(truth) - set(cwmap.values())
+    cwmap, listed = load_crosswalk(a.crosswalk)
+    miss = set(truth) - listed
     if miss:
-        sys.exit(f"crosswalk has no database species for truth taxids {sorted(miss)}")
+        sys.exit(f"crosswalk does not list truth taxids {sorted(miss)}")
+    unrep = sorted(set(truth) - set(cwmap.values()))
+    if unrep:
+        print("NOTE: not represented in the database (cannot be detected): " + ", ".join(truth[t]["name"] for t in unrep), file=sys.stderr)
     gtdb = cw.load_gtdb([P(x) for x in a.gtdb_taxonomy])
     return N, truth, cwmap, gtdb
 
