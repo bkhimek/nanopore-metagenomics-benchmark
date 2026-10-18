@@ -228,3 +228,8 @@ Next steps: (1) user: copy Guide v6, README, PROJECT_STATE, HANDOVER, git rm the
 - A4 (this commit; tag amr-a4-registered): read-level pilot design with ResFinder, thresholds (identity 0.80, gene coverage 0.80, >= 3 reads, evaluable E >= 10), family mapping rule, protocol. Nothing run.
 - NEXT: user obtains ResFinder DB, records commit/date in reports/amr/resfinder_version.txt; I write bin/21_amr_reads.py (family map first, then dev run); eval only after a freeze addendum.
 - Still open: email to Dr Zhang (19 Oct), Zymo reply, stray `main` file.
+
+## 2026-10-18 night III (AMR read-level pilot, dev result)
+- 7c712a4 (tag amr-map-registered): bin/21 and family map committed before the read run. The dev run followed: 2 of 3 evaluable high-confidence families detected (tet(Q), tet(W)); cepA missed at 2 reads with 27 ambiguous reads (cause not established); see PROJECT_STATE 'AMR read-level pilot: DEV RESULT'. 6 of 8 high-confidence genes are in ResFinder; most candidate genes are not.
+- NEXT: look at reports/amr/dev_family_reads.tsv for the families sharing the ambiguous cepA reads (user sends it); decide whether an addendum A5 is needed (family rule or ambiguity rule) BEFORE any freeze; then a freeze addendum and one eval run. The eval pool has not been used for AMR.
+- Still open: email to Dr Zhang (19 Oct), Zymo reply, stray `main` file, AMR dev outputs to commit if not yet done (reports/amr/dev_*).

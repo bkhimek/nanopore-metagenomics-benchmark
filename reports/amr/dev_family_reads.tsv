@@ -1,0 +1,8 @@
+family	supporting_reads	ambiguous_reads	mean_identity
+tet(Q)	15	0	0.915
+tet(W)	14	0	0.941
+cepA	2	27	0.817
+erm(B)	1	0	0.989
+cepA-49	0	27	
+cepA-29	0	27	
+cepA-44	0	27	

@@ -1,0 +1,22 @@
+{
+ "script": "bin/21_amr_reads.py",
+ "args": {
+  "pool": "dev",
+  "map_only": false,
+  "resfinder": "data/db/resfinder_db",
+  "catalogue": "reports/amr/reference_catalogue.tsv",
+  "coverage": "reports/sylph/dev_diagnostic/base_basis_by_species.tsv",
+  "reads": "data/subsets/SRR31222153.dev.seed20261012.blocks.fastq.gz",
+  "workdir": "data/amr/dev",
+  "out": "reports/amr",
+  "image": "quay.io/biocontainers/minimap2:2.31--h118bc1c_0",
+  "threads": 6,
+  "memory": "8g",
+  "paf": null
+ },
+ "image": "quay.io/biocontainers/minimap2:2.31--h118bc1c_0",
+ "repo_digests": "[\"quay.io/biocontainers/minimap2@sha256:f7e4a9a17912eea542500988ee96013e37a887b3746673636f2773cc81052590\"]",
+ "command": "docker run --rm -u 1000:1000 -m 8g --cpus 6 -v /home/himek/projects/metagenomics_1_Nanopore/data/db/resfinder_db:/ref:ro -v /home/himek/projects/metagenomics_1_Nanopore/data/subsets:/reads:ro -v /home/himek/projects/metagenomics_1_Nanopore/data/amr/dev:/out quay.io/biocontainers/minimap2:2.31--h118bc1c_0 minimap2 -x map-ont --secondary=yes -N 100 -t 6 -o /out/dev_vs_resfinder.paf /ref/all.fsa /reads/SRR31222153.dev.seed20261012.blocks.fastq.gz",
+ "wall_s": 12.7,
+ "resfinder_version": "ResFinder database\nsource: https://bitbucket.org/genomicepidemiology/resfinder_db.git\ndownloaded: 2026-10-18T19:03Z\ncommit: eecf0aa207594fe6d51badf808473de62b28cb06\ncommit date: 2026-01-26T10:41:50+01:00\n"
+}

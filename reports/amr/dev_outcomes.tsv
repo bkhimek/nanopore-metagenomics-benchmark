@@ -1,0 +1,23 @@
+species	symbol	category	class	strains	gene_len	resfinder_family	resfinder_alleles	status	carrier_cov	mean_read_len	E	evaluable	support	ambiguous	result	ge1	ge2	ge3	ge5	ge10
+Bacteroides fragilis	cepA	high-confidence	BETA-LACTAM	1	900	cepA	3	mapped	34.58	7378	32.1	yes	2	27	missed	1	1	0	0	0
+Bacteroides fragilis	lnu(AN2)	high-confidence	LINCOSAMIDE	1	510		0	not in arm database	34.58	7378	33.1	yes	0	0	not in arm database	0	0	0	0	0
+Bacteroides fragilis	mef(En2)	candidate	MACROLIDE	1	1203		0	not in arm database	34.58	7378	31.2	yes	0	0	not in arm database	0	0	0	0	0
+Bacteroides fragilis	tet(Q)	high-confidence	TETRACYCLINE	1	1923	tet(Q)	4	mapped	34.58	7378	29.2	yes	15	0	detected	1	1	1	1	1
+Clostridioides difficile	blaAHM	candidate	BETA-LACTAM	1	570		0	not in arm database	3.93	6228	3.7	low opportunity (E < 10)	0	0	not in arm database	0	0	0	0	0
+Clostridioides difficile	blaCDD	high-confidence	BETA-LACTAM	1	936		0	not in arm database	3.93	6228	3.6	low opportunity (E < 10)	0	0	not in arm database	0	0	0	0	0
+Clostridioides difficile	cplR	candidate	LINCOSAMIDE/PLEUROMUTILIN/STREPTOGRAMIN	1	1650		0	not in arm database	3.93	6228	3.3	low opportunity (E < 10)	0	0	not in arm database	0	0	0	0	0
+Clostridioides difficile	erm(B)	high-confidence	LINCOSAMIDE/MACROLIDE/STREPTOGRAMIN	1	735	erm(B)	14	mapped	3.93	6228	3.7	low opportunity (E < 10)	1	0	not detected (not scored: low opportunity (E < 10))	1	0	0	0	0
+Clostridioides difficile	nimB-Cd	candidate	NITROIMIDAZOLE	1	465		0	not in arm database	3.93	6228	3.8	low opportunity (E < 10)	0	0	not in arm database	0	0	0	0	0
+Clostridioides difficile	vanG	candidate	GLYCOPEPTIDE	1	1098		0	not in arm database	3.93	6228	3.5	low opportunity (E < 10)	0	0	not in arm database	0	0	0	0	0
+Clostridioides difficile	vanR-Cd	candidate	GLYCOPEPTIDE	1	699		0	not in arm database	3.93	6228	3.7	low opportunity (E < 10)	0	0	not in arm database	0	0	0	0	0
+Clostridioides difficile	vanS-Cd	candidate	GLYCOPEPTIDE	1	1140		0	not in arm database	3.93	6228	3.5	low opportunity (E < 10)	0	0	not in arm database	0	0	0	0	0
+Clostridioides difficile	vanT-Cd	candidate	GLYCOPEPTIDE	1	2136		0	not in arm database	3.93	6228	3.1	low opportunity (E < 10)	0	0	not in arm database	0	0	0	0	0
+Clostridioides difficile	vanZ1	candidate	GLYCOPEPTIDE	1	507		0	not in arm database	3.93	6228	3.7	low opportunity (E < 10)	0	0	not in arm database	0	0	0	0	0
+Enterococcus faecalis	lsa(A)	high-confidence	LINCOSAMIDE/STREPTOGRAMIN	1	1494	lsa(A)	2	mapped				no (carrier not in dev trace)	0	0	not detected (not scored: no (carrier not in dev trace))	0	0	0	0	0
+Escherichia coli	acrF	candidate	EFFLUX	5	3102		0	not in arm database	34.63	7256	25.7	yes	0	0	not in arm database	0	0	0	0	0
+Escherichia coli	blaEC	candidate	BETA-LACTAM	5	1131		0	not in arm database	34.63	7256	31.4	yes	0	0	not in arm database	0	0	0	0	0
+Escherichia coli	mdtM	candidate	EFFLUX	5	1230		0	not in arm database	34.63	7256	31.1	yes	0	0	not in arm database	0	0	0	0	0
+Faecalibacterium prausnitzii	tet(W)	high-confidence	TETRACYCLINE	1	1917	tet(W)	5	mapped	34.61	3088	21.7	yes	14	0	detected	1	1	1	1	1
+Prevotella corporis	tet(Q)	high-confidence	TETRACYCLINE	1	1923	tet(Q)	4	mapped	25.57	7460	21.6	yes	15	0	detected	1	1	1	1	1
+Salmonella enterica	mdsA	candidate	EFFLUX	1	1224		0	not in arm database				no (carrier not in dev trace)	0	0	not in arm database	0	0	0	0	0
+Salmonella enterica	mdsB	candidate	EFFLUX	1	3165		0	not in arm database				no (carrier not in dev trace)	0	0	not in arm database	0	0	0	0	0
