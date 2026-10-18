@@ -1,0 +1,27 @@
+mock_species,mock_taxid,database_species,status,fastani,aligned_fraction,genome_accession,reference_files
+Akkermansia muciniphila,239935,Akkermansia muciniphila,ok,97.50,0.87,GCF_000020225.1,Akkermansia_muciniphila
+Bacteroides fragilis,817,Bacteroides fragilis,ok,98.73,0.87,GCF_000025985.1,Bacteroides_fragilis
+Bifidobacterium adolescentis,1680,Bifidobacterium adolescentis,ok,100.00,1.00,GCF_000010425.1,Bifidobacterium_adolescentis
+Candida albicans,5476,Candida albicans,ok,99.67,0.99,GCF_000182965.3,Candida_albican
+Clostridioides difficile,1496,Clostridioides difficile,ok,98.74,0.93,GCF_001077535.1,Clostridioides_difficile
+Clostridium perfringens,1502,Sarcina perfringens,ok,98.49,0.90,GCF_016027375.1,Clostridium_perfringens
+Enterococcus faecalis,1351,Enterococcus faecalis,ok,98.73,0.88,GCF_029024925.1,Enterococcus_faecalis
+Escherichia coli,562,Escherichia coli,ok,96.92,0.84,GCF_003697165.2,Escherichia_coli_B1109;Escherichia_coli_B3008;Escherichia_coli_B766;Escherichia_coli_JM109;Escherichia_coli_b2207
+Escherichia coli,562,G047199095 sp047199095,ok,96.88,0.95,GCA_047199095.1,Escherichia_coli_B1109;Escherichia_coli_B3008;Escherichia_coli_B766;Escherichia_coli_JM109;Escherichia_coli_b2207
+Escherichia coli,562,ECMA0423 sp047199055,ok,96.85,0.77,GCA_047199055.1,Escherichia_coli_B1109;Escherichia_coli_B3008;Escherichia_coli_B766;Escherichia_coli_JM109;Escherichia_coli_b2207
+Escherichia coli,562,Enterobacter flexneri_A,ok,96.48,0.91,GCA_048288485.1,Escherichia_coli_B1109;Escherichia_coli_B3008;Escherichia_coli_B766;Escherichia_coli_JM109;Escherichia_coli_b2207
+Escherichia coli,562,Escherichia coli_F,ok,96.02,0.89,GCF_036503815.1,Escherichia_coli_B1109;Escherichia_coli_B3008;Escherichia_coli_B766;Escherichia_coli_JM109;Escherichia_coli_b2207
+Escherichia coli,562,Escherichia hormaechei_A,ok,95.72,0.57,GCA_042434945.1,Escherichia_coli_B1109;Escherichia_coli_B3008;Escherichia_coli_B766;Escherichia_coli_JM109;Escherichia_coli_b2207
+Escherichia coli,562,Escherichia boydii,ok,95.68,0.54,GCA_041890495.1,Escherichia_coli_B1109;Escherichia_coli_B3008;Escherichia_coli_B766;Escherichia_coli_JM109;Escherichia_coli_b2207
+Escherichia coli,562,G047199115 sp047199115,ok,95.16,0.88,GCA_047199115.1,Escherichia_coli_JM109
+Escherichia coli,562,Enterobacter flexneri_B,ok,95.05,0.82,GCA_048288465.1,Escherichia_coli_B3008
+Faecalibacterium prausnitzii,853,Faecalibacterium prausnitzii_E,ok,97.62,0.86,GCF_019967995.1,Faecalibacterium_prausnitzii
+Fusobacterium nucleatum,851,Fusobacterium animalis,ok,97.08,0.83,GCF_000158275.2,Fusobacterium_nucleatum
+Limosilactobacillus fermentum,1613,Limosilactobacillus fermentum,ok,99.95,0.97,GCF_013394085.1,Lactobacillus_fermentum
+Methanobrevibacter smithii,2173,Methanocatella smithii,ok,100.00,1.00,GCF_000016525.1,Methanobrevibacter_smithii
+Prevotella corporis,28128,Prevotella corporis,ok,97.29,0.77,GCF_000430525.1,Prevotella_corporis
+Roseburia hominis,301301,Roseburia hominis,ok,98.01,0.86,GCF_000225345.1,Roseburia_hominis
+Saccharomyces cerevisiae,4932,,not_represented,,,,
+Salmonella enterica,28901,Salmonella enterica,ok,98.72,0.94,GCF_000006945.2,Salmonella_enterica
+Salmonella enterica,28901,Salmonella diarizonae,ok,95.00,0.81,GCF_008692785.1,Salmonella_enterica
+Veillonella rogosae,423477,Veillonella rogosae,ok,96.36,0.88,GCF_002959775.1,Veillonella_rogosae

@@ -171,3 +171,13 @@ Next steps, in order:
 3. Update the plan (Rev8) and guide (v5): Sylph registration, the crosswalk finding, and replace 'the tube' with 'the sequenced sample' (headings such as 'The tube is not the label').
 4. Email the study authors (lot number; basecalling model tier); record any Zymo reply.
 5. Housekeeping: LICENSE; README 'research use only, not clinically validated'; stray cd.docx; delete Plan_Rev5/Rev6, Guide_v2/v3 and OneDrive transfer/d1..d12 once the files are in the repo; optionally the unused AWS key pair; confirm the AWS bill (about USD 2).
+
+## 2026-10-18 morning (Sylph: crosswalk v2, dev rescored, Addendum A1 written)
+State: crosswalk v2 built with fastANI (bin/12, commit 6390ab5); dev rescored: 13/14 evaluable detected, 0 false positives, F1 0.963, but abundance is worse than Kraken2 (Bray-Curtis 0.248; E. coli 2.34x over). Arm 3b cutoff = 0 (identical to 3a). Addendum A1 (PROJECT_STATE) records the crosswalk change (made after seeing dev reads), the like-for-like verdict basis and the eval gap rule. Eval pool untouched; nothing frozen yet.
+Next steps, in order:
+1. Dev arm 3c (exploratory): `python3 bin/11_sylph_arm.py profile --pool dev --arm 3c` then `score --arm 3c --pool dev --crosswalk reference/d6331_gtdb_crosswalk_v2.csv --kraken ...`.
+2. Commit addendum, crosswalk v2 and evidence (reference/d6331_gtdb_crosswalk_v2.csv, reports/sylph/crosswalk_v2_*, docs), tag `sylph-crosswalk-v2`. Then commit reports/sylph/dev_selection.json, dev_tuning.txt, dev_3a, dev_3a_crosswalk_v1, dev_3c; tag `sylph-frozen`; push with tags.
+3. Claude writes the gap-rule extension of bin/12 (A1.2) and commits it BEFORE the eval profile exists.
+4. Eval ONCE per arm: `sketch --pool eval --allow-eval`, `profile --pool eval --arm 3a|3c --allow-eval`, gap rule, `score --pool eval --arm 3a|3b|3c --allow-eval --crosswalk reference/d6331_gtdb_crosswalk_v2.csv --kraken PlusPF8=... PlusPFfull=...` (eval species tables under data/aws_run/unpacked/data/score/eval/). Apply the A1.3 verdict. Report v1 beside v2.
+5. Optional dev investigation (not part of the verdict): why E. coli is over- and L. fermentum under-estimated (genome sizes, shared k-mers).
+6. Plan Rev8 and guide v5 (Sylph, the crosswalk finding, 'the sequenced sample' wording); study-author email; housekeeping (see earlier entries; OneDrive transfer/ folders can be deleted).

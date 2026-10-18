@@ -1,0 +1,30 @@
+{
+  "script": "bin/12_crosswalk_fastani.py",
+  "args": {
+    "refdir": "data/reference/D6331.refseq/genomes",
+    "hits": [
+      "data/sylph/crosswalk/refs_vs_dbs.tsv",
+      "data/sylph/dev/arm_3a.tsv"
+    ],
+    "gtdb_taxonomy": [
+      "data/db/gtdb_tax/bac120_taxonomy_r232.tsv.gz",
+      "data/db/gtdb_tax/ar53_taxonomy_r232.tsv.gz"
+    ],
+    "truth": "reference/d6331_expected_reads_by_species.csv",
+    "workdir": "data/crosswalk_v2",
+    "out": "reference/d6331_gtdb_crosswalk_v2.csv",
+    "min_ani": 95.0,
+    "min_af": 0.5,
+    "threads": 6,
+    "fastani_tsv": null
+  },
+  "started": "2026-10-18 05:04:49",
+  "n_candidates": 42,
+  "not_downloadable": [],
+  "fastani_version": "version 1.34",
+  "datasets_version": "datasets version: 18.29.1",
+  "finished": "2026-10-18 05:05:27",
+  "not_represented": [
+    "Saccharomyces cerevisiae"
+  ]
+}
