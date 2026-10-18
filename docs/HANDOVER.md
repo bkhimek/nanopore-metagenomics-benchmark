@@ -222,3 +222,9 @@ Next steps: (1) user: copy Guide v6, README, PROJECT_STATE, HANDOVER, git rm the
 - bin/19_amr_reference.py written (step 1; not yet committed or run). Needs on the user's WSL: conda install -c bioconda -c conda-forge ncbi-amrfinderplus; amrfinder -u. The shell in my session has no network access to NCBI.
 - NEXT: user commits docs + bin/19, tags amr-registered, runs bin/19, sends reports/amr/reference_hits_raw.tsv and reference_run.json; then bin/20 (categories) and addendum A4 (read-level method, thresholds, evaluable minimum).
 - Still open from before: email to Dr Zhang (19 Oct), Zymo reply, stray empty file `main`.
+
+## 2026-10-18 night II (AMR reference catalogue done; Addendum A4 registered)
+- bd61f30: AMRFinderPlus 4.0.23 / db 2025-07-16.1 on the reference genomes: 8 high-confidence and 30 candidate reference ARGs (see PROJECT_STATE 'AMR reference catalogue RESULT'). amr-registered tag is on 99629f3 (A3 + bin/19).
+- A4 (this commit; tag amr-a4-registered): read-level pilot design with ResFinder, thresholds (identity 0.80, gene coverage 0.80, >= 3 reads, evaluable E >= 10), family mapping rule, protocol. Nothing run.
+- NEXT: user obtains ResFinder DB, records commit/date in reports/amr/resfinder_version.txt; I write bin/21_amr_reads.py (family map first, then dev run); eval only after a freeze addendum.
+- Still open: email to Dr Zhang (19 Oct), Zymo reply, stray `main` file.
