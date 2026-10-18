@@ -309,7 +309,7 @@ def cmd_score(a):
     rows = read_profile(prof, gtdb)
     if not rows:
         sys.exit(f"no genome rows in {prof}")
-    name = f"{a.pool}_{a.arm}" + (f"_cut{cutoff:g}" if a.arm == "3b" else "")
+    name = f"{a.pool}_{a.arm}" + (f"_cut{cutoff:g}" if a.arm == "3b" else "") + (f"_{a.label}" if a.label else "")
     out = P("reports", "sylph", name)
     if a.pool == "eval" and os.path.exists(out):
         sys.exit(f"{out} exists: the evaluation pool is scored once per arm")
@@ -479,6 +479,7 @@ def main():
     p.add_argument("--sketch-dir"); p.add_argument("--suffix", default=""); p.set_defaults(f=cmd_profile)
     p = sub.add_parser("bootstrap"); common(p, True); p.add_argument("--B", type=int, help="number of resamples (default 100; 50 if the first sketch takes > 180 s)"); p.set_defaults(f=cmd_bootstrap)
     p = sub.add_parser("score"); common(p); p.add_argument("--arm", choices=["3a", "3b", "3c"], required=True); p.add_argument("--cutoff", type=float)
+    p.add_argument("--label", default="", help="suffix for the output folder name only (e.g. crosswalk_v1)")
     p.add_argument("--profile"); p.add_argument("--kraken", nargs="*", type=lambda s: tuple(s.split("=", 1)), help="label=path/to/species_table.tsv"); p.set_defaults(f=cmd_score)
     p = sub.add_parser("tune"); common(p); p.set_defaults(f=cmd_tune)
     p = sub.add_parser("diff"); p.add_argument("a"); p.add_argument("b"); p.add_argument("--gtdb-taxonomy", nargs="+", default=GTDB_TAX); p.set_defaults(f=cmd_diff)
