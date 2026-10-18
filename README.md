@@ -1,4 +1,4 @@
-# Nanopore metagenomics: benchmark-led taxonomy and AMR workflow
+# Nanopore metagenomics: benchmark-led taxonomic profiling (AMR planned)
 
 An independent portfolio project: a reproducible, pre-registered benchmark of taxonomic profiling for nanopore
 metagenomic reads, run on a public, characterised mock community. The aim is a defensible picture of where the
@@ -106,6 +106,7 @@ those fixtures are not yet committed.
   lot, extraction or library preparation is unresolved.
 - Reads classified as human (about 0.35 to 1% depending on the database) are counted as false positives; their origin
   is unresolved.
+- Abundance is judged against the manufacturer's composition, which is a share of DNA mass, while the primary Kraken2 scores count reads. Species differ in read length in this run (about 2 kb for Limosilactobacillus fermentum, 7 to 9 kb for most), so read shares and base shares differ; the base-share view was added afterwards (Addendum A2) and does not replace the registered scores. Full-index and 16 GB Kraken2 results were not recomputed in bases.
 - The Sylph comparison is between two whole set-ups (reference collection, taxonomy and algorithm), not two algorithms
   alone, and it depends on a name-translation table that had to be revised.
 
