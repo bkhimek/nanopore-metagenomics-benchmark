@@ -1,0 +1,16 @@
+accession	database_species	mock_species	sequence_abundance	taxonomic_abundance	eff_cov	true_cov	median_cov	mean_cov_geq1	adjusted_ani	kmers_reassigned
+GCF_002959775.1	Veillonella rogosae	Veillonella rogosae	16.8592	25.6146	68.0	91.044	68.0	66.094	97.69	1
+GCF_000025985.1	Bacteroides fragilis	Bacteroides fragilis	16.0433	10.1705	27.0	36.15	27.0	27.1	98.89	0
+GCA_047199095.1	G047199095 sp047199095	Escherichia coli	12.9776	9.4171	25.0	33.472	25.0	23.281	98.32	0
+GCA_047199115.1	G047199115 sp047199115	Escherichia coli	12.5913	9.0404	24.0	32.133	24.0	24.075	95.61	6704
+GCF_019967995.1	Faecalibacterium prausnitzii_E	Faecalibacterium prausnitzii	8.6579	9.7938	26.0	34.811	26.0	26.991	98.07	11
+GCA_047199055.1	ECMA0423 sp047199055	Escherichia coli	7.6866	5.7517	15.269	20.444	13.0	15.269	95.14	6529
+GCF_000430525.1	Prevotella corporis	Prevotella corporis	6.3486	7.5337	20.0	26.778	20.0	20.226	98.03	2
+GCF_000225345.1	Roseburia hominis	Roseburia hominis	4.3141	3.9908	10.595	14.185	10.0	10.595	98.4	0
+GCF_000158275.2	Fusobacterium animalis	Fusobacterium nucleatum	3.6839	4.8693	12.927	17.307	13.0	12.927	97.91	0
+GCF_013394085.1	Limosilactobacillus fermentum	Limosilactobacillus fermentum	3.0491	5.3666	14.247	19.075	14.0	14.247	99.99	0
+GCF_000010425.1	Bifidobacterium adolescentis	Bifidobacterium adolescentis	2.9396	4.6746	12.41	16.615	12.0	12.41	99.99	0
+GCF_001077535.1	Clostridioides difficile	Clostridioides difficile	1.6412	1.3126	3.485	4.665	3.0	3.485	98.98	0
+GCF_000182965.3	Candida albicans	Candida albicans	1.5814	0.3679	0.977	1.308	1.0	1.603	99.81	0
+GCF_000020225.1	Akkermansia muciniphila	Akkermansia muciniphila	1.5014	1.8727	4.971	6.656	5.0	4.971	98.14	0
+GCF_000016525.1	Methanocatella smithii	Methanobrevibacter smithii	0.1248	0.2237	0.594	0.795	1.0	1.326	99.62	0

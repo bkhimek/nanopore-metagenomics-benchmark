@@ -1,0 +1,14 @@
+mock_species	taxid	dna_pct	genome_rows	eff_cov_max	eff_cov_sum	true_cov_max	median_cov_best	mean_cov_best	kmers_reassigned_sum	adjusted_ani_best	expected_cov	mapped_cov	eff_over_expected	eff_over_mapped	true_over_mapped	obs_exp_sum_rule	obs_exp_best_genome_rule
+Escherichia coli	562	14	3	25.00	64.27	33.47	25	23.28	13233	98.32	28.76	26.21	0.87	0.95	1.28	2.342	1.146
+Bacteroides fragilis	817	14	1	27.00	27.00	36.15	27	27.10	0	98.89	27.52	25.74	0.98	1.05	1.40	1.130	1.417
+Faecalibacterium prausnitzii	853	14	1	26.00	26.00	34.81	26	26.99	11	98.07	48.80	61.54	0.53	0.42	0.57	0.610	0.765
+Roseburia hominis	301301	14	1	10.60	10.60	14.19	10	10.60	0	98.40	41.07	17.45	0.26	0.61	0.81	0.304	0.381
+Veillonella rogosae	423477	14	1	68.00	68.00	91.04	68	66.09	1	97.69	65.90	55.61	1.03	1.22	1.64	1.187	1.489
+Fusobacterium nucleatum	851	6	1	12.93	12.93	17.31	13	12.93	0	97.91	24.90	20.32	0.52	0.64	0.85	0.605	0.759
+Limosilactobacillus fermentum	1613	6	1	14.25	14.25	19.07	14	14.25	0	99.99	31.99	54.60	0.45	0.26	0.35	0.501	0.629
+Bifidobacterium adolescentis	1680	6	1	12.41	12.41	16.61	12	12.41	0	99.99	29.16	14.45	0.43	0.86	1.15	0.483	0.606
+Prevotella corporis	28128	6	1	20.00	20.00	26.78	20	20.23	2	98.03	20.68	18.82	0.97	1.06	1.42	1.043	1.309
+Clostridioides difficile	1496	1.5	1	3.48	3.48	4.67	3	3.48	0	98.98	3.62	3.46	0.96	1.01	1.35	1.079	1.353
+Candida albicans	5476	1.5	1	0.98	0.98	1.31	1	1.60	0	99.81	1.04	0.79	0.94	1.24	1.65	1.040	1.304
+Akkermansia muciniphila	239935	1.5	1	4.97	4.97	6.66	5	4.97	0	98.14	5.34	5.03	0.93	0.99	1.32	0.987	1.238
+Methanobrevibacter smithii	2173	0.1	1	0.59	0.59	0.80	1	1.33	0	99.62	0.55	0.42	1.08	1.40	1.88	1.231	1.544

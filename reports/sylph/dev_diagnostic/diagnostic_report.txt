@@ -1,0 +1,25 @@
+Sylph diagnostic (EXPLORATORY, development pool; profile data/sylph/dev/arm_3a.tsv; 185000 reads, mean length 5491)
+
+Registered rule (sum of genome rows per mock species): Bray-Curtis among called mock species 0.240
+What-if (best-covered genome row only):                Bray-Curtis among called mock species 0.182
+
+Single-row species: Sequence_abundance / (Eff_cov x genome size) ranges 0.106 to 0.118; Taxonomic_abundance / Eff_cov ranges 0.3766 to 0.3767
+  (near-constant ratios mean: Sequence_abundance ~ Eff_cov x genome length, Taxonomic_abundance ~ Eff_cov)
+
+species                          rows  effmax  effsum  trueC exp.cov map.cov eff/map true/map obs/exp sum best-genome
+Escherichia coli                    3   25.00   64.27  33.47   28.76   26.21    0.95     1.28       2.342       1.146
+Bacteroides fragilis                1   27.00   27.00  36.15   27.52   25.74    1.05     1.40       1.130       1.417
+Faecalibacterium prausnitzii        1   26.00   26.00  34.81   48.80   61.54    0.42     0.57       0.610       0.765
+Roseburia hominis                   1   10.60   10.60  14.19   41.07   17.45    0.61     0.81       0.304       0.381
+Veillonella rogosae                 1   68.00   68.00  91.04   65.90   55.61    1.22     1.64       1.187       1.489
+Fusobacterium nucleatum             1   12.93   12.93  17.31   24.90   20.32    0.64     0.85       0.605       0.759
+Limosilactobacillus fermentum       1   14.25   14.25  19.07   31.99   54.60    0.26     0.35       0.501       0.629
+Bifidobacterium adolescentis        1   12.41   12.41  16.61   29.16   14.45    0.86     1.15       0.483       0.606
+Prevotella corporis                 1   20.00   20.00  26.78   20.68   18.82    1.06     1.42       1.043       1.309
+Clostridioides difficile            1    3.48    3.48   4.67    3.62    3.46    1.01     1.35       1.079       1.353
+Candida albicans                    1    0.98    0.98   1.31    1.04    0.79    1.24     1.65       1.040       1.304
+Akkermansia muciniphila             1    4.97    4.97   6.66    5.34    5.03    0.99     1.32       0.987       1.238
+Methanobrevibacter smithii          1    0.59    0.59   0.80    0.55    0.42    1.40     1.88       1.231       1.544
+
+Notes: expected and mapped coverage assume the pool mean read length for every species and Table-2 genome sizes (mapped coverage uses the mean size
+for E. coli's five strains); both are approximate. The best-genome what-if is post hoc and exploratory; it does not change the registered verdict.
