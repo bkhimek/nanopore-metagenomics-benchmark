@@ -1,0 +1,51 @@
+{
+  "pool": "eval",
+  "arm": "3a",
+  "cutoff": 0,
+  "profile": "data/sylph/eval/arm_3a.tsv",
+  "primary": {
+    "called": 13,
+    "correct": 13,
+    "fp": 0,
+    "tp_evaluable": 13,
+    "precision": 1.0,
+    "recall_evaluable": 0.9285714285714286,
+    "recall_all_truth": 0.7647058823529411,
+    "f1": 0.962962962962963,
+    "l1": 0.4971859103368546,
+    "bray_curtis": 0.2485929551684274,
+    "missed_evaluable": [
+      4932
+    ]
+  },
+  "bray_curtis_among_called_mock": 0.24167364980708042,
+  "secondary": {
+    "called": 13,
+    "correct": 13,
+    "fp": 0,
+    "tp_evaluable": 13,
+    "precision": 1.0,
+    "recall_evaluable": 0.9285714285714286,
+    "recall_all_truth": 0.7647058823529411,
+    "f1": 0.962962962962963,
+    "l1": 0.4968734880879076,
+    "bray_curtis": 0.24843674404395377,
+    "missed_evaluable": [
+      4932
+    ]
+  },
+  "bray_curtis_taxonomic_among_called_mock": 0.2469078620764014,
+  "false_positives": [],
+  "b_adolescentis_obs_over_exp": 0.49469213864119466,
+  "n_nonmock_fp_registered": 0,
+  "kraken_comparators": {
+    "PlusPF8": {
+      "b_adolescentis_share_obs_over_exp": 0.2659682985545155,
+      "bc_among_called_mock": 0.16669780117124836
+    },
+    "PlusPFfull": {
+      "b_adolescentis_share_obs_over_exp": 0.39261416575349695,
+      "bc_among_called_mock": 0.1318322482727907
+    }
+  }
+}

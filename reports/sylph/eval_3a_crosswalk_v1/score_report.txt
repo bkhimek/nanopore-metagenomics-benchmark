@@ -1,0 +1,41 @@
+Sylph arm 3a on the eval pool: 15 genome rows -> 14 species after filter eff_cov >= 0 (profile data/sylph/eval/arm_3a.tsv, pool reads 185000)
+Evaluable species (expected >= 20 reads): 14 of 17
+
+PRIMARY (Sequence_abundance vs genomic-DNA composition): called 14; correct 7; false positives 7; evaluable detected 7/14
+  precision 0.500  recall(evaluable) 0.500  recall(all 17) 0.412  F1 0.500  L1 1.334  Bray-Curtis (04 convention) 0.667
+  Bray-Curtis among called mock species only (09 convention) 0.305
+  missed evaluable: Bacteroides fragilis, Fusobacterium nucleatum, Faecalibacterium prausnitzii, Methanobrevibacter smithii, Saccharomyces cerevisiae, Akkermansia muciniphila, Veillonella rogosae
+
+SECONDARY (Taxonomic_abundance vs genome-copy composition): Bray-Curtis (04 convention) 0.695; among called mock species 0.318; F1 0.500
+
+species                            DNA% exp.reads  seq_ab%  tax_ab%  effcov obs/exp*  status
+Faecalibacterium prausnitzii         14   25900.0    0.000    0.000   0.000      nan  missed
+Veillonella rogosae                  14   25900.0    0.000    0.000   0.000      nan  missed
+Roseburia hominis                    14   25900.0    4.314    4.007  10.568    0.330  detected
+Bacteroides fragilis                 14   25900.0    0.000    0.000   0.000      nan  missed
+Escherichia coli                     14   25900.0   26.157   18.957  25.000    1.999  detected
+Prevotella corporis                   6   11100.0    6.046    7.204  19.000    1.078  detected
+Bifidobacterium adolescentis          6   11100.0    3.010    4.806  12.677    0.537  detected
+Fusobacterium nucleatum               6   11100.0    0.000    0.000   0.000      nan  missed
+Limosilactobacillus fermentum         6   11100.0    3.002    5.305  13.992    0.535  detected
+Clostridioides difficile            1.5    2775.0    1.649    1.324   3.492    1.176  detected
+Akkermansia muciniphila             1.5    2775.0    0.000    0.000   0.000      nan  missed
+Candida albicans                    1.5    2775.0    1.618    0.378   0.997    1.154  detected
+Saccharomyces cerevisiae            1.4    2590.0    0.000    0.000   0.000      nan  missed
+Methanobrevibacter smithii          0.1     185.0    0.000    0.000   0.000      nan  missed
+Salmonella enterica                0.01      18.5    0.000    0.000   0.000      nan  missed (not evaluable)
+Enterococcus faecalis             0.001       1.9    0.000    0.000   0.000      nan  missed (not evaluable)
+Clostridium perfringens          0.0001       0.2    0.000    0.000   0.000      nan  missed (not evaluable)
+  * obs/exp = share among called mock species / expected DNA share among the same species (no absolute read counts without -u)
+
+False-positive audit (7 non-mock species):
+  Veillonella rogosae                       16.652 %  effcov 67.000  [same genus as a mock species]
+  Bacteroides fragilis                      16.082 %  effcov 27.000  [same genus as a mock species]
+  Faecalibacterium prausnitzii_E             8.679 %  effcov 26.000  [same genus as a mock species]
+  ECMA0423 sp047199055                       7.633 %  effcov 15.127  [other]
+  Fusobacterium animalis                     3.575 %  effcov 12.515  [same genus as a mock species]
+  Akkermansia muciniphila                    1.466 %  effcov 4.842  [same genus as a mock species]
+  Methanocatella smithii                     0.116 %  effcov 0.549  [same genus as a mock species]
+  non-mock false positives by the REGISTERED rule: 7 (of which 6 in the genus of a mock species or of a crosswalk species)
+Kraken2 comparator PlusPF8: B. adolescentis obs/exp on the SAME share basis 0.266; Bray-Curtis among called mock species 0.167
+Kraken2 comparator PlusPFfull: B. adolescentis obs/exp on the SAME share basis 0.393; Bray-Curtis among called mock species 0.132
