@@ -7,7 +7,7 @@ Phase 0 (dataset audit) essentially complete; Phase 1 (baseline benchmark) start
 theoretical composition checked, baseline database and classifier frozen (D12), baseline run on the dev pool, first scoring done (sweep on dev, see Scoring). Truth-table naming issue found and fixed by alias (D13), sweep rerun with it. Evaluable minimum fixed at 20 (D14a). Threshold FROZEN at 0.08% of reads (D14b), chosen on the dev pool by bootstrap-mean F1.
 Eval pool classified and scored ONCE with the frozen threshold (result below, within the written predictions). Depth series run on the eval pool and compared with the registered predictions (all met). Phase 2 arm 2 (database size, D17: PlusPF-8/16/full on AWS) done: registered (dbarms-registered, 820490a), control reproduced, frozen (dbarms-frozen, afe5577), eval scored once per arm; the 8 GB cap is NOT the main cause of the abundance bias (see Database arms RESULT). Phase 2 arm 1 (Kraken2 confidence, D16) done: registered (tag arms-registered, f3c9ba7), dev-tuned and frozen (tag arms-frozen, 15e92f3), eval scored once per arm (result committed a427e54); the baseline (confidence 0) is best; result and comparison with the registered expectations below.
 Exploratory addendum 2026-10-17 (dev pool only, after the registered arms; commit c3d3fa2 and the next one): most of the abundance 'bias' versus the theoretical composition is the sequenced sample's own composition (lot, extraction and library prep not separable) (Roseburia, L. fermentum, F. prausnitzii), not the classifier; the classifier loss is confined to E. coli and B. adolescentis and the larger index helps those; see the new section. The registered verdicts are unchanged.
-Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper link. Plan is at revision 7 (17 October; Rev6 kept until checked). Workflow guide is at version 4 (17 October; OneDrive only; section 4 explains thresholds and scoring for a novice, section 5 the three Phase 1/2 experiments plus the exploratory read trace in 5.4).
+Still open, non-blocking: lot-specific CoA, basecalling model tier (Argo paper link now verified, 2026-10-18). Plan is at revision 8 and the workflow guide at version 5 (18 October; OneDrive only; guide section 4 explains thresholds and scoring for a novice, section 5 the four Phase 1/2 experiments including Sylph in 5.5, plus the exploratory read trace in 5.4).
 
 ## Environment
 - WSL2 Ubuntu, 12 GB RAM cap, 6 processors (C:\Users\krist\.wslconfig)
@@ -62,7 +62,7 @@ Still open, non-blocking: lot-specific CoA, basecalling model tier, Argo paper l
 ## Chemistry and basecaller (verified 2026-10-15 from the ENA record of experiment SRX26602699)
 - DESIGN_DESCRIPTION (submitter free text, not a structured field): "SQK-LSK114 + FLO-PRO114M + Dorado v7.2.13".
   Instrument PromethION; WGS / METAGENOMIC / RANDOM; single layout. So Kit 14 ligation chemistry, PromethION flow cell, Dorado 7.2.13.
-- Not stated: basecalling model tier (fast / hac / sup). Link to the Argo paper: still unverified by me.
+- Not stated: basecalling model tier (fast / hac / sup). Argo paper link: verified 2026-10-18 (see 'External literature check'); the paper does not state the model tier either.
 - Results apply to this chemistry and basecaller only (plan Section 3).
 
 ## D6331 expected composition (checked 2026-10-13 against the manufacturer's manual, Tables 1 and 2)
@@ -354,12 +354,19 @@ Procedure followed A1.7. Commits/tags: sylph-registered a7eb82e; sylph-crosswalk
 - v1 crosswalk on the same eval profile (record only): called 14, correct 7, 7 false positives (6 in the genus of a mock species), F1 0.500, B. adolescentis 0.537. Shows the result depends on the crosswalk (naming), as found on dev.
 - Deviations: crosswalk v2 and verdict basis (Addendum A1, written after seeing dev read profiles); freeze tag moved 8832e12 -> 4337e4c; --label option added to bin/11 (output folder name only) in 9051fb0 so v1 could be scored beside v2; the share-basis obs/exp distortion caveat (E. coli) applies.
 
+## External literature check (2026-10-18; PDFs supplied by the user; not part of any registered verdict)
+- The paper: Chen X. et al. (author initials from the contributions statement: X.C. and T.Z.), 'Species-resolved profiling of antibiotic resistance genes in complex metagenomes through long-read overlapping with Argo', Nature Communications 16:1744 (2025), https://doi.org/10.1038/s41467-025-57088-y. Corresponding author Tong Zhang (zhangt@hku.hk; the user confirmed he is the corresponding author).
+- Confirms the ENA record: D6331 deeply sequenced on one PromethION flow cell (R10.4.1), Kit 14 (Q20+), 23.43 million reads, 128.4 Gbp, basecalled with Dorado v7.2.13; data availability statement cites PRJNA1181840. NOT stated in the paper or its supplement: lot number, DNA extraction method, library preparation details, Dorado model tier. The Acknowledgements thank Xianghui Shi for assistance in PromethION sequencing of Zymo D6331 (the person most likely to know these details).
+- Authors' code: github.com/xinehc/argo (MIT; Bioconda), github.com/xinehc/argo-evaluation (notebooks for Figs 2-5), github.com/xinehc/argo-supplementary, Argo v0.1.0 at doi 10.5281/zenodo.14837301. Another D6331 ONT dataset is cited under PRJNA1028177 (not used; different run, possibly different chemistry; would need its own registration).
+- Supplement (Fig. S4): the authors independently renamed Fusobacterium nucleatum to Fusobacterium animalis (D6331), Lactobacillus fermentum to Limosilactobacillus fermentum and Clostridium perfringens to Sarcina perfringens to reconcile NCBI and GTDB names (supports D13; warns that GTDB renames more mock species than we have hit so far). Their expected genome copies come from minimap2 mapping of the reads to the reference genomes (same idea as our read trace). They report that Sylph v0.6.1, with and without -u, underestimated species-level genome copies for ONT samples (older version; coverage-based genome copies, not the shares we scored; their D6331 sample statistics differ from our pools, mean length 5,028 against about 5,480, so not directly comparable; consistent with our decision not to use -u in arms 3a/3b, but not an explanation of the E. coli over-count).
+- Email to Dr Zhang (lot number, Dorado model tier, extraction and sample processing; mention Xianghui Shi) drafted 2026-10-18; the user is to send it. Not recorded as sent until the user says so. The ENA/BioSample check for a lot number (commands given to the user) has not been run or reported.
+
 ## Unverified / open
-- Argo paper link and basecalling model tier (see below)
+- Basecalling model tier (not in the ENA record, the Argo paper or its supplement; ask the authors)
 - Emails: Zymo technical support asked for lot-specific CoAs and typical lot variation (sent 2026-10-17; reply pending, may never arrive). The study authors have not yet been asked for the lot number and the basecalling model tier.
 - Lot-specific CoA for the sequenced tube: lot number unknown. NOW THE MOST VALUABLE OPEN ITEM (the trace shows the tube differs from the theoretical composition by up to 2.4x for single species). Ask Zymo (tech@zymoresearch.com) or the Argo paper authors. Do not block the project on it; label results as against theoretical composition.
-- Basecalling model tier (fast/hac/sup) not stated in the ENA record; look in the Argo paper methods or ask the authors.
-- Argo paper link: reported as confirmed in the paper's data availability statement; not verified by me.
+- Basecalling model tier (fast/hac/sup) not stated in the ENA record, the Argo paper or its supplement; ask the authors (email drafted 2026-10-18; sending not yet confirmed).
+- Argo paper: VERIFIED 2026-10-18 from the PDF the user supplied (data availability statement cites PRJNA1181840).
 - Decisions 1 (dataset confirmation) and 2 (threshold rule, evaluable-species minimum) not yet formally settled (see Scoring section)
 - LomanLab ENA accessions (if any)
 - PRJNA751627, PRJEB41184, PRJNA1335824, PRJNA554461 (clinical leads, deferred)
@@ -403,4 +410,4 @@ Procedure followed A1.7. Commits/tags: sylph-registered a7eb82e; sylph-crosswalk
 - Drift along the run (Spearman, block mean vs read-number position): length rho -0.11 (p 0.36); mean Q rho -0.005 (p 0.96). No detectable drift.
 - Interpretation: "Q20+" in the study title describes the chemistry; only ~28% of reads reach Q20 and the typical read is about Q18.
   Report as Kit 14 data, median read Q about 18. No filtering applied; any length/quality filter must be pre-specified and applied identically to both pools.
-- Phase 0 audit items now closed except: lot CoA (unknown lot), basecalling model tier, Argo paper link.
+- Phase 0 audit items now closed except: lot CoA (unknown lot), basecalling model tier.

@@ -190,3 +190,11 @@ Next steps, in order (supersedes the 2026-10-18 morning list):
 3. Plan Rev8 and guide v5 (Sylph registration and results, the crosswalk finding, 'the sequenced sample' wording instead of 'the tube').
 4. Study-author email (lot number; basecalling model tier); record any Zymo reply.
 5. Housekeeping: LICENSE; README 'research use only, not clinically validated'; stray cd.docx; delete Plan_Rev5/Rev6, Guide_v2/v3 and OneDrive transfer/d1..d19 once files are in the repo; optionally the unused AWS key pair; confirm the AWS bill (about USD 2). Optional later: fresh third pool (needs its own registered addendum), AMR design, Nextflow wrapping.
+
+## 2026-10-18 later (documents written; Argo paper checked)
+State: Plan Rev8 and Guide v5 written (OneDrive project folder; Rev7/v4 can be deleted; the guide explains Bray-Curtis and all new terms for a novice). The Argo paper and its supplement were read (PROJECT_STATE 'External literature check'): they confirm PromethION, Kit 14, Dorado v7.2.13 and PRJNA1181840 but give no lot number, extraction method or model tier. Contact: corresponding author Tong Zhang (zhangt@hku.hk); sequencing was assisted by Xianghui Shi. Email drafted; sending to be confirmed by the user. ENA/BioSample lot check not yet run (user to run the command and paste the output).
+Next steps, in order (replaces the previous list):
+1. Confirm the email was sent; record any reply (also the Zymo reply, if any). If a lot number arrives, request its certificate of analysis from Zymo and compare it with the read-trace composition.
+2. Optional dev investigation (not part of any verdict): why Sylph over-counts E. coli and under-counts L. fermentum.
+3. Housekeeping: LICENSE; README 'research use only, not clinically validated'; stray cd.docx; delete Plan_Rev5/Rev6/Rev7, Guide_v2/v3/v4 and OneDrive transfer/d1..d21; copy PROJECT_STATE.md and HANDOVER.md from docs/ to the OneDrive project root; optionally the unused AWS key pair; confirm the AWS bill (about USD 2).
+4. Optional later: fresh third pool (needs its own registered addendum), AMR design, Nextflow wrapping.
