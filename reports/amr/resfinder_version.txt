@@ -1,0 +1,5 @@
+ResFinder database
+source: https://bitbucket.org/genomicepidemiology/resfinder_db.git
+downloaded: 2026-10-18T19:03Z
+commit: eecf0aa207594fe6d51badf808473de62b28cb06
+commit date: 2026-01-26T10:41:50+01:00
