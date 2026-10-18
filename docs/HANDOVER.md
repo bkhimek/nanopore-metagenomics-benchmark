@@ -214,5 +214,5 @@ Next steps, in order: (1) user: commit the eval outputs (reports/kraken_bases/ev
 
 ## 2026-10-18 night (Guide v6 after an external review)
 State: a ChatGPT review of the guide was checked point by point (PROJECT_STATE 'External review of the Workflow Guide'); the damaged 5.4 table and the stale Section 7 status were real and are fixed; reads-versus-DNA example, glossary, cautious composition wording, overview, worked example (Roseburia), LCA/database note and the split of section 5.5 added; guide is now v6 (replaces v5). Decided against re-running the 16 GB and full-index Kraken2 classifications in bases (cloud re-run). Not done: appendix for the timeline and six-section restructure (larger change, later).
-Next steps: (1) user: copy Guide v6, README, PROJECT_STATE, HANDOVER, git rm the v5 guide, commit; check the Kraken2 manual wording on confidence; (2) email to Dr Zhang (19 October), record any reply; Zymo reply pending; (3) stray file 'main' in the repo root: look at it, then delete; (4) AMR design when time allows.
+Next steps: (1) user: copy Guide v6, README, PROJECT_STATE, HANDOVER, git rm the v5 guide, commit; (2) email to Dr Zhang (19 October), record any reply; Zymo reply pending; (3) stray file 'main' in the repo root: look at it, then delete; (4) AMR design when time allows.
 
