@@ -1,0 +1,19 @@
+Read identity vs Sylph coverage deficit (EXPLORATORY, dev pool; k = 31; reads assigned 166598, weak 13614, ambiguous 15)
+
+species                            reads    len  id mean  id med  id p10   surv surv/med Eff/map obs/med
+Limosilactobacillus fermentum      18944   1905    91.85   94.21   81.56  0.263     1.17    0.26    0.26
+Faecalibacterium prausnitzii       32657   3088    91.78   94.32   82.22  0.225     1.00    0.42    0.42
+Roseburia hominis                  11003   4282    90.99   93.60   80.96  0.180     0.80    0.61    0.62
+Fusobacterium nucleatum             9057   4348    92.05   94.66   83.17  0.221     0.98    0.64    0.65
+Bifidobacterium adolescentis        5500   6043    90.79   93.50   80.58  0.167     0.74    0.86    0.87
+Escherichia coli                   23643   7256    92.53   95.37   82.94  0.260     1.15    0.95    0.96
+Akkermansia muciniphila             2614   7039    90.66   93.36   81.08  0.148     0.66    0.99    1.00
+Clostridioides difficile            2656   6228    93.61   96.42   85.42  0.326     1.45    1.01    1.02
+Bacteroides fragilis               24219   7378    91.14   93.95   81.20  0.181     0.80    1.05    1.06
+Prevotella corporis                10100   7460    90.22   93.47   78.61  0.163     0.72    1.06    1.07
+Veillonella rogosae                21854   8014    93.05   95.82   84.18  0.278     1.24    1.22    1.23
+Candida albicans                    2114   7037    91.89   94.58   81.58  0.228     1.01    1.24    1.25
+Methanobrevibacter smithii           143   7846    93.07   96.49   82.32  0.323     1.43    1.40    1.41
+
+Spearman rho, k-mer survival vs Eff_cov/mapped coverage: 0.23;  mean identity vs the same: 0.28  (n = 13; small n, descriptive only)
+Identity = matches / alignment length of the minimap2 trace (a lower bound on read accuracy for reads that align poorly; reads are assigned by their best species).

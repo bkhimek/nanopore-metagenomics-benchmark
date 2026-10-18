@@ -1,0 +1,20 @@
+Base-basis recomputation (EXPLORATORY, dev pool, post hoc; 13 species)
+
+species                           reads   len   cov exp.cov obs/exp reads obs/exp bases  Eff/cov True/cov
+Limosilactobacillus fermentum     18944  1905  18.9    32.0          1.89          0.65     0.75     1.01
+Faecalibacterium prausnitzii      32657  3088  34.6    48.8          1.40          0.78     0.75     1.01
+Roseburia hominis                 11003  4282  13.6    41.1          0.47          0.37     0.78     1.04
+Fusobacterium nucleatum            9057  4348  16.1    24.9          0.90          0.71     0.80     1.08
+Bifidobacterium adolescentis       5500  6043  15.9    29.2          0.55          0.60     0.78     1.04
+Clostridioides difficile           2656  6228   3.9     3.6          1.06          1.20     0.89     1.19
+Candida albicans                   2114  7037   1.0     1.0          0.84          1.08     0.97     1.29
+Akkermansia muciniphila            2614  7039   6.5     5.3          1.04          1.33     0.77     1.03
+Escherichia coli                  23643  7256  34.6    28.7          1.01          1.33     0.72     0.97
+Bacteroides fragilis              24219  7378  34.6    27.5          1.04          1.39     0.78     1.05
+Prevotella corporis               10100  7460  25.6    20.7          1.01          1.36     0.78     1.05
+Methanobrevibacter smithii          143  7846   0.6     0.5          0.86          1.22     0.97     1.32
+Veillonella rogosae               21854  8014  81.2    65.9          0.94          1.36     0.84     1.12
+
+Bray-Curtis of shares versus expected DNA shares among these species: reads 0.120, bases 0.184
+True_cov / coverage: median 1.05, range 0.97-1.32;  Eff_cov / coverage: median 0.78, range 0.72-0.97
+Coverage = assigned reads x species mean read length / Table-2 genome size (E. coli: mean of five strains). Read length is the full read, not the aligned part.
