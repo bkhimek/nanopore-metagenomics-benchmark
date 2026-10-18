@@ -181,3 +181,12 @@ Next steps, in order:
 4. Eval ONCE per arm: `sketch --pool eval --allow-eval`, `profile --pool eval --arm 3a|3c --allow-eval`, gap rule, `score --pool eval --arm 3a|3b|3c --allow-eval --crosswalk reference/d6331_gtdb_crosswalk_v2.csv --kraken PlusPF8=... PlusPFfull=...` (eval species tables under data/aws_run/unpacked/data/score/eval/). Apply the A1.3 verdict. Report v1 beside v2.
 5. Optional dev investigation (not part of the verdict): why E. coli is over- and L. fermentum under-estimated (genome sizes, shared k-mers).
 6. Plan Rev8 and guide v5 (Sylph, the crosswalk finding, 'the sequenced sample' wording); study-author email; housekeeping (see earlier entries; OneDrive transfer/ folders can be deleted).
+
+## 2026-10-18 (Sylph arm DONE: eval scored once per arm)
+State: Phase 2 arm 3 complete. Gap rule found nothing new; eval arms 3a = 3b = 3c: F1 0.963, 13/14 evaluable, 0 false positives, Bray-Curtis 0.249. B. adolescentis share-basis obs/exp 0.4947 vs Kraken2 PlusPF-full 0.3926 -> A1.3 verdict 'resolves' by 0.002 (marginal; literal 0.46 also exceeded). Abundance worse than Kraken2 (E. coli 2.38x over). v1 crosswalk on eval: F1 0.50, 7 false positives. Commits: 9734019 (gap rule, tag sylph-gaprule), 9051fb0 (--label), e5f7e8e (eval reports, tag sylph-eval-scored). Tag history: sylph-frozen moved from 8832e12 to 4337e4c before any eval data existed. Details in PROJECT_STATE 'Sylph arm: EVAL RESULT'.
+Next steps, in order (supersedes the 2026-10-18 morning list):
+1. Commit these two docs (PROJECT_STATE.md, HANDOVER.md) and push.
+2. Optional dev investigation (not part of the verdict): why E. coli is over- and L. fermentum under-estimated (genome sizes, shared k-mers).
+3. Plan Rev8 and guide v5 (Sylph registration and results, the crosswalk finding, 'the sequenced sample' wording instead of 'the tube').
+4. Study-author email (lot number; basecalling model tier); record any Zymo reply.
+5. Housekeeping: LICENSE; README 'research use only, not clinically validated'; stray cd.docx; delete Plan_Rev5/Rev6, Guide_v2/v3 and OneDrive transfer/d1..d19 once files are in the repo; optionally the unused AWS key pair; confirm the AWS bill (about USD 2). Optional later: fresh third pool (needs its own registered addendum), AMR design, Nextflow wrapping.
