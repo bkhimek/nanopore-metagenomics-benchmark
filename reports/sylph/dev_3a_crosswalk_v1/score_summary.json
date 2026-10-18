@@ -1,0 +1,114 @@
+{
+  "pool": "dev",
+  "arm": "3a",
+  "cutoff": 0,
+  "profile": "data/sylph/dev/arm_3a.tsv",
+  "primary": {
+    "called": 14,
+    "correct": 7,
+    "fp": 7,
+    "tp_evaluable": 7,
+    "precision": 0.5,
+    "recall_evaluable": 0.5,
+    "recall_all_truth": 0.4117647058823529,
+    "f1": 0.5,
+    "l1": 1.333995054332969,
+    "bray_curtis": 0.6669975271664845,
+    "missed_evaluable": [
+      817,
+      851,
+      853,
+      2173,
+      4932,
+      239935,
+      423477
+    ]
+  },
+  "bray_curtis_among_called_mock": 0.3038925593145127,
+  "secondary": {
+    "called": 14,
+    "correct": 7,
+    "fp": 7,
+    "tp_evaluable": 7,
+    "precision": 0.5,
+    "recall_evaluable": 0.5,
+    "recall_all_truth": 0.4117647058823529,
+    "f1": 0.5,
+    "l1": 1.391786828242767,
+    "bray_curtis": 0.6958934141213835,
+    "missed_evaluable": [
+      817,
+      851,
+      853,
+      2173,
+      4932,
+      239935,
+      423477
+    ]
+  },
+  "bray_curtis_taxonomic_among_called_mock": 0.3173772074457145,
+  "false_positives": [
+    {
+      "species": "Veillonella rogosae",
+      "seq_abundance_pct": 16.8592,
+      "genomes": 1,
+      "eff_cov_max": 68.0,
+      "category": "same genus as a mock species"
+    },
+    {
+      "species": "Bacteroides fragilis",
+      "seq_abundance_pct": 16.0433,
+      "genomes": 1,
+      "eff_cov_max": 27.0,
+      "category": "same genus as a mock species"
+    },
+    {
+      "species": "Faecalibacterium prausnitzii_E",
+      "seq_abundance_pct": 8.6579,
+      "genomes": 1,
+      "eff_cov_max": 26.0,
+      "category": "same genus as a mock species"
+    },
+    {
+      "species": "ECMA0423 sp047199055",
+      "seq_abundance_pct": 7.6866,
+      "genomes": 1,
+      "eff_cov_max": 15.269,
+      "category": "other"
+    },
+    {
+      "species": "Fusobacterium animalis",
+      "seq_abundance_pct": 3.6839,
+      "genomes": 1,
+      "eff_cov_max": 12.927,
+      "category": "same genus as a mock species"
+    },
+    {
+      "species": "Akkermansia muciniphila",
+      "seq_abundance_pct": 1.5014,
+      "genomes": 1,
+      "eff_cov_max": 4.971,
+      "category": "same genus as a mock species"
+    },
+    {
+      "species": "Methanocatella smithii",
+      "seq_abundance_pct": 0.1248,
+      "genomes": 1,
+      "eff_cov_max": 0.594,
+      "category": "same genus as a mock species"
+    }
+  ],
+  "b_adolescentis_obs_over_exp": 0.5282834795607968,
+  "n_nonmock_fp_registered": 7,
+  "bray_curtis_vs_mapping_exploratory": 0.2525528941894037,
+  "kraken_comparators": {
+    "PlusPF8": {
+      "b_adolescentis_share_obs_over_exp": 0.2605596058349854,
+      "bc_among_called_mock": 0.16490152332121477
+    },
+    "PlusPFfull": {
+      "b_adolescentis_share_obs_over_exp": 0.3857843597446489,
+      "bc_among_called_mock": 0.13089537176117164
+    }
+  }
+}

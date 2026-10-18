@@ -1,0 +1,101 @@
+{
+  "rule": "smallest cutoff whose bootstrap-mean F1 is within 0.002 of the maximum (D16 rule)",
+  "B": 100,
+  "seed": 20261017,
+  "grid": [
+    0,
+    0.02,
+    0.05,
+    0.1,
+    0.2,
+    0.5,
+    1.0
+  ],
+  "chosen_cutoff": 0,
+  "table": [
+    {
+      "cutoff": 0,
+      "mean_f1": 0.962962962962963,
+      "f1_lo": 0.962962962962963,
+      "f1_hi": 0.962962962962963,
+      "mean_precision": 1.0,
+      "mean_recall_evaluable": 0.9285714285714286,
+      "mean_bc": 0.24757568496523524,
+      "mean_fp": 0.0,
+      "mean_b_adol_obs_over_exp": 0.48407526328034317,
+      "point_f1": 0.962962962962963
+    },
+    {
+      "cutoff": 0.02,
+      "mean_f1": 0.962962962962963,
+      "f1_lo": 0.962962962962963,
+      "f1_hi": 0.962962962962963,
+      "mean_precision": 1.0,
+      "mean_recall_evaluable": 0.9285714285714286,
+      "mean_bc": 0.24757568496523524,
+      "mean_fp": 0.0,
+      "mean_b_adol_obs_over_exp": 0.48407526328034317,
+      "point_f1": 0.962962962962963
+    },
+    {
+      "cutoff": 0.05,
+      "mean_f1": 0.962962962962963,
+      "f1_lo": 0.962962962962963,
+      "f1_hi": 0.962962962962963,
+      "mean_precision": 1.0,
+      "mean_recall_evaluable": 0.9285714285714286,
+      "mean_bc": 0.24757568496523524,
+      "mean_fp": 0.0,
+      "mean_b_adol_obs_over_exp": 0.48407526328034317,
+      "point_f1": 0.962962962962963
+    },
+    {
+      "cutoff": 0.1,
+      "mean_f1": 0.962962962962963,
+      "f1_lo": 0.962962962962963,
+      "f1_hi": 0.962962962962963,
+      "mean_precision": 1.0,
+      "mean_recall_evaluable": 0.9285714285714286,
+      "mean_bc": 0.24757568496523524,
+      "mean_fp": 0.0,
+      "mean_b_adol_obs_over_exp": 0.48407526328034317,
+      "point_f1": 0.962962962962963
+    },
+    {
+      "cutoff": 0.2,
+      "mean_f1": 0.962962962962963,
+      "f1_lo": 0.962962962962963,
+      "f1_hi": 0.962962962962963,
+      "mean_precision": 1.0,
+      "mean_recall_evaluable": 0.9285714285714286,
+      "mean_bc": 0.24757568496523524,
+      "mean_fp": 0.0,
+      "mean_b_adol_obs_over_exp": 0.48407526328034317,
+      "point_f1": 0.962962962962963
+    },
+    {
+      "cutoff": 0.5,
+      "mean_f1": 0.9609686609686611,
+      "f1_lo": 0.923076923076923,
+      "f1_hi": 0.962962962962963,
+      "mean_precision": 1.0,
+      "mean_recall_evaluable": 0.925,
+      "mean_bc": 0.247603861265509,
+      "mean_fp": 0.0,
+      "mean_b_adol_obs_over_exp": 0.4840684413892164,
+      "point_f1": 0.962962962962963
+    },
+    {
+      "cutoff": 1.0,
+      "mean_f1": 0.9434985754985754,
+      "f1_lo": 0.88,
+      "f1_hi": 0.962962962962963,
+      "mean_precision": 1.0,
+      "mean_recall_evaluable": 0.8942857142857144,
+      "mean_bc": 0.24884156022041362,
+      "mean_fp": 0.0,
+      "mean_b_adol_obs_over_exp": 0.484096789352652,
+      "point_f1": 0.88
+    }
+  ]
+}
