@@ -1,0 +1,23 @@
+=== run baseline_c0 (dev): 185000 reads, 1015.9 Mb, T = 148 reads, 15 species called (14 mock, 1 other)
+Bray-Curtis, bin/04 convention:           reads 0.166   bases 0.191   (change +0.024)
+Bray-Curtis, among called mock species:   reads 0.165   bases 0.189   (change +0.024)
+species                            reads    len  obs/exp reads  obs/exp bases
+Limosilactobacillus fermentum      18529   2034           1.99           0.69
+Faecalibacterium prausnitzii       31853   3239           1.47           0.81
+Roseburia hominis                  10882   4409           0.50           0.38
+Fusobacterium nucleatum             8689   4553           0.94           0.73
+Clostridioides difficile            2668   6346           1.15           1.25
+Bifidobacterium adolescentis        2421   7093           0.26           0.32
+Akkermansia muciniphila             2691   7155           1.16           1.42
+Candida albicans                    2650   7157           1.14           1.40
+Bacteroides fragilis               24645   7561           1.14           1.47
+Prevotella corporis                10471   7569           1.13           1.46
+Saccharomyces cerevisiae            1941   8030           0.90           1.23
+Methanobrevibacter smithii           151   8064           0.98           1.35
+Veillonella rogosae                22622   8146           1.04           1.46
+Escherichia coli                   14646   9365           0.68           1.08
+(human: 923 reads, 6.85 Mb; counted as a called non-mock species)
+Consistency with the species table: all truth-species read counts equal
+
+Sylph arm 3a (dev, among called mock species, bin/14): 0.240 (registered sum rule), 0.182 (best-genome what-if).
+Mean read length uses the full read; the call set is the registered read-count threshold. Exploratory.

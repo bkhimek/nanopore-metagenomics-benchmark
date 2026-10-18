@@ -1,0 +1,15 @@
+taxid	species	reads	bases	mean_read_len	obs_exp_reads	obs_exp_bases
+817	Bacteroides fragilis	24645	186331609	7560.6	1.137	1.471
+562	Escherichia coli	14646	137166487	9365.5	0.676	1.083
+423477	Veillonella rogosae	22622	184270943	8145.7	1.043	1.455
+853	Faecalibacterium prausnitzii	31853	103161992	3238.7	1.469	0.815
+301301	Roseburia hominis	10882	47977280	4408.9	0.502	0.379
+28128	Prevotella corporis	10471	79249839	7568.5	1.127	1.460
+1613	Limosilactobacillus fermentum	18529	37690245	2034.1	1.994	0.694
+1680	Bifidobacterium adolescentis	2421	17171049	7092.5	0.261	0.316
+851	Fusobacterium nucleatum	8689	39558264	4552.7	0.935	0.729
+5476	Candida albicans	2650	18965029	7156.6	1.141	1.398
+1496	Clostridioides difficile	2668	16932112	6346.4	1.149	1.248
+239935	Akkermansia muciniphila	2691	19255044	7155.3	1.158	1.419
+4932	Saccharomyces cerevisiae	1941	15586847	8030.3	0.895	1.231
+2173	Methanobrevibacter smithii	151	1217715	8064.3	0.975	1.346
