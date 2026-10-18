@@ -1,0 +1,14 @@
+species	genome_rows	obs_exp_sum	obs_exp_best
+Escherichia coli	3	2.3798	1.1669
+Bacteroides fragilis	1	1.1327	1.4273
+Faecalibacterium prausnitzii	1	0.6112	0.7702
+Roseburia hominis	1	0.3038	0.3829
+Veillonella rogosae	1	1.1728	1.4778
+Fusobacterium nucleatum	1	0.5875	0.7404
+Limosilactobacillus fermentum	1	0.4933	0.6216
+Bifidobacterium adolescentis	1	0.4947	0.6234
+Prevotella corporis	1	0.9935	1.2520
+Clostridioides difficile	1	1.0839	1.3658
+Candida albicans	1	1.0637	1.3404
+Akkermansia muciniphila	1	0.9636	1.2142
+Methanobrevibacter smithii	1	1.1398	1.4363

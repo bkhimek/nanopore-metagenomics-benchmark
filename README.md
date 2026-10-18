@@ -33,6 +33,7 @@ the data used.
 | Database size (8 GB, 16 GB, full PlusPF) | F1 unchanged at 0.966; Bray-Curtis 0.168, 0.153, 0.137 |
 | Read trace (exploratory, development pool) | Much of the departure from the theoretical abundances is in the sequenced sample itself; Kraken2 loses reads mainly for species with close relatives (E. coli, Bifidobacterium adolescentis) |
 | Sylph 1.0.0 with GTDB r232 + RefSeq fungi | F1 0.963; 13 of 14 evaluable species; 0 false positives; Bray-Curtis 0.242 (Kraken2: 0.13 to 0.17). The registered B. adolescentis test is met by 0.002 (0.495 against 0.393 + 0.10), which is marginal and very likely within noise. Abundances are worse than Kraken2's |
+| Reads versus DNA mass (exploratory on the development pool, then registered Addendum A2 on the evaluation pool) | Species differ in read length (Limosilactobacillus fermentum about 2 kb, most others 7 to 9 kb), so read shares are not DNA shares. Counted in bases, Kraken2's Bray-Curtis is 0.19 (0.17 on reads); Sylph keeping one genome per species is 0.18 (0.24 with the registered sum rule, which counts E. coli reads about 2.4 times). All eight written predictions were met; both pools come from one run |
 
 A first translation table between mock-species names and GTDB names failed on the development pool (F1 0.50 for a naming
 reason). It was replaced by a genome-to-genome fastANI table in a registered addendum, disclosed as written after the
@@ -53,7 +54,7 @@ Full numbers, predictions and verdicts are in `docs/PROJECT_STATE.md`. Small res
 
 | Path | Content |
 |---|---|
-| `bin/00` to `bin/13` | numbered scripts, in the order they were written (see below) |
+| `bin/00` to `bin/18` | numbered scripts, in the order they were written (see below) |
 | `reference/` | D6331 composition, expected reads by species, taxid aliases, GTDB crosswalks (v1, v2, v2 for evaluation) |
 | `reports/` | small tracked outputs: scores, species tables, false-positive audits, tuning tables, run records |
 | `metadata/` | ENA run record and the sampling manifest (seed, parameters, checksums) |
@@ -65,7 +66,7 @@ Scripts: `00_ena_metadata.sh` (run record), `01_sra_block_sample.py` (seeded blo
 `02_pool_qc.py` (read QC, pool comparison), `03_classify.py` (Kraken2 in Docker), `04_score.py` (scoring),
 `05_depth_series.py`, `06_confidence_arms.py`, `07_database_arms.py` (registered experiments),
 `08_trace_reads.py`, `09_composition_vs_mapping.py` (exploratory read trace), `10` to `13` (Sylph: crosswalk v1,
-sketch/profile/bootstrap/score arm, fastANI crosswalk v2, gap rule). Each script documents its arguments in its header
+sketch/profile/bootstrap/score arm, fastANI crosswalk v2, gap rule), `14` to `18` (diagnostics of the Sylph abundance error: shared reads, read identity, reads versus bases; Addendum A2). Each script documents its arguments in its header
 and with `--help`.
 
 ## Reproducing
@@ -85,7 +86,7 @@ USD 2). Reads and databases must be fetched locally:
 
 Pre-registration tags (`git tag`): `freeze-d14`, `arms-registered`, `arms-frozen`, `depth-registered`,
 `dbarms-registered`, `dbarms-frozen`, `sylph-registered`, `sylph-crosswalk`, `sylph-crosswalk-v2`, `sylph-frozen`,
-`sylph-gaprule`, `sylph-eval-scored`. They prove the order in which rules, predictions and results were written.
+`sylph-gaprule`, `sylph-eval-scored`, `bases-registered`, `bases-eval-scored`. They prove the order in which rules, predictions and results were written.
 
 ## Status
 

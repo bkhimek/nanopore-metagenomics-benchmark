@@ -1,0 +1,23 @@
+=== run baseline_c0 (eval): 185000 reads, 1012.5 Mb, T = 148 reads, 15 species called (14 mock, 1 other)
+Bray-Curtis, bin/04 convention:           reads 0.168   bases 0.191   (change +0.023)
+Bray-Curtis, among called mock species:   reads 0.167   bases 0.190   (change +0.023)
+species                            reads    len  obs/exp reads  obs/exp bases
+Limosilactobacillus fermentum      18459   1997           1.98           0.68
+Faecalibacterium prausnitzii       32081   3198           1.48           0.81
+Roseburia hominis                  10714   4468           0.49           0.38
+Fusobacterium nucleatum             8476   4577           0.91           0.72
+Clostridioides difficile            2770   6314           1.19           1.29
+Candida albicans                    2694   7005           1.16           1.40
+Akkermansia muciniphila             2618   7068           1.12           1.37
+Bifidobacterium adolescentis        2477   7104           0.27           0.33
+Methanobrevibacter smithii           163   7252           1.05           1.31
+Bacteroides fragilis               24825   7467           1.14           1.47
+Prevotella corporis                10472   7494           1.12           1.45
+Saccharomyces cerevisiae            1901   7955           0.87           1.20
+Veillonella rogosae                22751   8091           1.05           1.46
+Escherichia coli                   14818   9333           0.68           1.10
+(human: 818 reads, 5.94 Mb; counted as a called non-mock species)
+Read-length replication (this pool / dev, mean read length of reads assigned to each species): Escherichia 1.00; Bacteroides 0.99; Fusobacteriu 1.01; Faecalibacte 0.99; Clostridioid 0.99; Limosilactob 0.98; Bifidobacter 1.00; Methanobrevi 0.90; Saccharomyce 0.99; Candida 0.98; Prevotella 0.99; Akkermansia 0.99; Roseburia 1.01; Veillonella 0.99
+  largest deviation from 1: Methanobrevibacter smithii 0.90; species within +/-10%: 13 of 14
+
+Mean read length uses the full read; the call set is the registered read-count threshold. Registered in Addendum A2 (tag bases-registered).
