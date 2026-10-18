@@ -17,9 +17,12 @@ Predictions written before the first run (from bin/16, where the same change of 
   (P2) L. fermentum obs/exp (share among called mock species) falls from about 1.7-1.9 (reads) to 0.55-0.80 (bases); F. prausnitzii falls from about 1.2-1.4 to
        about 0.7-0.9; Roseburia stays below 0.5.
   (P3) the Kraken2 minus Sylph gap in Bray-Curtis among called mock species (Sylph arm 3a dev: 0.240) narrows when Kraken2 is counted in bases. Reported, not tested.
+Version 2 (Addendum A2): the same script can run on the evaluation pool. The evaluation pool needs --allow-eval, an explicit --min-frac (the frozen 0.0008), and the git
+tag bases-registered (A2 committed and tagged first); its outputs go to reports/kraken_bases/eval_<label>_* and are never overwritten. --compare-dev FILE prints the ratio of
+each species' mean read length to the one in a development table (the registered replication check of A2). No rule above changed for dev.
 Standard library only.
 """
-import argparse, collections, csv, gzip, importlib.util, json, math, os, re, sys
+import argparse, collections, csv, gzip, importlib.util, json, math, os, re, subprocess, sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 P = lambda *x: os.path.join(ROOT, *x)
@@ -41,11 +44,26 @@ def main():
     ap.add_argument("--db", default="data/db/pluspf_08_20260626", help="folder holding taxonomy/nodes.dmp (all runs must share the taxonomy)")
     ap.add_argument("--truth", default="reference/d6331_expected_reads_by_species.csv")
     ap.add_argument("--aliases", default="reference/d6331_taxid_aliases.csv")
-    ap.add_argument("--min-frac", type=float, default=0.0008)
-    ap.add_argument("--table", default="reports/baseline_kraken2_pluspf8/dev_species_table.tsv", help="species table for the consistency check (first run only)")
+    ap.add_argument("--min-frac", type=float, default=None, help="detection threshold as a fraction of all reads (dev default 0.0008; REQUIRED for eval)")
+    ap.add_argument("--allow-eval", action="store_true")
+    ap.add_argument("--compare-dev", help="development by-species table (reports/kraken_bases/dev_<label>_by_species.tsv) for the read-length replication check")
+    ap.add_argument("--table", default="reports/baseline_kraken2_pluspf8/dev_species_table.tsv", help="species table for the consistency check (first run only; dev)")
     ap.add_argument("--out", default="reports/kraken_bases")
     a = ap.parse_args()
     x08 = load08()
+    pools = set()
+    for run in a.run:
+        pools.add(json.load(open(P(run, "run.json"))).get("pool"))
+    if len(pools) != 1 or pools - {"dev", "eval"}:
+        sys.exit(f"all runs must be from one pool (dev or eval); found {pools}")
+    pool = pools.pop()
+    if pool == "eval":
+        if not a.allow_eval or a.min_frac is None:
+            sys.exit("evaluation pool: needs --allow-eval and an explicit --min-frac (the frozen value)")
+        if subprocess.run(["git", "-C", ROOT, "rev-parse", "-q", "--verify", "refs/tags/bases-registered"], capture_output=True).returncode != 0:
+            sys.exit("evaluation pool refused: git tag bases-registered not found (commit and tag Addendum A2 first)")
+    if a.min_frac is None:
+        a.min_frac = 0.0008
     parent, rank = x08.load_nodes(x08.find_dmp(P(a.db), "nodes.dmp"))
     lineage = x08.make_lineage(parent)
 
@@ -69,8 +87,6 @@ def main():
     lines, summary = [], {}
     for run in a.run:
         rec = json.load(open(P(run, "run.json")))
-        if rec.get("pool") != "dev":
-            sys.exit(f"{run}: pool is {rec.get('pool')}; this script is dev only")
         label = rec["label"]
         reads, bases = collections.Counter(), collections.Counter()
         N = Nb = 0
@@ -99,11 +115,13 @@ def main():
         mean_len = {s: bases[s] / reads[s] for s in reads if reads[s]}
         summary[label] = {"N": N, "T": T, "called": len(called), "bc04_reads": res["reads"]["bc04"], "bc04_bases": res["bases"]["bc04"],
                           "bc09_reads": res["reads"]["bc09"], "bc09_bases": res["bases"]["bc09"]}
-        with open(P(a.out, f"dev_{label}_by_species.tsv"), "w") as o:
+        if pool == "eval" and os.path.exists(P(a.out, f"{pool}_{label}_by_species.tsv")):
+            sys.exit(f"{pool}_{label}_by_species.tsv exists; evaluation outputs are never overwritten")
+        with open(P(a.out, f"{pool}_{label}_by_species.tsv"), "w") as o:
             o.write("taxid\tspecies\treads\tbases\tmean_read_len\tobs_exp_reads\tobs_exp_bases\n")
             for s in sorted(called & set(truth), key=lambda s: -truth[s]["dna"]):
                 o.write(f"{s}\t{truth[s]['name']}\t{reads[s]}\t{bases[s]}\t{mean_len[s]:.1f}\t{res['reads']['obs_exp'][s]:.3f}\t{res['bases']['obs_exp'][s]:.3f}\n")
-        lines += [f"=== run {label} (dev): {N} reads, {Nb/1e6:.1f} Mb, T = {T} reads, {len(called)} species called ({len(called & set(truth))} mock, {len(called - set(truth))} other)",
+        lines += [f"=== run {label} ({pool}): {N} reads, {Nb/1e6:.1f} Mb, T = {T} reads, {len(called)} species called ({len(called & set(truth))} mock, {len(called - set(truth))} other)",
                   f"Bray-Curtis, bin/04 convention:           reads {res['reads']['bc04']:.3f}   bases {res['bases']['bc04']:.3f}   (change {res['bases']['bc04'] - res['reads']['bc04']:+.3f})",
                   f"Bray-Curtis, among called mock species:   reads {res['reads']['bc09']:.3f}   bases {res['bases']['bc09']:.3f}   (change {res['bases']['bc09'] - res['reads']['bc09']:+.3f})",
                   f"{'species':32s}{'reads':>8s}{'len':>7s}{'obs/exp reads':>15s}{'obs/exp bases':>15s}"]
@@ -111,18 +129,30 @@ def main():
             lines.append(f"{truth[s]['name'][:31]:32s}{reads[s]:>8d}{mean_len[s]:>7.0f}{res['reads']['obs_exp'][s]:>15.2f}{res['bases']['obs_exp'][s]:>15.2f}")
         hum = reads.get(9606, 0)
         lines.append(f"(human: {hum} reads, {bases.get(9606, 0)/1e6:.2f} Mb; counted as a called non-mock species)")
-        if run == a.run[0] and os.path.exists(P(a.table)):
+        if pool == "dev" and run == a.run[0] and os.path.exists(P(a.table)):
             bad = []
             for r in csv.DictReader(open(P(a.table)), delimiter="\t"):
                 t = int(r["taxid"])
                 if t in truth and int(r["observed_reads"]) != reads.get(t, 0):
                     bad.append((r["species"], int(r["observed_reads"]), reads.get(t, 0)))
             lines.append("Consistency with the species table: " + ("all truth-species read counts equal" if not bad else f"MISMATCH {bad}"))
+        if a.compare_dev:
+            dv = {r["taxid"]: float(r["mean_read_len"]) for r in csv.DictReader(open(P(a.compare_dev)), delimiter="\t")}
+            ratios = [(truth[s]["name"], mean_len[s] / dv[str(s)]) for s in sorted(called & set(truth)) if str(s) in dv]
+            lines.append("Read-length replication (this pool / dev, mean read length of reads assigned to each species): " + "; ".join(f"{n.split()[0][:12]} {r:.2f}" for n, r in ratios))
+            if ratios:
+                worst = max(ratios, key=lambda x: abs(x[1] - 1))
+                lines.append(f"  largest deviation from 1: {worst[0]} {worst[1]:.2f}; species within +/-10%: {sum(abs(r - 1) <= 0.10 for _, r in ratios)} of {len(ratios)}")
         lines.append("")
-    lines.append("Sylph arm 3a (dev, among called mock species, bin/14): 0.240 (registered sum rule), 0.182 (best-genome what-if).")
-    lines.append("Mean read length uses the full read; the call set is the registered read-count threshold. Exploratory.")
-    s = "\n".join(lines); open(P(a.out, "kraken_bases_report.txt"), "w").write(s + "\n")
-    json.dump(summary, open(P(a.out, "kraken_bases_summary.json"), "w"), indent=1); print(s)
+    if pool == "dev":
+        lines.append("Sylph arm 3a (dev, among called mock species, bin/14): 0.240 (registered sum rule), 0.182 (best-genome what-if).")
+    lines.append("Mean read length uses the full read; the call set is the registered read-count threshold." + (" Exploratory, post hoc." if pool == "dev" else " Registered in Addendum A2 (tag bases-registered)."))
+    s = "\n".join(lines)
+    outname = "kraken_bases_report" if pool == "dev" else "eval_kraken_bases_report"
+    if pool == "eval" and os.path.exists(P(a.out, outname + ".txt")):
+        sys.exit(f"{outname}.txt exists; evaluation outputs are never overwritten")
+    open(P(a.out, outname + ".txt"), "w").write(s + "\n")
+    json.dump(summary, open(P(a.out, outname.replace("report", "summary") + ".json"), "w"), indent=1); print(s)
 
 
 if __name__ == "__main__":

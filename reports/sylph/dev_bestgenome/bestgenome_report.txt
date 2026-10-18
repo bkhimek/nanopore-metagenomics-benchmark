@@ -1,0 +1,19 @@
+Sylph best-genome rule vs registered sum rule (dev; profile data/sylph/dev/arm_3a.tsv; 13 mock species called, 0 genome rows outside the crosswalk)
+
+Bray-Curtis, bin/04 convention (vs all 17 truth species):  sum 0.248   best-genome 0.190
+Bray-Curtis, among called mock species:                    sum 0.240   best-genome 0.182
+
+species                          rows  obs/exp sum  obs/exp best
+Escherichia coli                    3        2.342         1.146
+Bacteroides fragilis                1        1.130         1.417
+Faecalibacterium prausnitzii        1        0.610         0.765
+Roseburia hominis                   1        0.304         0.381
+Veillonella rogosae                 1        1.187         1.489
+Fusobacterium nucleatum             1        0.605         0.759
+Limosilactobacillus fermentum       1        0.501         0.629
+Bifidobacterium adolescentis        1        0.483         0.606
+Prevotella corporis                 1        1.043         1.309
+Clostridioides difficile            1        1.079         1.353
+Candida albicans                    1        1.040         1.304
+Akkermansia muciniphila             1        0.987         1.238
+Methanobrevibacter smithii          1        1.231         1.544
