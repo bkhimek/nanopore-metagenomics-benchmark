@@ -55,7 +55,7 @@ Full numbers, predictions and verdicts are in `docs/PROJECT_STATE.md`. Small res
 
 | Path | Content |
 |---|---|
-| `bin/00` to `bin/29` | numbered scripts, in the order they were written (see below) |
+| `bin/00` to `bin/30` | numbered scripts, in the order they were written (see below) |
 | `reference/` | D6331 composition, expected reads by species, taxid aliases, GTDB crosswalks (v1, v2, v2 for evaluation) |
 | `reports/` | small tracked outputs: scores, species tables, false-positive audits, tuning tables, run records |
 | `metadata/` | ENA run record and the sampling manifest (seed, parameters, checksums) |

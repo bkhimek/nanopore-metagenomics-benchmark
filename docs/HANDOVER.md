@@ -319,3 +319,6 @@ Next steps: (1) user: copy Guide v6, README, PROJECT_STATE, HANDOVER, git rm the
 ## 2026-10-19 night X (Plan Rev12 and Guide v11)
 - Plan Rev12: A9 and A10 (D26, D27; tags amr-a9-registered, amr-a10-registered, amr-a10-eval-scored; bin/28, bin/29) added to Section 6 (AMR bullet), Phase 3 row, AMR risk and revision history. Guide v11: 'A direct look inside the reads', 'A better question' with a region table (exam pool), 'What this means and what it does not', 5.7 bullet sentence, timeline row, glossary term (window), Done / Not yet done and Next updated (next: genomic context of tet(Q) in the supplier genomes). Both validated.
 - NEXT: user copies both into docs/, git rm Rev11 and v10, commits with README, PROJECT_STATE, HANDOVER. Open: genomic context of tet(Q) (exploratory), the Veillonella tet(Q) read, replies from Dr Zhang and Zymo.
+
+## 2026-10-19 night XI (tet(Q) context check written)
+- Exploratory bin/30_tet_context.py (reference genomes only): shared sequence of the tet(Q), tet(W) and cepA flanks (+/- 30 kb) with the other supplier genomes, flank GC, co-located annotated elements; H15-H17 in the header and PROJECT_STATE. Tested on synthetic files only; not yet run. NEXT: user commits bin/30 + docs before running (python3 bin/30_tet_context.py), then I score and record. No hallmark-gene search (integrase, transfer genes) is part of it.
