@@ -46,8 +46,8 @@ Full numbers, predictions and verdicts are in `docs/PROJECT_STATE.md`. Small res
 
 - `docs/PROJECT_STATE.md`: decisions (D1 to D27), registrations, results, open items. The single source of truth.
 - `docs/HANDOVER.md`: session-by-session state and next steps.
-- `docs/Nanopore_Metagenomics_Project_Plan_Rev12.docx`: project plan.
-- `docs/Nanopore_Metagenomics_Workflow_Guide_v11.docx`: a beginner's guide that explains each step and term
+- `docs/Nanopore_Metagenomics_Project_Plan_Rev13.docx`: project plan.
+- `docs/Nanopore_Metagenomics_Workflow_Guide_v12.docx`: a beginner's guide that explains each step and term
   (thresholds, precision/recall/F1, Bray-Curtis, the Sylph experiment, the resistance-gene pilot) from scratch.
 - `docs/lessons_learned.md`, `reference/README.md` (composition table and checks).
 
@@ -55,7 +55,7 @@ Full numbers, predictions and verdicts are in `docs/PROJECT_STATE.md`. Small res
 
 | Path | Content |
 |---|---|
-| `bin/00` to `bin/30` | numbered scripts, in the order they were written (see below) |
+| `bin/00` to `bin/31` | numbered scripts, in the order they were written (see below) |
 | `reference/` | D6331 composition, expected reads by species, taxid aliases, GTDB crosswalks (v1, v2, v2 for evaluation) |
 | `reports/` | small tracked outputs: scores, species tables, false-positive audits, tuning tables, run records |
 | `metadata/` | ENA run record and the sampling manifest (seed, parameters, checksums) |
