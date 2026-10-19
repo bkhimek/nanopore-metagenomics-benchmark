@@ -1,0 +1,19 @@
+{
+ "script": "bin/29_amr_species_windows.py",
+ "args": {
+  "pool": "dev",
+  "allow_eval": false,
+  "suffix": "_A10",
+  "merge": "reference/amr_family_merge.tsv",
+  "reads_tsv": "reports/amr/dev_attribution_reads_A8.tsv",
+  "paf": "data/amr/dev/dev_vs_resfinder_c.paf",
+  "kraken_run": "data/classify/dev/baseline_c0",
+  "db": "data/db/pluspf_08_20260626",
+  "out": "reports/amr"
+ },
+ "k": 35,
+ "reads_used": 98,
+ "inconsistent": 0,
+ "valid": true,
+ "run": "2026-10-19 17:03:50"
+}
