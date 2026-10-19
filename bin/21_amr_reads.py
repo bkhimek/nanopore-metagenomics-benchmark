@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """21_amr_reads.py - AMR read-level pilot (ADDENDUM A4; DEV pool only; the evaluation pool has no code path here).
 
+Pools: --pool dev (default) or --pool eval. The evaluation pool needs --allow-eval, --merge (the A5 rules), the git tag amr-frozen (Addendum A6),
+and refuses to overwrite existing eval_* outputs. Rules, thresholds, merge list and the evaluable set (carrier coverage from the DEV trace) are FROZEN from
+the dev work; nothing is tuned on the evaluation pool.
 Step 1  --map-only : family map (reports/amr/family_map.tsv). Every AMR-type catalogue row (bin/20; POINT rows are not scored) is matched to a
                      ResFinder gene family by case-insensitive exact symbol; no match = 'not in arm database' (excluded from recall, not a miss).
                      Also computes the A4 evaluable value E = carrier_coverage x (L - 0.6 g) / L (L = carrier mean read length from bin/16, g = gene
@@ -10,8 +13,8 @@ Step 2  (default)  : minimap2 -x map-ont --secondary=yes -N 100 of the dev reads
                      family the best allele alignment (most matching bases) is kept; a read is assigned to the family with the most matching bases and is
                      'ambiguous' if the runner-up has >= 0.9 of it (not counted as support). Family = allele name before '_<digits>_<accession>'.
                      A family is 'detected' at >= 3 supporting reads; the curve at 1, 2, 3, 5, 10 reads is reported.
-Outputs: reports/amr/dev_family_reads.tsv (all families with >= 1 supporting read), dev_outcomes.tsv (one row per catalogue species x family),
-         dev_amr_report.txt, dev_run.json (command, image digest, ResFinder version file). Scoring unit: species x family (E. coli strains collapsed).
+Outputs: reports/amr/<pool>_family_reads.tsv (all families with >= 1 supporting read), <pool>_outcomes.tsv (one row per catalogue species x family),
+         <pool>_amr_report.txt, <pool>_run.json (command, image digest, ResFinder version file). Scoring unit: species x family (E. coli strains collapsed).
 A5 (2026-10-19): --merge FILE (alias -> family; reference/amr_family_merge.tsv) renames ResFinder families that sequence evidence (bin/22) shows to be
 the same gene under different names; --suffix _A5 writes the outputs next to the A4-rule outputs (which are kept). Without --merge the behaviour is
 exactly A4 as registered.
@@ -62,7 +65,7 @@ def catalogue(path):
     return keep, point
 
 
-def build_map(a):
+def build_map(a, write=True):
     fam = families_in(P(a.resfinder, "all.fsa"))
     low = {f.lower(): f for f in fam}
     cov = {r["species"]: (float(r["cov"]), float(r["len"])) for r in csv.DictReader(open(P(a.coverage)), delimiter="\t")}
@@ -78,16 +81,20 @@ def build_map(a):
                      "carrier_cov": "" if c is None else f"{c:.2f}", "mean_read_len": "" if L is None else f"{L:.0f}",
                      "E": "" if E is None else f"{E:.1f}",
                      "evaluable": "no (carrier not in dev trace)" if E is None else ("yes" if E >= E_MIN else "low opportunity (E < 10)")})
-    os.makedirs(P(a.out), exist_ok=True)
-    with open(P(a.out, f"family_map{a.suffix}.tsv"), "w") as o:
-        w = csv.DictWriter(o, fieldnames=list(rows[0]), delimiter="\t"); w.writeheader(); w.writerows(rows)
+    if write:
+        os.makedirs(P(a.out), exist_ok=True)
+        with open(P(a.out, f"family_map{a.suffix}.tsv"), "w") as o:
+            w = csv.DictWriter(o, fieldnames=list(rows[0]), delimiter="\t"); w.writeheader(); w.writerows(rows)
     L = [f"Family map (A4): {len(rows)} species x symbol units (AMR type; {len(point)} POINT rows not scored); ResFinder families {len(fam)}", ""]
     for r in rows:
         L.append(f"{r['species'][:28]:29s}{r['symbol'][:14]:15s}{r['category'][:9]:10s}{r['status'][:19]:20s}{r['resfinder_family'][:14]:15s}E {r['E'] or '-':>6s}  {r['evaluable']}")
     L.append("")
     L.append(f"high-confidence mapped: {sum(r['category']=='high-confidence' and r['status']=='mapped' for r in rows)} of {sum(r['category']=='high-confidence' for r in rows)}; "
              f"high-confidence mapped AND evaluable: {sum(r['category']=='high-confidence' and r['status']=='mapped' and r['evaluable']=='yes' for r in rows)}")
-    txt = "\n".join(L); open(P(a.out, f"family_map_report{a.suffix}.txt"), "w").write(txt + "\n"); print(txt)
+    txt = "\n".join(L)
+    if write:
+        open(P(a.out, f"family_map_report{a.suffix}.txt"), "w").write(txt + "\n")
+    print(txt)
     return rows
 
 
@@ -112,7 +119,7 @@ def run(a, fam_rows):
     spec = importlib.util.spec_from_file_location("x08", P("bin", "08_trace_reads.py"))
     x08 = importlib.util.module_from_spec(spec); spec.loader.exec_module(x08)
     work = Path(P(a.workdir)); work.mkdir(parents=True, exist_ok=True)
-    paf = work / "dev_vs_resfinder.paf"; meta = {"script": "bin/21_amr_reads.py", "args": vars(a)}
+    paf = work / f"{a.pool}_vs_resfinder.paf"; meta = {"script": "bin/21_amr_reads.py", "args": vars(a)}
     if a.paf:
         paf = Path(a.paf)
     else:
@@ -142,7 +149,7 @@ def run(a, fam_rows):
             continue
         support[best[0]] += 1; idsum[best[0]] += best[1][1]
     os.makedirs(P(a.out), exist_ok=True)
-    with open(P(a.out, f"dev_family_reads{a.suffix}.tsv"), "w") as o:
+    with open(P(a.out, f"{a.pool}_family_reads{a.suffix}.tsv"), "w") as o:
         o.write("family\tsupporting_reads\tambiguous_reads\tmean_identity\n")
         for f in sorted(set(support) | set(ambig), key=lambda f: -support[f]):
             o.write(f"{f}\t{support[f]}\t{ambig[f]}\t{idsum[f]/support[f]:.3f}\n" if support[f] else f"{f}\t0\t{ambig[f]}\t\n")
@@ -158,11 +165,11 @@ def run(a, fam_rows):
             res = "detected" if s >= CALL else "missed"
         outc.append(dict(r, support=s, ambiguous=ambig[f] if f else 0, result=res, **{f"ge{k}": int(s >= k) for k in CURVE}))
     cols = list(outc[0])
-    with open(P(a.out, f"dev_outcomes{a.suffix}.tsv"), "w") as o:
+    with open(P(a.out, f"{a.pool}_outcomes{a.suffix}.tsv"), "w") as o:
         w = csv.DictWriter(o, fieldnames=cols, delimiter="\t"); w.writeheader(); w.writerows(outc)
     hc = [r for r in outc if r["category"] == "high-confidence"]
     ev = [r for r in hc if r["status"] == "mapped" and r["evaluable"] == "yes"]
-    L = [f"AMR read-level pilot, DEV pool (A4 rules; {nal} alignments; {len(per)} reads pass the alignment filter; ResFinder {a.resfinder})", "",
+    L = [f"AMR read-level pilot, {a.pool.upper()} pool (A4/A5 rules; {nal} alignments; {len(per)} reads pass the alignment filter; ResFinder {a.resfinder})", "",
          f"{'species':26s}{'gene':13s}{'cat':10s}{'E':>6s}{'reads':>6s}{'amb':>5s}  result"]
     for r in sorted(outc, key=lambda r: (r["category"] != "high-confidence", r["species"], r["symbol"])):
         L.append(f"{r['species'][:25]:26s}{r['symbol'][:12]:13s}{r['category'][:9]:10s}{r['E'] or '-':>6s}{r['support']:>6d}{r['ambiguous']:>5d}  {r['result']}")
@@ -180,19 +187,20 @@ def run(a, fam_rows):
     for f, s in sorted(unexp, key=lambda x: -x[1])[:40]:
         L.append(f"  {f:28s}{s:>6d} reads (ambiguous {ambig[f]})")
     L += ["", "Gene-family level only; no alleles, point mutations or species attribution. Reference annotation is not biological truth. Research use only."]
-    txt = "\n".join(L); open(P(a.out, f"dev_amr_report{a.suffix}.txt"), "w").write(txt + "\n"); print(txt)
-    json.dump(meta, open(P(a.out, f"dev_run{a.suffix}.json"), "w"), indent=1)
+    txt = "\n".join(L); open(P(a.out, f"{a.pool}_amr_report{a.suffix}.txt"), "w").write(txt + "\n"); print(txt)
+    json.dump(meta, open(P(a.out, f"{a.pool}_run{a.suffix}.json"), "w"), indent=1)
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--pool", choices=["dev"], default="dev", help="dev only; the evaluation pool needs a freeze addendum and new code")
+    ap.add_argument("--pool", choices=["dev", "eval"], default="dev")
+    ap.add_argument("--allow-eval", action="store_true")
     ap.add_argument("--map-only", action="store_true")
     ap.add_argument("--resfinder", default="data/db/resfinder_db")
     ap.add_argument("--catalogue", default="reports/amr/reference_catalogue.tsv")
     ap.add_argument("--coverage", default="reports/sylph/dev_diagnostic/base_basis_by_species.tsv")
-    ap.add_argument("--reads", default="data/subsets/SRR31222153.dev.seed20261012.blocks.fastq.gz")
-    ap.add_argument("--workdir", default="data/amr/dev")
+    ap.add_argument("--reads", default="")
+    ap.add_argument("--workdir", default="")
     ap.add_argument("--out", default="reports/amr")
     ap.add_argument("--image", default="quay.io/biocontainers/minimap2:2.31--h118bc1c_0")
     ap.add_argument("--threads", type=int, default=6)
@@ -201,10 +209,26 @@ def main():
     ap.add_argument("--merge", default="", help="A5: TSV alias<TAB>family<TAB>evidence; empty = A4 rule")
     ap.add_argument("--suffix", default="", help="suffix for output names, e.g. _A5")
     a = ap.parse_args()
+    a.reads = a.reads or f"data/subsets/SRR31222153.{a.pool}.seed20261012.blocks.fastq.gz"
+    a.workdir = a.workdir or f"data/amr/{a.pool}"
+    if a.pool == "eval":
+        import subprocess
+        if not a.allow_eval:
+            sys.exit("evaluation pool: needs --allow-eval")
+        if not a.merge:
+            sys.exit("evaluation pool: needs --merge reference/amr_family_merge.tsv (the frozen A5 rules)")
+        if a.map_only:
+            sys.exit("evaluation pool: --map-only is a dev step (the family map is frozen from dev)")
+        if subprocess.run(["git", "-C", str(ROOT), "rev-parse", "-q", "--verify", "refs/tags/amr-frozen"], capture_output=True).returncode != 0:
+            sys.exit("evaluation pool refused: git tag amr-frozen not found (commit and tag Addendum A6 first)")
+        if any(Path(P(a.out)).glob("eval_*")):
+            sys.exit("evaluation outputs are never overwritten (an eval_* file exists in reports/amr)")
+        if not Path(P(a.reads)).exists():
+            sys.exit(f"eval reads not found: {a.reads} (check the file name with ls data/subsets)")
     if a.merge:
         for r in csv.DictReader(open(P(a.merge)), delimiter="\t"):
             MERGE[r["alias"]] = r["family"]
-    rows = build_map(a)
+    rows = build_map(a, write=(a.pool == "dev"))
     if not a.map_only:
         run(a, rows)
 

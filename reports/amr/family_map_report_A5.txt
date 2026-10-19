@@ -1,0 +1,26 @@
+Family map (A4): 22 species x symbol units (AMR type; 4 POINT rows not scored); ResFinder families 2601
+
+Bacteroides fragilis         cepA           high-conf mapped              cepA           E   32.1  yes
+Bacteroides fragilis         lnu(AN2)       high-conf not in arm database                E   33.1  yes
+Bacteroides fragilis         mef(En2)       candidate not in arm database                E   31.2  yes
+Bacteroides fragilis         tet(Q)         high-conf mapped              tet(Q)         E   29.2  yes
+Clostridioides difficile     blaAHM         candidate not in arm database                E    3.7  low opportunity (E < 10)
+Clostridioides difficile     blaCDD         high-conf not in arm database                E    3.6  low opportunity (E < 10)
+Clostridioides difficile     cplR           candidate not in arm database                E    3.3  low opportunity (E < 10)
+Clostridioides difficile     erm(B)         high-conf mapped              erm(B)         E    3.7  low opportunity (E < 10)
+Clostridioides difficile     nimB-Cd        candidate not in arm database                E    3.8  low opportunity (E < 10)
+Clostridioides difficile     vanG           candidate not in arm database                E    3.5  low opportunity (E < 10)
+Clostridioides difficile     vanR-Cd        candidate not in arm database                E    3.7  low opportunity (E < 10)
+Clostridioides difficile     vanS-Cd        candidate not in arm database                E    3.5  low opportunity (E < 10)
+Clostridioides difficile     vanT-Cd        candidate not in arm database                E    3.1  low opportunity (E < 10)
+Clostridioides difficile     vanZ1          candidate not in arm database                E    3.7  low opportunity (E < 10)
+Enterococcus faecalis        lsa(A)         high-conf mapped              lsa(A)         E      -  no (carrier not in dev trace)
+Escherichia coli             acrF           candidate not in arm database                E   25.7  yes
+Escherichia coli             blaEC          candidate not in arm database                E   31.4  yes
+Escherichia coli             mdtM           candidate not in arm database                E   31.1  yes
+Faecalibacterium prausnitzii tet(W)         high-conf mapped              tet(W)         E   21.7  yes
+Prevotella corporis          tet(Q)         high-conf mapped              tet(Q)         E   21.6  yes
+Salmonella enterica          mdsA           candidate not in arm database                E      -  no (carrier not in dev trace)
+Salmonella enterica          mdsB           candidate not in arm database                E      -  no (carrier not in dev trace)
+
+high-confidence mapped: 6 of 8; high-confidence mapped AND evaluable: 4
