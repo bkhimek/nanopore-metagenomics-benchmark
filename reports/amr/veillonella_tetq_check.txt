@@ -1,0 +1,14 @@
+EXPLORATORY: where does the tet(Q) sequence of a non-carrier read come from? (read examined after scoring; no count changed)
+
+read SRR31222153.7328964: A8 destination species, true organism (genome mapping) Veillonella rogosae, Kraken2 Veillonella rogosae (species)
+  read length 25346; tet(Q) alignment: tet(Q)_2_X58717 (1926 bases), read interval 7395-9332, identity 0.984, gene span 1.00
+  genome piece on Veillonella_rogosae contig 1: read 12130-25325 -> genome 1599996-1613203 (+), identity 0.974, block 13223
+  other genome piece on Prevotella_corporis: read 34-12128 -> 59381-71458, identity 0.879, block 12112
+  share of the tet(Q) read interval covered by alignments to the Veillonella rogosae genome: 0.00
+  tet(Q) gene sequences (tet(Q)_2_X58717, supplier_Bacteroides_fragilis, supplier_Prevotella_corporis) aligned to the Veillonella rogosae genome: 0 alignments of block >= 200
+
+  H_a (gene present in the reference, catalogue missed it): NOT MET  (interval covered 0.00; gene-versus-genome alignment overlapping the read's genome interval with identity >= 0.70 and coverage >= 0.80: no)
+  H_b (insertion in the sampled strain, absent from the reference): NOT MET  (no flanking pair)
+  verdict: H_c; prediction was H_b: NOT MET
+
+Exploratory, one read, mock community. It decides no count; it says where one read's tet(Q) sequence probably comes from. Research use only, not clinically validated.

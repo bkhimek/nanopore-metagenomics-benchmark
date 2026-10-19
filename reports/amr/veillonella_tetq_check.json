@@ -1,0 +1,23 @@
+{
+ "script": "bin/31_veillonella_tetq.py",
+ "args": {
+  "pool": "eval",
+  "read": "",
+  "reads_tsv": "reports/amr/eval_attribution_reads_A8.tsv",
+  "a7_paf": "data/amr/eval/eval_vs_resfinder_c.paf",
+  "truth_paf": "data/amr/eval/attribution/eval_support_vs_refs.paf",
+  "resfinder": "data/db/resfinder_db/all.fsa",
+  "refdir": "data/reference/D6331.refseq/genomes",
+  "raw": "reports/amr/reference_hits_raw.tsv",
+  "merge": "reference/amr_family_merge.tsv",
+  "workdir": "data/amr/veillonella",
+  "out": "reports/amr",
+  "gene_paf": [],
+  "image": "quay.io/biocontainers/minimap2:2.31--h118bc1c_0",
+  "threads": 4,
+  "memory": "8g"
+ },
+ "started": "2026-10-19 17:33:31",
+ "minimap2_asm20": "docker run --rm -u 1000:1000 -m 8g --cpus 4 -v /home/himek/projects/metagenomics_1_Nanopore/data/reference/D6331.refseq/genomes:/ref:ro -v /home/himek/projects/metagenomics_1_Nanopore/data/amr/veillonella:/q:ro -v /home/himek/projects/metagenomics_1_Nanopore/data/amr/veillonella:/out quay.io/biocontainers/minimap2:2.31--h118bc1c_0 minimap2 -x asm20 -c --secondary=yes -p 0 -N 50 -t 4 -o /out/SRR31222153.7328964_genes_vs_genome_asm20.paf /ref/Veillonella_rogosae.fasta /q/SRR31222153.7328964_genes.fa",
+ "minimap2_sens": "docker run --rm -u 1000:1000 -m 8g --cpus 4 -v /home/himek/projects/metagenomics_1_Nanopore/data/reference/D6331.refseq/genomes:/ref:ro -v /home/himek/projects/metagenomics_1_Nanopore/data/amr/veillonella:/q:ro -v /home/himek/projects/metagenomics_1_Nanopore/data/amr/veillonella:/out quay.io/biocontainers/minimap2:2.31--h118bc1c_0 minimap2 -k 11 -w 4 -x map-ont -c --secondary=yes -p 0 -N 50 -t 4 -o /out/SRR31222153.7328964_genes_vs_genome_sens.paf /ref/Veillonella_rogosae.fasta /q/SRR31222153.7328964_genes.fa"
+}

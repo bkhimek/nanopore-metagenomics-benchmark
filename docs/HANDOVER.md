@@ -337,3 +337,8 @@ Next steps: (1) user: copy Guide v6, README, PROJECT_STATE, HANDOVER, git rm the
 
 ## 2026-10-19 night XV (Veillonella tet(Q) read check written)
 - User chose to skip the marker-gene search for good (value judged low) and to look at the Veillonella tet(Q) read instead. bin/31_veillonella_tetq.py (exploratory, one eval read examined after scoring, changes no count): explanations H_a (reference has the gene, catalogue missed it), H_b (insertion in the sampled strain), H_c (other) with rules and the prediction H_b fixed in the header and PROJECT_STATE. Tested on synthetic files only. NEXT: user commits bin/31 + docs, runs python3 bin/31_veillonella_tetq.py, I score.
+
+## 2026-10-19 night XVI (Veillonella tet(Q) read scored)
+- bin/31 run (registered c804119): verdict H_c, prediction H_b NOT MET. 25.3 kb read: positions 34-12,128 align to P. corporis (62 kb locus, identity 0.879, contains the tet(Q)), 12,130-25,325 align to Veillonella contig 1 at 1,599,996-1,613,203 (identity 0.974), 1-base gap; the Veillonella genome has no tet(Q)-like sequence (no gene alignment >= 200 bases). Not a catalogue miss; strain insertion vs chimeric read undecided (one read). No count changed.
+- Plan Rev13 and Guide v12 amended in place for the sentence 'not investigated' (the d67 docx replace the d65 ones; do not commit the d65 docx). Optional check not done: other reads at the Veillonella coordinate 1,599,996 split with an element-like other side.
+- Lesson: a prediction can fail because the explanation list was too coarse; the read is an element-to-chromosome junction, a case H_a/H_b did not name.
