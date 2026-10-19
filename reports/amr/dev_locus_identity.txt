@@ -1,0 +1,13 @@
+Locus identity check (EXPLORATORY, dev pool; hypotheses H3/H4 in the script header)
+
+species                   gene     best ResFinder allele       gene id locus read~genome read~RF n RF >=0.80
+Bacteroides fragilis      tet(Q)   tet(Q)_1_L33696               0.976    34       0.942   0.775   34   0.03
+Bacteroides fragilis      cepA     cepA_1_L13472                 0.991    37       0.950   0.907   37   0.78
+Faecalibacterium prausnit tet(W)   tet(W)_5_AJ427422             0.998    19       0.935   0.925   19   0.74
+Prevotella corporis       tet(Q)   tet(Q)_2_X58717               0.998    18       0.870   0.910   18   0.78
+
+H3 (reference): B. fragilis tet(Q) gene id 0.976 (<= 0.88?), P. corporis 0.998 (>= 0.95?), read~genome medians 0.942 / 0.870 (both >= 0.90?) -> NOT MET
+H4 (reads): B. fragilis tet(Q) read~genome median 0.942 (< 0.85?) -> NOT MET
+Outcome: inconclusive (neither or both met)
+
+Exploratory; gene identity is a plain global alignment of the supplier-genome gene against the five closest ResFinder alleles; read identities are matches/block from minimap2 (block includes gaps). 'read~RF' is over locus reads having any alignment to the family.
