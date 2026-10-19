@@ -294,3 +294,7 @@ Next steps: (1) user: copy Guide v6, README, PROJECT_STATE, HANDOVER, git rm the
 - Finding: cepA and tet(W) reads get the right species; tet(Q) reads mostly stop at family/order (B. fragilis 12/30 dev, 7/25 eval to species) and some P. corporis reads go to other Bacteroidales. Mobile-element reading consistent, not tested.
 - Open: one eval tet(Q) read truly from Veillonella rogosae (not a catalogue carrier), not investigated. Plan and Guide do not yet carry A8; add at next revision (Plan Rev11, Guide v10), with the wording: worked example in a mock, three families, not an accuracy estimate.
 - README lists the A8 tags; the A8 result row in the README table is still to add.
+
+## 2026-10-19 night V (A8 follow-up, exploratory)
+- bin/27 committed e1a14ec before its run (hypotheses H8-H10 in the header), dev only. All three met: tet(Q) reads that stop above species are shorter (8,164 against 13,926 bases) and have a higher gene fraction (0.238 against 0.141, AUC 0.90); at gene fraction below 0.30 tet(Q) reaches species in 0.447 of reads against 1.000 for cepA, so gene fraction alone does not explain the gap. Length and gene fraction are tied.
+- Not done: absolute non-gene bases, Kraken2 k-mer evidence, evaluation-pool replication (would need an addendum). Record in Plan/Guide only as 'exploratory pointer'.

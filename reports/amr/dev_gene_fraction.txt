@@ -1,0 +1,20 @@
+EXPLORATORY follow-up to A8 (DEV only): gene fraction and read length against the Kraken2 destination
+
+reads used 99; scored-family reads in the A8 table that could not be matched to an A7 alignment: 0
+
+family  class        n  median read length  median gene fraction
+cepA    species     34                8350                 0.109
+erm(B)  above        1                3653                 0.209
+tet(Q)  above       23                8164                 0.238
+tet(Q)  species     17               13926                 0.141
+tet(Q)  wrong        6                8916                 0.216
+tet(W)  above        2                2865                 0.713
+tet(W)  species     16                8228                 0.225
+
+tet(Q) reads: species 17, above species 23
+H8  median gene fraction above - species = +0.097; AUC(above > species) = 0.90: MET
+H9  median read length species - above = +5762 bases: MET
+H10 reads with gene fraction < 0.3: tet(Q) species share 0.447 (n 38), cepA 1.000 (n 30); gap +0.553: MET
+
+Exploratory, dev pool only, small numbers; a pointer for a later registered test, not a result.
+descriptive: 6 wrong-organism reads, median read length 8916, median gene fraction 0.216
