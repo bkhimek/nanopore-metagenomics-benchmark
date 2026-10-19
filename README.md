@@ -1,4 +1,4 @@
-# Nanopore metagenomics: benchmark-led taxonomic profiling (AMR planned)
+# Nanopore metagenomics: benchmark-led taxonomic profiling, with a pilot resistance-gene check
 
 An independent portfolio project: a reproducible, pre-registered benchmark of taxonomic profiling for nanopore
 metagenomic reads, run on a public, characterised mock community. The aim is a defensible picture of where the
@@ -34,6 +34,7 @@ the data used.
 | Read trace (exploratory, development pool) | Much of the departure from the theoretical abundances is in the sequenced sample itself; Kraken2 loses reads mainly for species with close relatives (E. coli, Bifidobacterium adolescentis) |
 | Sylph 1.0.0 with GTDB r232 + RefSeq fungi | F1 0.963; 13 of 14 evaluable species; 0 false positives; Bray-Curtis 0.242 (Kraken2: 0.13 to 0.17). The registered B. adolescentis test is met by 0.002 (0.495 against 0.393 + 0.10), which is marginal and very likely within noise. Abundances are worse than Kraken2's |
 | Reads versus DNA mass (exploratory on the development pool, then registered Addendum A2 on the evaluation pool) | Species differ in read length (Limosilactobacillus fermentum about 2 kb, most others 7 to 9 kb), so read shares are not DNA shares. Counted in bases, Kraken2's Bray-Curtis is 0.19 (0.17 on reads); Sylph keeping one genome per species is 0.18 (0.24 with the registered sum rule, which counts E. coli reads about 2.4 times). All eight written predictions were met; both pools come from one run |
+| Resistance genes (pilot, registered Addenda A3 to A6) | A reference catalogue of resistance genes was annotated in the supplier genomes with AMRFinderPlus (8 high-confidence, 30 candidate; an annotation, not biological truth). Read-level detection against ResFinder: 3 of 3 evaluable gene families detected on the evaluation pool (cepA, tet(Q), tet(W)), all five registered predictions met. Only three families were evaluable, so this is a worked example, not an accuracy estimate; the family rule had to be amended after the development result (disclosed). Candidate genes are mostly absent from the ResFinder arm, and the sequence evidence says nothing about the carrier species or a resistant phenotype |
 
 A first translation table between mock-species names and GTDB names failed on the development pool (F1 0.50 for a naming
 reason). It was replaced by a genome-to-genome fastANI table in a registered addendum, disclosed as written after the
@@ -43,7 +44,7 @@ Full numbers, predictions and verdicts are in `docs/PROJECT_STATE.md`. Small res
 
 ## Documents
 
-- `docs/PROJECT_STATE.md`: decisions (D1 to D18), registrations, results, open items. The single source of truth.
+- `docs/PROJECT_STATE.md`: decisions (D1 to D23), registrations, results, open items. The single source of truth.
 - `docs/HANDOVER.md`: session-by-session state and next steps.
 - `docs/Nanopore_Metagenomics_Project_Plan_Rev8.docx`: project plan.
 - `docs/Nanopore_Metagenomics_Workflow_Guide_v6.docx`: a beginner's guide that explains each step and term
@@ -54,7 +55,7 @@ Full numbers, predictions and verdicts are in `docs/PROJECT_STATE.md`. Small res
 
 | Path | Content |
 |---|---|
-| `bin/00` to `bin/18` | numbered scripts, in the order they were written (see below) |
+| `bin/00` to `bin/22` | numbered scripts, in the order they were written (see below) |
 | `reference/` | D6331 composition, expected reads by species, taxid aliases, GTDB crosswalks (v1, v2, v2 for evaluation) |
 | `reports/` | small tracked outputs: scores, species tables, false-positive audits, tuning tables, run records |
 | `metadata/` | ENA run record and the sampling manifest (seed, parameters, checksums) |
@@ -66,7 +67,7 @@ Scripts: `00_ena_metadata.sh` (run record), `01_sra_block_sample.py` (seeded blo
 `02_pool_qc.py` (read QC, pool comparison), `03_classify.py` (Kraken2 in Docker), `04_score.py` (scoring),
 `05_depth_series.py`, `06_confidence_arms.py`, `07_database_arms.py` (registered experiments),
 `08_trace_reads.py`, `09_composition_vs_mapping.py` (exploratory read trace), `10` to `13` (Sylph: crosswalk v1,
-sketch/profile/bootstrap/score arm, fastANI crosswalk v2, gap rule), `14` to `18` (diagnostics of the Sylph abundance error: shared reads, read identity, reads versus bases; Addendum A2). Each script documents its arguments in its header
+sketch/profile/bootstrap/score arm, fastANI crosswalk v2, gap rule), `14` to `18` (diagnostics of the Sylph abundance error: shared reads, read identity, reads versus bases; Addendum A2), `19` to `22` (resistance genes: AMRFinderPlus on the reference genomes, the reference catalogue, the read-level ResFinder arm, an exploratory check of one family-name ambiguity). Each script documents its arguments in its header
 and with `--help`.
 
 ## Reproducing
@@ -86,12 +87,12 @@ USD 2). Reads and databases must be fetched locally:
 
 Pre-registration tags (`git tag`): `freeze-d14`, `arms-registered`, `arms-frozen`, `depth-registered`,
 `dbarms-registered`, `dbarms-frozen`, `sylph-registered`, `sylph-crosswalk`, `sylph-crosswalk-v2`, `sylph-frozen`,
-`sylph-gaprule`, `sylph-eval-scored`, `bases-registered`, `bases-eval-scored`. They prove the order in which rules, predictions and results were written.
+`sylph-gaprule`, `sylph-eval-scored`, `bases-registered`, `bases-eval-scored`, `amr-registered`, `amr-a4-registered`, `amr-map-registered`, `amr-a5-registered`, `amr-frozen`, `amr-eval-scored`. They prove the order in which rules, predictions and results were written.
 
 ## Status
 
 Phase 1 (baseline benchmark) and Phase 2 arms 1 to 3 (Kraken2 confidence, database size, Sylph) are done and
-documented. Not done: AMR detection (Phase 3; deferred until an independent truth set is confirmed), Nextflow wrapping
+documented. Phase 3 (resistance genes) is done as a pilot at the level of gene families (no alleles, point mutations or species attribution). Not done: assembly-based and Argo comparisons, Nextflow wrapping
 (the first modules were deliberately written as plain scripts; `modules/`, `workflows/` and `tests/` are empty
 placeholders and `nextflow.config` is a skeleton), a lot-specific composition certificate, the basecalling model tier,
 and any second run or chemistry. The scripts were tested on small synthetic fixtures with answers worked out by hand;
@@ -99,6 +100,7 @@ those fixtures are not yet committed.
 
 ## Known limits
 
+- Resistance genes: the truth is an annotation of the supplier genomes with one tool, not a measurement of the sequenced sample or of phenotype; three evaluable gene families; a read-level hit shows sequence evidence, not an acquired determinant, its host organism or a resistant strain.
 - One run, one chemistry, one mock community; two pools from the same run.
 - Evaluation-pool results are pre-registered comparisons on a pool that was used more than once, not fresh validation.
 - The theoretical composition is not a measurement of the sequenced sample. The read trace shows the sample departs
