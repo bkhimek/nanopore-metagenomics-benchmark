@@ -1,0 +1,13 @@
+EXPLORATORY: do other reads break at Veillonella_rogosae contig 1 position 1599996? (both pools; after scoring; no count changed)
+
+reads touching the site: 178; spanning 152; split 0 (right 0, left 0); short end 25; control read counted separately
+
+control read SRR31222153.7328964: split_right, tail 12129 bases, tail class carrier (Prevotella corporis Prevotella_corporis:59380-71459, identity 0.989), tet(Q) in tail: 1
+V1 (control read is split at the site with a carrier tail): MET
+
+K1 (control read is a chimera; no other split read, >= 10 spanning): MET  (split 0, spanning 152)
+K2 (insertion in the sampled DNA; >= 2 other split reads, >= 1 element-like tail): NOT MET  (split 0, element-like 0)
+outcome: K1; prediction was K1: MET
+descriptive: split share among covering reads (split / (split + spanning)) = 0.000
+
+Exploratory, mock community, one site. It decides no count. Research use only, not clinically validated.
