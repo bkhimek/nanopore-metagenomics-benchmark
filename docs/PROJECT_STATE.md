@@ -608,6 +608,12 @@ Status: design only. Nothing about AMR has been run. Phase 3 had been deferred u
 - Equivalence check, RUN on the user's machine (2026-10-19, after commit 3b08984): nextflow run . -profile docker --manifest data/subsets/SRR31222153.seed20261012.sra_blocks.manifest.json (dev pool, PlusPF-8, confidence 0.0, fraction 0.0008; Kraken2, score and summarise tasks all completed), then python3 tests/check_equivalence.py: IDENTICAL, every species row and headline number equal to reports/baseline_kraken2_pluspf8/dev_*. The wrapper reproduces the frozen baseline. First attempt failed only because my default manifest file name was wrong; corrected in nextflow.config (a typing error of mine, not a data problem).
 - Transferability (user's question): the skills and the generic modules (Kraken2, scoring-against-truth, summarise) transfer; the analysis logic, crosswalks and AMR scripts are specific to D6331. For a future production metagenomics project prefer an existing nf-core pipeline where one fits.
 
+## Close-out deliverables (2026-10-19; documentation, not a result; part of no verdict)
+- Case study (Claude Docs, revised after two independent reviews) and 1, 2 and 5 page executive summaries (Claude Docs); links in docs/HANDOVER.md night XIX.
+- Python helper image pinned by digest (d04a6e6): python@sha256:60d9996b6a8a3689d36db740b49f4327be3be09a21122bd02fb8895abb38b50d. The Docker-profile run with the digest was not repeated; the Docker-free fixture tests pass.
+- Wording corrections adopted from the reviews: depth series is 13 / 14 / 14 evaluable species at 0.1 / 0.25 / 0.5 Gb with F1 0.953 / 0.958 / 0.966 (not "all 14 at every depth"); the human call is a false-positive taxonomic call above threshold, origin unresolved; the five gene-detection predictions (A10) and the failed attribution target (A8, 0.593 against 0.85) are separate registrations.
+- Still open: Zymo lot certificate, basecalling model tier from the study authors, DOI of Chen et al. 2025.
+
 ## Unverified / open
 - Basecalling model tier (not in the ENA record, the Argo paper or its supplement; ask the authors)
 - Emails: Zymo technical support asked for lot-specific CoAs and typical lot variation (sent 2026-10-17; reply pending, may never arrive). The study authors have not yet been asked for the lot number and the basecalling model tier.
