@@ -14,6 +14,9 @@ Hypotheses and predictions, written BEFORE the first run:
   H17 the GC of the tet(Q) flanks differs from the genome GC by >= 0.03 (absolute) in both genomes (composition different from the host, as often seen in mobile elements).
 Descriptive, no prediction: tet(W) (F. prausnitzii), every partner found, co-located AMR hits.
 Limits: this is sequence sharing inside a 21-genome mock; it cannot name the element, show that it moves, or say how common it is in other strains. A mobile-element hallmark gene search (integrase, transfer genes) is NOT done here.
+RUN HISTORY (disclosed): run 1 (commit a5d54fe, outputs tet_context.* before the rename to tet_context_run1.*) used minimap2's default secondary-to-primary score ratio (-p 0.8). Each region's primary alignment is its
+own 61 kb place in its own genome, so short alignments to other genomes (for example the other tet(Q) copy) fell below 0.8 of its score and were dropped: 'no other genome shares the gene' in run 1 is an artefact of that
+setting, and its H15 and H16 results are void (H17 does not use alignments and stands). Run 2 (this script, --suffix _run2) adds -p 0 and -N 200; the hypotheses and thresholds are unchanged.
 A prediction that fails stays failed. Standard library only; minimap2 (Docker image as in bin/08) unless --paf is given (tests).
 """
 import argparse, csv, importlib.util, json, os, subprocess, sys, time
@@ -67,7 +70,7 @@ def run_minimap2(image, fa, query, paf, threads, mem):
     ver = subprocess.run(["docker", "run", "--rm", image, "minimap2", "--version"], capture_output=True, text=True).stdout.strip()
     cmd = ["docker", "run", "--rm", "-u", f"{os.getuid()}:{os.getgid()}", "-m", mem, "--cpus", str(threads),
            "-v", f"{fa.parent}:/ref:ro", "-v", f"{query.parent}:/q:ro", "-v", f"{paf.parent}:/out", image,
-           "minimap2", "-x", "asm20", "-c", "--secondary=yes", "-N", "50", "-t", str(threads), "-o", f"/out/{paf.name}", f"/ref/{fa.name}", f"/q/{query.name}"]
+           "minimap2", "-x", "asm20", "-c", "--secondary=yes", "-p", "0", "-N", "200", "-t", str(threads), "-o", f"/out/{paf.name}", f"/ref/{fa.name}", f"/q/{query.name}"]
     t0 = time.time(); subprocess.run(cmd, check=True)
     return {"minimap2_version": ver, "command": " ".join(cmd), "wall_s": round(time.time() - t0, 1)}
 
@@ -79,6 +82,7 @@ def main():
     ap.add_argument("--workdir", default="data/amr/context")
     ap.add_argument("--flank", type=int, default=30000)
     ap.add_argument("--out", default="reports/amr")
+    ap.add_argument("--suffix", default="_run2")
     ap.add_argument("--paf", default="", help="use an existing PAF of the regions against the combined genomes (tests)")
     ap.add_argument("--image", default="quay.io/biocontainers/minimap2:2.31--h118bc1c_0")
     ap.add_argument("--threads", type=int, default=4)
@@ -117,7 +121,7 @@ def main():
     else:
         allfa = work / "genomes_all.fa"
         meta["reference_md5"] = x08.build_reference(P(a.refdir), str(allfa))
-        paf = str(work / "regions_vs_genomes.paf")
+        paf = str(work / f"regions_vs_genomes{a.suffix}.paf")
         meta["minimap2"] = run_minimap2(a.image, allfa, qfa, paf, a.threads, a.memory)
     byid = {r["id"]: r for r in regions}
     ivs = defaultdict(lambda: defaultdict(list))  # region id -> partner stem -> [(qs, qe, id)]
@@ -180,10 +184,10 @@ def main():
           "", "Exploratory, reference genomes of a mock only. Sequence sharing does not show that the DNA moves or that it is a known mobile element; no hallmark gene search was made. Research use only, not clinically validated."]
     txt = "\n".join(L)
     os.makedirs(P(a.out), exist_ok=True)
-    open(P(a.out, "tet_context.txt"), "w").write(txt + "\n")
-    with open(P(a.out, "tet_context.tsv"), "w") as o:
+    open(P(a.out, f"tet_context{a.suffix}.txt"), "w").write(txt + "\n")
+    with open(P(a.out, f"tet_context{a.suffix}.tsv"), "w") as o:
         w = csv.writer(o, delimiter="\t"); w.writerow(["genome", "gene", "gene_start", "partner_genome", "shared_left_of_gene", "shared_right_of_gene", "mean_identity"]); w.writerows(rows)
-    json.dump(meta, open(P(a.out, "tet_context.json"), "w"), indent=1)
+    json.dump(meta, open(P(a.out, f"tet_context{a.suffix}.json"), "w"), indent=1)
     print(txt)
 
 

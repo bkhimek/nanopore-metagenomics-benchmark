@@ -322,3 +322,7 @@ Next steps: (1) user: copy Guide v6, README, PROJECT_STATE, HANDOVER, git rm the
 
 ## 2026-10-19 night XI (tet(Q) context check written)
 - Exploratory bin/30_tet_context.py (reference genomes only): shared sequence of the tet(Q), tet(W) and cepA flanks (+/- 30 kb) with the other supplier genomes, flank GC, co-located annotated elements; H15-H17 in the header and PROJECT_STATE. Tested on synthetic files only; not yet run. NEXT: user commits bin/30 + docs before running (python3 bin/30_tet_context.py), then I score and record. No hallmark-gene search (integrase, transfer genes) is part of it.
+
+## 2026-10-19 night XII (tet(Q) context: run 1 void for H15/H16, run 2 prepared)
+- Run 1 (a5d54fe): H17 met (flanks GC higher than the genome by +0.067 and +0.053); H15/H16 void: minimap2 default -p 0.8 hid short alignments under the long self-alignment (even the tet(Q) gene itself showed no partner). Fixed in bin/30 (-p 0 -N 200, --suffix _run2); hypotheses unchanged; run 1 outputs kept as tet_context_run1.*. NEXT: user renames run 1 outputs, commits them with the corrected script and docs, runs python3 bin/30_tet_context.py (writes tet_context_run2.*), I score.
+- Lesson: check a negative result against a positive control inside the same run (the gene itself must align with the other tet(Q) copy) before reading it.

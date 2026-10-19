@@ -1,0 +1,28 @@
+EXPLORATORY: genomic context of tet(Q), tet(W) and cepA in the supplier genomes (reference genomes only)
+
+flank +/- 30000 bases; alignments identity >= 0.8, block >= 500; shared extent = merged segment overlapping the gene, gaps <= 1000
+
+Bacteroides_fragilis  tet(Q)  Bacteroides_fragilis:48906-50828  (flank available: left 30000, right 30000)
+  GC of the flanks (<= 10000 each side, gene excluded) 0.501; genome 0.433; difference +0.067
+  no other genome shares the gene or its flanks (>= 500 bases at identity >= 0.80)
+
+Bacteroides_fragilis  cepA  Bacteroides_fragilis:380289-381188  (flank available: left 30000, right 30000)
+  GC of the flanks (<= 10000 each side, gene excluded) 0.419; genome 0.433; difference -0.014
+  no other genome shares the gene or its flanks (>= 500 bases at identity >= 0.80)
+  other annotated element within the flank: mef(En2) (AMR, MACROLIDE) at 402236-403438
+  other annotated element within the flank: lnu(AN2) (AMR, LINCOSAMIDE) at 403466-403975
+
+Faecalibacterium_prausnitzii  tet(W)  Faecalibacterium_prausnitzii:1123419-1125335  (flank available: left 30000, right 30000)
+  GC of the flanks (<= 10000 each side, gene excluded) 0.525; genome 0.578; difference -0.053
+  no other genome shares the gene or its flanks (>= 500 bases at identity >= 0.80)
+
+Prevotella_corporis  tet(Q)  Prevotella_corporis.final.genome2:62174-64096  (flank available: left 30000, right 30000)
+  GC of the flanks (<= 10000 each side, gene excluded) 0.497; genome 0.444; difference +0.053
+  no other genome shares the gene or its flanks (>= 500 bases at identity >= 0.80)
+
+Registered predictions:
+  H15 tet(Q) loci share >= 2000 bases beyond the gene with each other, both directions: NOT MET  (Bacteroides_fragilis -> Prevotella_corporis: left 0, right 0; reverse: left 0, right 0)
+  H16 cepA: no partner shares >= 500 bases beyond the gene: MET  (largest extent over partners: 0)
+  H17 tet(Q) flank GC differs from the genome GC by >= 0.03, both genomes: MET  (Bacteroides_fragilis +0.067, Prevotella_corporis +0.053)
+
+Exploratory, reference genomes of a mock only. Sequence sharing does not show that the DNA moves or that it is a known mobile element; no hallmark gene search was made. Research use only, not clinically validated.
