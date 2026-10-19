@@ -18,6 +18,11 @@ Outputs: reports/amr/<pool>_family_reads.tsv (all families with >= 1 supporting 
 A5 (2026-10-19): --merge FILE (alias -> family; reference/amr_family_merge.tsv) renames ResFinder families that sequence evidence (bin/22) shows to be
 the same gene under different names; --suffix _A5 writes the outputs next to the A4-rule outputs (which are kept). Without --merge the behaviour is
 exactly A4 as registered.
+A7 (2026-10-19): --cigar runs minimap2 with -c, so that matches and block length (PAF columns 10 and 11) come from a BASE-LEVEL alignment instead of
+minimap2's anchor-based estimate (bin/25 showed the estimate understated identity, B. fragilis tet(Q) 0.775 against 0.968 at base level). Every other rule is
+unchanged (0.80 identity, 0.80 span, 0.9 ambiguity, >= 3 reads, A5 merge list); use --suffix _A7. The PAF is written to <pool>_vs_resfinder_c.paf so the
+A4 PAF (read by bin/23-25) is not overwritten. The evaluation pool with --cigar needs the git tag amr-a7-registered and the committed dev A7 outputs.
+The report adds a descriptive identity curve (0.80, 0.85, 0.90, 0.95); the registered cut stays 0.80.
 Standard library only; minimap2 in the Docker image used by bin/08.
 """
 import argparse, csv, importlib.util, json, os, re, sys
@@ -30,6 +35,7 @@ HDR = re.compile(r"^(.+?)_(\d+)_(.+)$")
 MERGE = {}  # alias -> family (A5); empty = A4 rule
 MIN_ID, MIN_SPAN, AMB, CALL, E_MIN = 0.80, 0.80, 0.9, 3, 10.0
 CURVE = (1, 2, 3, 5, 10)
+ID_CURVE = (0.80, 0.85, 0.90, 0.95)  # A7, descriptive only
 
 
 def family(header):
@@ -98,7 +104,7 @@ def build_map(a, write=True):
     return rows
 
 
-def parse_paf(path):
+def parse_paf(path, min_id=None):
     """read -> family -> [best matching bases, identity of that alignment]; applies the A4 alignment filter."""
     per, nal = {}, 0
     with open(path) as fh:
@@ -106,7 +112,7 @@ def parse_paf(path):
             f = line.split("\t", 12)
             q, qlen, tname, tlen, ts, te, mt, bl = f[0], int(f[1]), f[5], int(f[6]), int(f[7]), int(f[8]), int(f[9]), int(f[10])
             nal += 1
-            if bl <= 0 or mt / bl < MIN_ID or (te - ts) / tlen < MIN_SPAN:
+            if bl <= 0 or mt / bl < (MIN_ID if min_id is None else min_id) or (te - ts) / tlen < MIN_SPAN:
                 continue
             d = per.setdefault(q, {}); fam = family(tname)
             if fam not in d or mt > d[fam][0]:
@@ -114,12 +120,27 @@ def parse_paf(path):
     return per, nal
 
 
+def tally(per):
+    """per (from parse_paf) -> support, ambiguous, identity sums, by family (A4 assignment rule)."""
+    support, ambig, idsum = Counter(), Counter(), defaultdict(float)
+    for q, d in per.items():
+        ranked = sorted(d.items(), key=lambda kv: -kv[1][0])
+        best = ranked[0]
+        if len(ranked) > 1 and ranked[1][1][0] >= AMB * best[1][0]:
+            for f, _ in ranked:
+                if _[0] >= AMB * best[1][0]:
+                    ambig[f] += 1
+            continue
+        support[best[0]] += 1; idsum[best[0]] += best[1][1]
+    return support, ambig, idsum
+
+
 def run(a, fam_rows):
     sys.path.insert(0, P("bin"))
     spec = importlib.util.spec_from_file_location("x08", P("bin", "08_trace_reads.py"))
     x08 = importlib.util.module_from_spec(spec); spec.loader.exec_module(x08)
     work = Path(P(a.workdir)); work.mkdir(parents=True, exist_ok=True)
-    paf = work / f"{a.pool}_vs_resfinder.paf"; meta = {"script": "bin/21_amr_reads.py", "args": vars(a)}
+    paf = work / f"{a.pool}_vs_resfinder{'_c' if a.cigar else ''}.paf"; meta = {"script": "bin/21_amr_reads.py", "args": vars(a)}
     if a.paf:
         paf = Path(a.paf)
     else:
@@ -131,23 +152,14 @@ def run(a, fam_rows):
         fa, rd = Path(P(a.resfinder, "all.fsa")).resolve(), Path(P(a.reads)).resolve()
         cmd = ["docker", "run", "--rm", "-u", f"{os.getuid()}:{os.getgid()}", "-m", a.memory, "--cpus", str(a.threads),
                "-v", f"{fa.parent}:/ref:ro", "-v", f"{rd.parent}:/reads:ro", "-v", f"{paf.resolve().parent}:/out",
-               image, "minimap2", "-x", "map-ont", "--secondary=yes", "-N", "100", "-t", str(a.threads),
+               image, "minimap2", "-x", "map-ont"] + (["-c"] if a.cigar else []) + ["--secondary=yes", "-N", "100", "-t", str(a.threads),
                "-o", f"/out/{paf.name}", f"/ref/{fa.name}", f"/reads/{rd.name}"]
         t0 = time.time(); subprocess.run(cmd, check=True)
         meta.update({"image": image, "repo_digests": dig, "command": " ".join(cmd), "wall_s": round(time.time() - t0, 1)})
     vf = Path(P(a.out, "resfinder_version.txt"))
     meta["resfinder_version"] = vf.read_text() if vf.exists() else "MISSING"
     per, nal = parse_paf(str(paf))
-    support, ambig, idsum = Counter(), Counter(), defaultdict(float)
-    for q, d in per.items():
-        ranked = sorted(d.items(), key=lambda kv: -kv[1][0])
-        best = ranked[0]
-        if len(ranked) > 1 and ranked[1][1][0] >= AMB * best[1][0]:
-            for f, _ in ranked:
-                if _[0] >= AMB * best[1][0]:
-                    ambig[f] += 1
-            continue
-        support[best[0]] += 1; idsum[best[0]] += best[1][1]
+    support, ambig, idsum = tally(per)
     os.makedirs(P(a.out), exist_ok=True)
     with open(P(a.out, f"{a.pool}_family_reads{a.suffix}.tsv"), "w") as o:
         o.write("family\tsupporting_reads\tambiguous_reads\tmean_identity\n")
@@ -169,7 +181,7 @@ def run(a, fam_rows):
         w = csv.DictWriter(o, fieldnames=cols, delimiter="\t"); w.writeheader(); w.writerows(outc)
     hc = [r for r in outc if r["category"] == "high-confidence"]
     ev = [r for r in hc if r["status"] == "mapped" and r["evaluable"] == "yes"]
-    L = [f"AMR read-level pilot, {a.pool.upper()} pool (A4/A5 rules; {nal} alignments; {len(per)} reads pass the alignment filter; ResFinder {a.resfinder})", "",
+    L = [f"AMR read-level pilot, {a.pool.upper()} pool ({'A7: A4/A5 rules with BASE-LEVEL identity (minimap2 -c)' if a.cigar else 'A4/A5 rules'}; {nal} alignments; {len(per)} reads pass the alignment filter; ResFinder {a.resfinder})", "",
          f"{'species':26s}{'gene':13s}{'cat':10s}{'E':>6s}{'reads':>6s}{'amb':>5s}  result"]
     for r in sorted(outc, key=lambda r: (r["category"] != "high-confidence", r["species"], r["symbol"])):
         L.append(f"{r['species'][:25]:26s}{r['symbol'][:12]:13s}{r['category'][:9]:10s}{r['E'] or '-':>6s}{r['support']:>6d}{r['ambiguous']:>5d}  {r['result']}")
@@ -182,6 +194,12 @@ def run(a, fam_rows):
           f"{sum(v >= CALL for v in evf.values())} of {len(evf)} detected at >= {CALL} reads"]
     for k in CURVE:
         L.append(f"  at >= {k} reads: {sum(v >= k for v in evf.values())} of {len(evf)}")
+    if a.cigar:
+        L += ["", "Descriptive identity curve (A7; the registered cut is 0.80; supporting reads per evaluable family at each cut, same span and ambiguity rules):",
+              f"  {'family':10s}" + "".join(f"{c:>8.2f}" for c in ID_CURVE)]
+        curve = {c: tally(parse_paf(str(paf), c)[0])[0] for c in ID_CURVE}
+        for f in sorted(evf):
+            L.append(f"  {f:10s}" + "".join(f"{curve[c][f]:>8d}" for c in ID_CURVE))
     unexp = [(f, support[f]) for f in support if f not in mapped_fams and support[f] >= CALL]
     L += ["", f"Families with >= {CALL} supporting reads that are NOT in the reference catalogue (not automatically false positives): {len(unexp)}"]
     for f, s in sorted(unexp, key=lambda x: -x[1])[:40]:
@@ -207,7 +225,8 @@ def main():
     ap.add_argument("--memory", default="8g")
     ap.add_argument("--paf", help="use an existing PAF (skips mapping; for tests)")
     ap.add_argument("--merge", default="", help="A5: TSV alias<TAB>family<TAB>evidence; empty = A4 rule")
-    ap.add_argument("--suffix", default="", help="suffix for output names, e.g. _A5")
+    ap.add_argument("--suffix", default="", help="suffix for output names, e.g. _A5, _A7")
+    ap.add_argument("--cigar", action="store_true", help="A7: minimap2 -c (base-level matches/block); use with --suffix _A7")
     a = ap.parse_args()
     a.reads = a.reads or f"data/subsets/SRR31222153.{a.pool}.seed20261012.blocks.fastq.gz"
     a.workdir = a.workdir or f"data/amr/{a.pool}"
@@ -219,10 +238,15 @@ def main():
             sys.exit("evaluation pool: needs --merge reference/amr_family_merge.tsv (the frozen A5 rules)")
         if a.map_only:
             sys.exit("evaluation pool: --map-only is a dev step (the family map is frozen from dev)")
-        if subprocess.run(["git", "-C", str(ROOT), "rev-parse", "-q", "--verify", "refs/tags/amr-frozen"], capture_output=True).returncode != 0:
-            sys.exit("evaluation pool refused: git tag amr-frozen not found (commit and tag Addendum A6 first)")
-        if any(Path(P(a.out)).glob("eval_*")):
-            sys.exit("evaluation outputs are never overwritten (an eval_* file exists in reports/amr)")
+        tag = "amr-a7-registered" if a.cigar else "amr-frozen"
+        if subprocess.run(["git", "-C", str(ROOT), "rev-parse", "-q", "--verify", f"refs/tags/{tag}"], capture_output=True).returncode != 0:
+            sys.exit(f"evaluation pool refused: git tag {tag} not found (commit and tag the registering addendum first)")
+        if not a.suffix:
+            sys.exit("evaluation pool: needs --suffix (e.g. _A5 or _A7), so that existing outputs are never overwritten")
+        if a.cigar and not Path(P(a.out, f"dev_outcomes{a.suffix}.tsv")).exists():
+            sys.exit(f"evaluation pool refused: the dev run with the same rules ({a.out}/dev_outcomes{a.suffix}.tsv) is not there yet")
+        if any(Path(P(a.out)).glob(f"eval_*{a.suffix}.*")):
+            sys.exit(f"evaluation outputs are never overwritten (an eval_*{a.suffix}.* file exists in {a.out})")
         if not Path(P(a.reads)).exists():
             sys.exit(f"eval reads not found: {a.reads} (check the file name with ls data/subsets)")
     if a.merge:

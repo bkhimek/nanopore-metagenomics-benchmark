@@ -44,7 +44,7 @@ Full numbers, predictions and verdicts are in `docs/PROJECT_STATE.md`. Small res
 
 ## Documents
 
-- `docs/PROJECT_STATE.md`: decisions (D1 to D23), registrations, results, open items. The single source of truth.
+- `docs/PROJECT_STATE.md`: decisions (D1 to D24), registrations, results, open items. The single source of truth.
 - `docs/HANDOVER.md`: session-by-session state and next steps.
 - `docs/Nanopore_Metagenomics_Project_Plan_Rev9.docx`: project plan.
 - `docs/Nanopore_Metagenomics_Workflow_Guide_v7.docx`: a beginner's guide that explains each step and term
@@ -87,7 +87,7 @@ USD 2). Reads and databases must be fetched locally:
 
 Pre-registration tags (`git tag`): `freeze-d14`, `arms-registered`, `arms-frozen`, `depth-registered`,
 `dbarms-registered`, `dbarms-frozen`, `sylph-registered`, `sylph-crosswalk`, `sylph-crosswalk-v2`, `sylph-frozen`,
-`sylph-gaprule`, `sylph-eval-scored`, `bases-registered`, `bases-eval-scored`, `amr-registered`, `amr-a4-registered`, `amr-map-registered`, `amr-a5-registered`, `amr-frozen`, `amr-eval-scored`. They prove the order in which rules, predictions and results were written.
+`sylph-gaprule`, `sylph-eval-scored`, `bases-registered`, `bases-eval-scored`, `amr-registered`, `amr-a4-registered`, `amr-map-registered`, `amr-a5-registered`, `amr-frozen`, `amr-eval-scored`, `amr-a7-registered`. They prove the order in which rules, predictions and results were written.
 
 ## Status
 
