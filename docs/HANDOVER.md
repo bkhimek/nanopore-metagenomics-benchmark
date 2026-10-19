@@ -298,3 +298,7 @@ Next steps: (1) user: copy Guide v6, README, PROJECT_STATE, HANDOVER, git rm the
 ## 2026-10-19 night V (A8 follow-up, exploratory)
 - bin/27 committed e1a14ec before its run (hypotheses H8-H10 in the header), dev only. All three met: tet(Q) reads that stop above species are shorter (8,164 against 13,926 bases) and have a higher gene fraction (0.238 against 0.141, AUC 0.90); at gene fraction below 0.30 tet(Q) reaches species in 0.447 of reads against 1.000 for cepA, so gene fraction alone does not explain the gap. Length and gene fraction are tied.
 - Not done: absolute non-gene bases, Kraken2 k-mer evidence, evaluation-pool replication (would need an addendum). Record in Plan/Guide only as 'exploratory pointer'.
+
+## 2026-10-19 night VI (Plan Rev11 and Guide v10)
+- Plan Rev11: A8 (D25) and the bin/27 pointer added to Section 6 (AMR bullet), Phase 3 and decision rows (organism attribution tested inside the mock only), AMR metrics, AMR risk, revision history. Guide v10: 'Naming the organism (Addendum A8)' with a results table, 'What came out', exploratory gene-fraction paragraph and limits in 5.6; three-level table row updated; 5.7 bullet; overview row, timeline row, glossary term (attribution), Done/Not yet done and Next updated. Both validated (Plan: the known harmless zoom warning).
+- NEXT: user copies both into docs/, git rm Rev10 and v9, commits with README, PROJECT_STATE, HANDOVER. Optional later: registered follow-up of why tet(Q) reads lose species (needs an addendum); Veillonella tet(Q) read; replies from Dr Zhang and Zymo.

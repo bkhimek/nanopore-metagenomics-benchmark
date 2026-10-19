@@ -46,8 +46,8 @@ Full numbers, predictions and verdicts are in `docs/PROJECT_STATE.md`. Small res
 
 - `docs/PROJECT_STATE.md`: decisions (D1 to D25), registrations, results, open items. The single source of truth.
 - `docs/HANDOVER.md`: session-by-session state and next steps.
-- `docs/Nanopore_Metagenomics_Project_Plan_Rev10.docx`: project plan.
-- `docs/Nanopore_Metagenomics_Workflow_Guide_v9.docx`: a beginner's guide that explains each step and term
+- `docs/Nanopore_Metagenomics_Project_Plan_Rev11.docx`: project plan.
+- `docs/Nanopore_Metagenomics_Workflow_Guide_v10.docx`: a beginner's guide that explains each step and term
   (thresholds, precision/recall/F1, Bray-Curtis, the Sylph experiment, the resistance-gene pilot) from scratch.
 - `docs/lessons_learned.md`, `reference/README.md` (composition table and checks).
 
