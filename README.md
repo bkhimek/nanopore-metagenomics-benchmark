@@ -44,7 +44,7 @@ Full numbers, predictions and verdicts are in `docs/PROJECT_STATE.md`. Small res
 
 ## Documents
 
-- `docs/PROJECT_STATE.md`: decisions (D1 to D25), registrations, results, open items. The single source of truth.
+- `docs/PROJECT_STATE.md`: decisions (D1 to D26), registrations, results, open items. The single source of truth.
 - `docs/HANDOVER.md`: session-by-session state and next steps.
 - `docs/Nanopore_Metagenomics_Project_Plan_Rev11.docx`: project plan.
 - `docs/Nanopore_Metagenomics_Workflow_Guide_v10.docx`: a beginner's guide that explains each step and term
@@ -55,7 +55,7 @@ Full numbers, predictions and verdicts are in `docs/PROJECT_STATE.md`. Small res
 
 | Path | Content |
 |---|---|
-| `bin/00` to `bin/27` | numbered scripts, in the order they were written (see below) |
+| `bin/00` to `bin/28` | numbered scripts, in the order they were written (see below) |
 | `reference/` | D6331 composition, expected reads by species, taxid aliases, GTDB crosswalks (v1, v2, v2 for evaluation) |
 | `reports/` | small tracked outputs: scores, species tables, false-positive audits, tuning tables, run records |
 | `metadata/` | ENA run record and the sampling manifest (seed, parameters, checksums) |
@@ -87,7 +87,7 @@ USD 2). Reads and databases must be fetched locally:
 
 Pre-registration tags (`git tag`): `freeze-d14`, `arms-registered`, `arms-frozen`, `depth-registered`,
 `dbarms-registered`, `dbarms-frozen`, `sylph-registered`, `sylph-crosswalk`, `sylph-crosswalk-v2`, `sylph-frozen`,
-`sylph-gaprule`, `sylph-eval-scored`, `bases-registered`, `bases-eval-scored`, `amr-registered`, `amr-a4-registered`, `amr-map-registered`, `amr-a5-registered`, `amr-frozen`, `amr-eval-scored`, `amr-a7-registered`, `amr-a7-eval-scored`, `amr-a8-registered`, `amr-a8-eval-scored`. They prove the order in which rules, predictions and results were written.
+`sylph-gaprule`, `sylph-eval-scored`, `bases-registered`, `bases-eval-scored`, `amr-registered`, `amr-a4-registered`, `amr-map-registered`, `amr-a5-registered`, `amr-frozen`, `amr-eval-scored`, `amr-a7-registered`, `amr-a7-eval-scored`, `amr-a8-registered`, `amr-a8-eval-scored`, `amr-a9-registered`. They prove the order in which rules, predictions and results were written.
 
 ## Status
 
