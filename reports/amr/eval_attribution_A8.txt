@@ -1,0 +1,31 @@
+AMR species attribution, EVAL pool (Addendum A8; A7 read support; Kraken2 data/classify/eval/baseline_c0; truth = minimap2 to the supplier genomes for the supporting reads)
+
+supporting reads 91; of the evaluable families 89; with a true-organism label 86 (3 without: weak, ambiguous or no alignment)
+
+family  true organism                    reads correct above sp wrong uncl. no truth
+cepA    Bacteroides fragilis                22      22        0     0     0        0
+tet(Q)  Bacteroides fragilis                25       7       17     1     0        0
+tet(Q)  Prevotella corporis                 22       5       10     7     0        0
+tet(Q)  Veillonella rogosae                  1       1        0     0     0        0
+tet(Q)  weak                                 3       0        0     0     0        3
+tet(W)  Faecalibacterium prausnitzii        16      16        0     0     0        0
+
+unit (species x gene)                       Kraken2-attributed reads  truly from species  attributed (>= 3)
+Bacteroides fragilis cepA                                         22                  22  yes
+Bacteroides fragilis tet(Q)                                        7                  25  yes
+Faecalibacterium prausnitzii tet(W)                               16                  16  yes
+Prevotella corporis tet(Q)                                         5                  22  yes
+
+correct species (labelled scored reads): 0.593; by family: cepA 1.000, tet(Q) 0.271, tet(W) 1.000
+wrong organism (sister, same family, elsewhere): 0.093; right lineage but not to species: 0.314; unclassified: 0.000
+cross-carrier swaps among tet(Q) reads: 0; false organism calls (>= 3 reads, species not a catalogue carrier): 0
+other supported families (reported, not scored): erm(B) 2
+
+Registered predictions (A8):
+  E1 all four units attributed: MET  (4 of 4)
+  E2 correct species >= 0.85 overall: NOT MET  (0.593)
+  E3 wrong organism <= 0.10: MET  (0.093)
+  E4 cross-carrier swaps <= 1: MET  (0)
+  E5 no false organism call: MET  (0)
+
+Mock community only: the true organism comes from the supplier genomes, which a real sample does not have. The Kraken2 database contains close relatives of every carrier, yet a mock of 21 genomes is easier than a real sample. Attribution is by the whole read, not by the gene; a gene on a mobile element can sit in sequence shared by several species. Research use only, not clinically validated.
