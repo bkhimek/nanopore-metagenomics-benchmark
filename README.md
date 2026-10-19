@@ -55,7 +55,7 @@ Full numbers, predictions and verdicts are in `docs/PROJECT_STATE.md`. Small res
 
 | Path | Content |
 |---|---|
-| `bin/00` to `bin/24` | numbered scripts, in the order they were written (see below) |
+| `bin/00` to `bin/25` | numbered scripts, in the order they were written (see below) |
 | `reference/` | D6331 composition, expected reads by species, taxid aliases, GTDB crosswalks (v1, v2, v2 for evaluation) |
 | `reports/` | small tracked outputs: scores, species tables, false-positive audits, tuning tables, run records |
 | `metadata/` | ENA run record and the sampling manifest (seed, parameters, checksums) |
@@ -67,7 +67,7 @@ Scripts: `00_ena_metadata.sh` (run record), `01_sra_block_sample.py` (seeded blo
 `02_pool_qc.py` (read QC, pool comparison), `03_classify.py` (Kraken2 in Docker), `04_score.py` (scoring),
 `05_depth_series.py`, `06_confidence_arms.py`, `07_database_arms.py` (registered experiments),
 `08_trace_reads.py`, `09_composition_vs_mapping.py` (exploratory read trace), `10` to `13` (Sylph: crosswalk v1,
-sketch/profile/bootstrap/score arm, fastANI crosswalk v2, gap rule), `14` to `18` (diagnostics of the Sylph abundance error: shared reads, read identity, reads versus bases; Addendum A2), `19` to `22` (resistance genes: AMRFinderPlus on the reference genomes, the reference catalogue, the read-level ResFinder arm, an exploratory check of one family-name ambiguity), `23` and `24` (exploratory, dev only: where the tet(Q) read support is lost; the cause is unresolved). Each script documents its arguments in its header
+sketch/profile/bootstrap/score arm, fastANI crosswalk v2, gap rule), `14` to `18` (diagnostics of the Sylph abundance error: shared reads, read identity, reads versus bases; Addendum A2), `19` to `22` (resistance genes: AMRFinderPlus on the reference genomes, the reference catalogue, the read-level ResFinder arm, an exploratory check of one family-name ambiguity), `23` to `25` (exploratory, dev only: where the tet(Q) read support is lost; resolved: the registered identity filter used minimap2's approximate PAF identity, not a base-level alignment). Each script documents its arguments in its header
 and with `--help`.
 
 ## Reproducing
