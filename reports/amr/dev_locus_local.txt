@@ -1,0 +1,20 @@
+Locus local identity (EXPLORATORY, dev pool; base-level alignment of the locus reads to gene-only references; hypotheses H5-H7 in the script header)
+
+species                   gene      reads   id gene >=.80  span   id allele >=.80  span   approx RF id >=.80      mism    ins    del
+Bacteroides fragilis      tet(Q)       34     0.990  0.88  1.00       0.968  0.88  1.00          0.775  0.03     0.021  0.009  0.016
+Bacteroides fragilis      cepA         37     0.991  0.97  1.00       0.986  0.97  1.00          0.907  0.78     0.014  0.008  0.010
+Faecalibacterium prausnit tet(W)       19     0.983  1.00  1.00       0.983  1.00  1.00          0.925  0.74     0.014  0.007  0.013
+Prevotella corporis       tet(Q)       18     0.976  0.94  1.00       0.977  0.94  1.00          0.910  0.78     0.024  0.010  0.014
+
+Error rate along the supplier gene (errors / aligned columns, % per 100 bp window, pooled over the unit's reads):
+  Bacteroides  tet(Q)      5    4    4    4    4    5    5    6    5    4    5    5    5    6    4    4    4    4    4    1
+  Bacteroides  cepA        3    3    3    5    3    3    4    3    2
+  Faecalibacte tet(W)      3    3    1    5    4    2    4    4    5    3    3    4    2    4    5    3    3    3    4    1
+  Prevotella c tet(Q)      6    4    4    5    8    4    5    5    6    3    6    5    4    7    6    5    4    3    3    2
+
+H5 (reads locally poor): B. fragilis tet(Q) id_gene 0.990 (<= 0.82?), P. corporis 0.976 (>= 0.88?) -> NOT MET
+H6 (approximation artefact): id_gene 0.990 (>= 0.88?), id_allele 0.968 (>= 0.88?) -> MET
+H7 (allele really differs): id_gene 0.990 (>= 0.88?), id_allele 0.968 (<= 0.82?) -> NOT MET
+Outcome: H6
+
+Exploratory. Identities are base-level (minimap2 -c --eqx, best alignment per read, gene-only references); 'approx RF id' is the PAF matches/block of the best family record in the registered-style run (no -c). Reads that did not align to a reference are not in its median. The registered 0.80 filter is unchanged.
