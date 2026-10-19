@@ -1,0 +1,4 @@
+species,species_taxid,ncbi_name_in_kraken_db,domain,n_strains,genomic_dna_pct
+Alpha one,1001,Alpha one,Bacteria,1,50.0
+Beta two,1002,Beta two,Bacteria,1,30.0
+Gamma three,1003,Gamma three,Bacteria,1,20.0

@@ -349,3 +349,9 @@ Next steps: (1) user: copy Guide v6, README, PROJECT_STATE, HANDOVER, git rm the
 - Correction of my own earlier reading: bin/31 gave 0.879 identity for the P. corporis half (whole-read truth PAF) and I used it to argue against a chimera with the mock's own P. corporis. The tail mapped on its own gives 0.989, so that argument is withdrawn (recorded in both PROJECT_STATE sections). Why the two mappings differ is not resolved; not needed for the conclusion.
 - Plan Rev13 and Guide v12 amended in place again (the d68 docx replace the d67 docx; README says bin/00 to bin/32).
 - Open: replies from Dr Zhang and Zymo; optional technical case study. Nothing else queued.
+
+## 2026-10-19 night XVIII (Nextflow wrapper of the core path)
+- User chose option 1 (core path only). Written and tested in the cloud: main.nf, workflows/core.nf, modules/kraken2.nf, score.nf, summarise.nf, nextflow.config (profiles), tests/make_fixture.py, tests/fixtures/, tests/run_tests.sh, tests/check_equivalence.py, README Nextflow section, .gitignore results_test/. bin/04 is reused unchanged. Pool sampling is not wrapped (disclosed).
+- Tests passed here: fixture scoring (hand-worked), eval guard, four-arm graph with a stand-in kraken2, stub run. Not tested: real Kraken2/database, Docker, Singularity.
+- NEXT: user copies the files into the repo (git rm modules/.gitkeep workflows/.gitkeep tests/.gitkeep), commits, runs nextflow run . -profile docker, then python3 tests/check_equivalence.py (expect IDENTICAL), pins the python image digest if wanted, and I record the result in PROJECT_STATE. Open: replies from Dr Zhang and Zymo; optional technical case study.
+

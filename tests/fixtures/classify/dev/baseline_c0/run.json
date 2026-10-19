@@ -1,0 +1,11 @@
+{
+  "pool": "dev",
+  "label": "baseline_c0",
+  "database": "data/db/fixture_db",
+  "input": "fixture_dev.fastq.gz",
+  "input_sha256_in_manifest": "fixture",
+  "image": "none (fixture)",
+  "options": {
+    "confidence": 0.0
+  }
+}

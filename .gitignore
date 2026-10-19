@@ -16,3 +16,4 @@ results/
 *.k2d
 data/
 __pycache__/
+results_test/

@@ -61,7 +61,8 @@ Full numbers, predictions and verdicts are in `docs/PROJECT_STATE.md`. Small res
 | `metadata/` | ENA run record and the sampling manifest (seed, parameters, checksums) |
 | `docs/` | project documents |
 | `data/`, `results/` | **not tracked** (gitignored): reads, databases, large outputs |
-| `modules/`, `workflows/`, `tests/`, `nextflow.config` | placeholders; see Status |
+| `main.nf`, `workflows/`, `modules/`, `nextflow.config` | Nextflow wrapper of the core path (Kraken2, scoring); see the Nextflow section |
+| `tests/` | Nextflow tests: synthetic fixture with hand-worked answers, equivalence check against the frozen dev baseline |
 
 Scripts: `00_ena_metadata.sh` (run record), `01_sra_block_sample.py` (seeded block sampling from SRA),
 `02_pool_qc.py` (read QC, pool comparison), `03_classify.py` (Kraken2 in Docker), `04_score.py` (scoring),
@@ -89,12 +90,28 @@ Pre-registration tags (`git tag`): `freeze-d14`, `arms-registered`, `arms-frozen
 `dbarms-registered`, `dbarms-frozen`, `sylph-registered`, `sylph-crosswalk`, `sylph-crosswalk-v2`, `sylph-frozen`,
 `sylph-gaprule`, `sylph-eval-scored`, `bases-registered`, `bases-eval-scored`, `amr-registered`, `amr-a4-registered`, `amr-map-registered`, `amr-a5-registered`, `amr-frozen`, `amr-eval-scored`, `amr-a7-registered`, `amr-a7-eval-scored`, `amr-a8-registered`, `amr-a8-eval-scored`, `amr-a9-registered`, `amr-a10-registered`, `amr-a10-eval-scored`. They prove the order in which rules, predictions and results were written.
 
+## Nextflow
+
+The core benchmark path is wrapped as a small Nextflow (DSL2) workflow: Kraken2 classification of one pool at one or more `--confidence` values, scoring of each run with the unchanged `bin/04_score.py` at a fixed threshold fraction, and one summary table. The analysis scripts stay the record of the study; the workflow is a reproducible way to rerun the headline path with pinned containers and `-resume`.
+
+```
+conda activate nextflow
+nextflow run . -profile docker                              # dev pool, PlusPF-8, confidence 0.0, fraction 0.0008
+nextflow run . -profile docker --arms 0.0,0.05,0.1,0.2,0.4  # confidence arms
+python3 tests/check_equivalence.py                          # must say IDENTICAL against reports/baseline_kraken2_pluspf8/dev_*
+bash tests/run_tests.sh                                     # fixture tests, no Docker or database needed
+```
+
+- `modules/kraken2.nf` (same command as `bin/03`), `modules/score.nf` (runs `bin/04_score.py` in a small project-shaped folder), `modules/summarise.nf`, `workflows/core.nf`, `main.nf`, `nextflow.config`.
+- The evaluation pool is refused without `--allow_eval`, and is scored at one fixed fraction with no sweep. The registered stages and tag checks (`bin/06`, `bin/07`) stay in those scripts; results in `results/` are not the registered reports.
+- Not wrapped: pool sampling (`bin/01`, a one-off resumable SRA download whose seed and manifest are its record), the Sylph arm, the database arms (AWS) and the AMR work.
+- Tested: the fixture workflow (hand-worked answers), the full graph with a stand-in `kraken2`, `-stub-run`, and the evaluation guard. Not yet tested on the real database: run the equivalence check once and record the result.
+
 ## Status
 
 Phase 1 (baseline benchmark) and Phase 2 arms 1 to 3 (Kraken2 confidence, database size, Sylph) are done and
-documented. Phase 3 (resistance genes) is done as a pilot at the level of gene families (no alleles, point mutations or species attribution). Not done: assembly-based and Argo comparisons, Nextflow wrapping
-(the first modules were deliberately written as plain scripts; `modules/`, `workflows/` and `tests/` are empty
-placeholders and `nextflow.config` is a skeleton), a lot-specific composition certificate, the basecalling model tier,
+documented. Phase 3 (resistance genes) is done as a pilot at the level of gene families (no alleles, point mutations or species attribution). Not done: assembly-based and Argo comparisons, Nextflow wrapping beyond the core path (Kraken2 classification and scoring are wrapped, see the Nextflow section; pool sampling, the Sylph arm and all AMR work stay plain scripts),
+a lot-specific composition certificate, the basecalling model tier,
 and any second run or chemistry. The scripts were tested on small synthetic fixtures with answers worked out by hand;
 those fixtures are not yet committed.
 

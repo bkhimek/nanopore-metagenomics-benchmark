@@ -1,0 +1,18 @@
+{
+  "pools": {
+    "dev": {
+      "file": "fixture_dev.fastq.gz",
+      "sha256": "fixture"
+    }
+  },
+  "blocks": [
+    {
+      "pool": "dev",
+      "start": 1
+    },
+    {
+      "pool": "dev",
+      "start": 501
+    }
+  ]
+}

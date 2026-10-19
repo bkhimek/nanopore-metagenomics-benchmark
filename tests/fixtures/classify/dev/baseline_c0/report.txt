@@ -1,0 +1,10 @@
+  5.00	50	50	0	0	U	0	unclassified
+ 95.00	950	0	0	0	R	1	root
+ 48.00	480	0	0	0	G	10	  Alpha
+ 48.00	480	480	480	480	S	1001	    Alpha one
+ 28.00	280	0	0	0	G	11	  Beta
+ 28.00	280	280	280	280	S	1002	    Beta two
+ 15.00	150	0	0	0	G	12	  Gamma
+ 15.00	150	150	150	150	S	1003	    Gamma three
+  4.00	40	0	0	0	G	13	  Delta
+  4.00	40	40	40	40	S	1004	    Delta four
