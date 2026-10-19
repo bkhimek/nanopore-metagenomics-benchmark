@@ -1,0 +1,20 @@
+AMR species-specific windows, EVAL pool (Addendum A10)
+
+reads used 86; window count inconsistent with read length - 35 + 1: 0; no alignment or no Kraken2 line: 0; V1 (>= 95% consistent): PASSED (1.000)
+
+family   reads  n_sp=0   median n_sp (species | above | wrong)    species share of hit windows: in gene / near / far (hit windows in gene)
+cepA        22       0        302 |   nan |   nan                    1.000 / 0.976 / 0.857  (1206)
+tet(Q)      48      34         37 |     0 |     0                    0.000 / 0.000 / 0.097  (5156)
+tet(W)      16       0         58 |   nan |   nan                    0.000 / 0.103 / 0.242  (1487)
+
+reads that break the M1 rule: 1
+  SRR31222153.1879428 tet(Q) destination up_genus n_sp 5
+
+Registered predictions (A10):
+  M1 rule 'species iff n_sp >= 1' right for >= 0.90 of reads: MET  (0.988 (85 of 86))
+  M2 tet(Q) share with n_sp = 0 >= 0.50 and cepA <= 0.05: MET  (tet(Q) 0.708, cepA 0.000)
+  M3 in gene: tet(Q) species share <= 0.02 and cepA >= 0.90: MET  (tet(Q) 0.000 (5156 hit windows), cepA 1.000 (1206))
+  M4 tet(Q) near the gene: species share <= 0.02: MET  (0.000 (7673 hit windows))
+  M5 tet(Q) far share >= near share + 0.03: MET  (far 0.097 (10781), near 0.000)
+
+Mock community only (true species from the supplier genomes). A window is specific if its Kraken2 taxon is the true species or below. Small numbers, one pool per run. Research use only, not clinically validated.
