@@ -1,0 +1,5 @@
+species	gene	family	reads_attributed_by_kraken2	reads_truly_from_species	attributed
+Bacteroides fragilis	cepA	cepA	35	34	yes
+Bacteroides fragilis	tet(Q)	tet(Q)	12	30	yes
+Faecalibacterium prausnitzii	tet(W)	tet(W)	16	18	yes
+Prevotella corporis	tet(Q)	tet(Q)	5	16	yes

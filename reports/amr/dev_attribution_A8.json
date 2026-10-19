@@ -1,0 +1,30 @@
+{
+ "script": "bin/26_amr_attribution.py",
+ "args": {
+  "pool": "dev",
+  "allow_eval": false,
+  "suffix": "_A8",
+  "merge": "reference/amr_family_merge.tsv",
+  "map": "reports/amr/family_map_A5.tsv",
+  "a7_paf": "data/amr/dev/dev_vs_resfinder_c.paf",
+  "reads": "data/subsets/SRR31222153.dev.seed20261012.blocks.fastq.gz",
+  "kraken_run": "data/classify/dev/baseline_c0",
+  "db": "data/db/pluspf_08_20260626",
+  "ref_fa": "data/trace/dev/ref_combined.fa",
+  "truth_paf": "",
+  "workdir": "data/amr/dev/attribution",
+  "out": "reports/amr",
+  "image": "quay.io/biocontainers/minimap2:2.31--h118bc1c_0",
+  "threads": 4,
+  "memory": "8g"
+ },
+ "started": "2026-10-19 16:36:00",
+ "supporting_reads": 103,
+ "minimap2": {
+  "image": "quay.io/biocontainers/minimap2:2.31--h118bc1c_0",
+  "repo_digests": "[\"quay.io/biocontainers/minimap2@sha256:f7e4a9a17912eea542500988ee96013e37a887b3746673636f2773cc81052590\"]",
+  "minimap2_version": "2.31-r1302",
+  "command": "docker run --rm -u 1000:1000 -m 8g --cpus 4 -v /home/himek/projects/metagenomics_1_Nanopore/data/trace/dev:/ref:ro -v /home/himek/projects/metagenomics_1_Nanopore/data/amr/dev/attribution:/reads:ro -v /home/himek/projects/metagenomics_1_Nanopore/data/amr/dev/attribution:/out quay.io/biocontainers/minimap2:2.31--h118bc1c_0 minimap2 -x map-ont --secondary=no -t 4 -o /out/dev_support_vs_refs.paf /ref/ref_combined.fa /reads/dev_amr_support.fastq",
+  "wall_s": 1.9
+ }
+}

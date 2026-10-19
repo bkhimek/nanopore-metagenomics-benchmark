@@ -1,0 +1,104 @@
+read	family	identity	true_species	kraken_taxid	kraken_taxon	kraken_rank	attributed_species	destination
+SRR31222153.10338202	cepA	0.982	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.11055286	cepA	0.994	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.11056567	cepA	0.987	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.11439287	cepA	0.983	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.12819855	cepA	0.993	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.12822574	cepA	0.991	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.13510187	cepA	0.992	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.13511141	cepA	0.908	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.13511188	cepA	0.989	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.14647572	cepA	0.917	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.15443607	cepA	0.964	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.15986383	cepA	0.979	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.16485488	cepA	0.989	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.16486138	cepA	0.979	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.17771184	cepA	0.969	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.21710216	cepA	0.988	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.22252051	cepA	0.988	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.22255123	cepA	0.968	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.23049385	cepA	0.991	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.23050316	cepA	0.990	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.23050668	cepA	0.957	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.23051206	cepA	0.890	weak	817	Bacteroides fragilis	species	Bacteroides fragilis	no_truth
+SRR31222153.23052390	cepA	0.986	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.2649657	cepA	0.992	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.3196056	cepA	0.992	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.3923112	cepA	0.994	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.3923276	cepA	0.974	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.4728636	cepA	0.986	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.5865017	cepA	0.939	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.6395784	cepA	0.992	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.7033369	cepA	0.807	weak	562	Escherichia coli	species	Escherichia coli	no_truth
+SRR31222153.7037169	cepA	0.948	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.8536440	cepA	0.992	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.8536659	cepA	0.994	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.8899726	cepA	0.990	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.9550765	cepA	0.930	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.11437134	erm(B)	0.987	Clostridioides difficile	186801	Clostridia	class		up_higher
+SRR31222153.15443354	erm(B)	0.875	weak	2779445	Clostridium sp. 'deep sea'	species	Clostridium sp. 'deep sea'	no_truth
+SRR31222153.10339683	tet(Q)	0.988	Prevotella corporis	171549	Bacteroidales	order		up_higher
+SRR31222153.11440217	tet(Q)	0.962	Bacteroides fragilis	171549	Bacteroidales	order		up_higher
+SRR31222153.12048973	tet(Q)	0.944	Bacteroides fragilis	815	Bacteroidaceae	family		up_family
+SRR31222153.12051420	tet(Q)	0.991	Prevotella corporis	2763023	Bacteroides hominis	species	Bacteroides hominis	elsewhere
+SRR31222153.12817767	tet(Q)	0.965	Bacteroides fragilis	815	Bacteroidaceae	family		up_family
+SRR31222153.12818019	tet(Q)	0.966	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.12822230	tet(Q)	0.928	Bacteroides fragilis	816	Bacteroides	genus		up_genus
+SRR31222153.14230637	tet(Q)	0.992	Prevotella corporis	28128	Prevotella corporis	species	Prevotella corporis	species
+SRR31222153.14232351	tet(Q)	0.871	Prevotella corporis	28128	Prevotella corporis	species	Prevotella corporis	species
+SRR31222153.14644556	tet(Q)	0.966	Bacteroides fragilis	815	Bacteroidaceae	family		up_family
+SRR31222153.14646896	tet(Q)	0.970	Bacteroides fragilis	816	Bacteroides	genus		up_genus
+SRR31222153.14647458	tet(Q)	0.967	Bacteroides fragilis	815	Bacteroidaceae	family		up_family
+SRR31222153.14648451	tet(Q)	0.970	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.14649042	tet(Q)	0.965	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.15444359	tet(Q)	0.974	Prevotella corporis	171549	Bacteroidales	order		up_higher
+SRR31222153.15987764	tet(Q)	0.959	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.16487259	tet(Q)	0.968	Prevotella corporis	818	Bacteroides thetaiotaomicron	species	Bacteroides thetaiotaomicron	elsewhere
+SRR31222153.16487299	tet(Q)	0.969	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.16489391	tet(Q)	0.967	Bacteroides fragilis	815	Bacteroidaceae	family		up_family
+SRR31222153.18530670	tet(Q)	0.915	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.18533805	tet(Q)	0.980	Prevotella corporis	28128	Prevotella corporis	species	Prevotella corporis	species
+SRR31222153.21147949	tet(Q)	0.952	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.215069	tet(Q)	0.981	Prevotella corporis	28128	Prevotella corporis	species	Prevotella corporis	species
+SRR31222153.21713786	tet(Q)	0.954	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.21713993	tet(Q)	0.835	weak	171549	Bacteroidales	order		no_truth
+SRR31222153.2179261	tet(Q)	0.970	Bacteroides fragilis	815	Bacteroidaceae	family		up_family
+SRR31222153.2181651	tet(Q)	0.965	Bacteroides fragilis	815	Bacteroidaceae	family		up_family
+SRR31222153.2182733	tet(Q)	0.973	Bacteroides fragilis	815	Bacteroidaceae	family		up_family
+SRR31222153.2182753	tet(Q)	0.877	Bacteroides fragilis	171549	Bacteroidales	order		up_higher
+SRR31222153.2182961	tet(Q)	0.988	Prevotella corporis	2763023	Bacteroides hominis	species	Bacteroides hominis	elsewhere
+SRR31222153.22251008	tet(Q)	0.966	Bacteroides fragilis	815	Bacteroidaceae	family		up_family
+SRR31222153.22253621	tet(Q)	0.967	Bacteroides fragilis	815	Bacteroidaceae	family		up_family
+SRR31222153.23050776	tet(Q)	0.995	Prevotella corporis	171549	Bacteroidales	order		up_higher
+SRR31222153.23053075	tet(Q)	0.948	Bacteroides fragilis	816	Bacteroides	genus		up_genus
+SRR31222153.23053776	tet(Q)	0.967	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.3192716	tet(Q)	0.969	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.4730663	tet(Q)	0.986	Prevotella corporis	976	Bacteroidota	phylum		up_higher
+SRR31222153.5107780	tet(Q)	0.970	Bacteroides fragilis	816	Bacteroides	genus		up_genus
+SRR31222153.5108635	tet(Q)	0.918	Prevotella corporis	28116	Bacteroides ovatus	species	Bacteroides ovatus	elsewhere
+SRR31222153.5866968	tet(Q)	0.973	Prevotella corporis	2530390	Muribaculum gordoncarteri	species	Muribaculum gordoncarteri	elsewhere
+SRR31222153.6396373	tet(Q)	0.964	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.7034999	tet(Q)	0.963	Bacteroides fragilis	817	Bacteroides fragilis	species	Bacteroides fragilis	species
+SRR31222153.7778868	tet(Q)	0.964	Prevotella corporis	171549	Bacteroidales	order		up_higher
+SRR31222153.8537705	tet(Q)	0.966	Prevotella corporis	28116	Bacteroides ovatus	species	Bacteroides ovatus	elsewhere
+SRR31222153.8900154	tet(Q)	0.965	Bacteroides fragilis	815	Bacteroidaceae	family		up_family
+SRR31222153.8902665	tet(Q)	0.979	Prevotella corporis	28128	Prevotella corporis	species	Prevotella corporis	species
+SRR31222153.9551660	tet(Q)	0.965	Bacteroides fragilis	815	Bacteroidaceae	family		up_family
+SRR31222153.11055466	tet(W)	0.993	Faecalibacterium prausnitzii	853	Faecalibacterium prausnitzii	species	Faecalibacterium prausnitzii	species
+SRR31222153.13511573	tet(W)	0.994	Faecalibacterium prausnitzii	853	Faecalibacterium prausnitzii	species	Faecalibacterium prausnitzii	species
+SRR31222153.13514634	tet(W)	0.982	Faecalibacterium prausnitzii	853	Faecalibacterium prausnitzii	species	Faecalibacterium prausnitzii	species
+SRR31222153.14648475	tet(W)	0.931	Faecalibacterium prausnitzii	853	Faecalibacterium prausnitzii	species	Faecalibacterium prausnitzii	species
+SRR31222153.15442429	tet(W)	0.869	Faecalibacterium prausnitzii	853	Faecalibacterium prausnitzii	species	Faecalibacterium prausnitzii	species
+SRR31222153.17369748	tet(W)	0.993	Faecalibacterium prausnitzii	853	Faecalibacterium prausnitzii	species	Faecalibacterium prausnitzii	species
+SRR31222153.17372259	tet(W)	0.955	Faecalibacterium prausnitzii	853	Faecalibacterium prausnitzii	species	Faecalibacterium prausnitzii	species
+SRR31222153.19030014	tet(W)	0.989	Faecalibacterium prausnitzii	853	Faecalibacterium prausnitzii	species	Faecalibacterium prausnitzii	species
+SRR31222153.2654168	tet(W)	0.998	Faecalibacterium prausnitzii	853	Faecalibacterium prausnitzii	species	Faecalibacterium prausnitzii	species
+SRR31222153.3196609	tet(W)	0.977	Faecalibacterium prausnitzii	853	Faecalibacterium prausnitzii	species	Faecalibacterium prausnitzii	species
+SRR31222153.4726780	tet(W)	0.984	Faecalibacterium prausnitzii	216851	Faecalibacterium	genus		up_genus
+SRR31222153.4728459	tet(W)	0.865	Faecalibacterium prausnitzii	853	Faecalibacterium prausnitzii	species	Faecalibacterium prausnitzii	species
+SRR31222153.4730751	tet(W)	0.966	Faecalibacterium prausnitzii	853	Faecalibacterium prausnitzii	species	Faecalibacterium prausnitzii	species
+SRR31222153.5867067	tet(W)	0.989	Faecalibacterium prausnitzii	853	Faecalibacterium prausnitzii	species	Faecalibacterium prausnitzii	species
+SRR31222153.663467	tet(W)	0.926	Faecalibacterium prausnitzii	853	Faecalibacterium prausnitzii	species	Faecalibacterium prausnitzii	species
+SRR31222153.7035162	tet(W)	0.994	Faecalibacterium prausnitzii	2	Bacteria	domain		up_higher
+SRR31222153.7036023	tet(W)	0.965	Faecalibacterium prausnitzii	853	Faecalibacterium prausnitzii	species	Faecalibacterium prausnitzii	species
+SRR31222153.8898566	tet(W)	0.993	Faecalibacterium prausnitzii	853	Faecalibacterium prausnitzii	species	Faecalibacterium prausnitzii	species
