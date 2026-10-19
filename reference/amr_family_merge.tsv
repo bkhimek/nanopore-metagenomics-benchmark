@@ -1,0 +1,4 @@
+alias	family	evidence
+cepA-29	cepA	bin/22 dev check: 99.56% nucleotide identity to the cepA representative (cepA_1_L13472 vs cepA-29_1_U05884)
+cepA-44	cepA	bin/22 dev check: 99.11% nucleotide identity to the cepA representative (vs cepA-44_1_U05885)
+cepA-49	cepA	bin/22 dev check: 99.67% nucleotide identity to the cepA representative (vs cepA-49_1_U05886)

@@ -1,0 +1,24 @@
+cepA group in ResFinder (EXPLORATORY, dev pool; hypothesis and predictions are in the script header)
+
+family cepA: 3 allele(s), lengths [903, 903, 903]
+family cepA-29: 1 allele(s), lengths [903]
+family cepA-44: 1 allele(s), lengths [903]
+family cepA-49: 1 allele(s), lengths [903]
+
+Representatives (first allele by name): cepA=cepA_1_L13472, cepA-29=cepA-29_1_U05884, cepA-44=cepA-44_1_U05885, cepA-49=cepA-49_1_U05886
+
+Pairwise global nucleotide identity between representatives:
+  cepA       vs cepA-29     99.56%
+  cepA       vs cepA-44     99.11%
+  cepA       vs cepA-49     99.67%
+  cepA-29    vs cepA-44     99.11%
+  cepA-29    vs cepA-49     99.22%
+  cepA-44    vs cepA-49     98.78%
+
+Reads passing the A4 alignment filter on any cepA-group allele: 29
+  reads hitting >= 2 families: 27; median margin best vs runner-up (1 - second/best matching bases): 2.5%
+  median identity of the best alignment: 92.1%
+
+P1 (all pairs >= 90%): met   P2 (median margin < 10%): met   P3 (>= 3 distinct reads in the group): met
+Refutation criterion (a pair < 80% or median margin >= 10%): not triggered
+Exploratory; no registered rule is changed here. Any change of the family rule needs a dated addendum (A5) before the evaluation pool is touched.

@@ -233,3 +233,9 @@ Next steps: (1) user: copy Guide v6, README, PROJECT_STATE, HANDOVER, git rm the
 - 7c712a4 (tag amr-map-registered): bin/21 and family map committed before the read run. The dev run followed: 2 of 3 evaluable high-confidence families detected (tet(Q), tet(W)); cepA missed at 2 reads with 27 ambiguous reads (cause not established); see PROJECT_STATE 'AMR read-level pilot: DEV RESULT'. 6 of 8 high-confidence genes are in ResFinder; most candidate genes are not.
 - NEXT: look at reports/amr/dev_family_reads.tsv for the families sharing the ambiguous cepA reads (user sends it); decide whether an addendum A5 is needed (family rule or ambiguity rule) BEFORE any freeze; then a freeze addendum and one eval run. The eval pool has not been used for AMR.
 - Still open: email to Dr Zhang (19 Oct), Zymo reply, stray `main` file, AMR dev outputs to commit if not yet done (reports/amr/dev_*).
+
+## 2026-10-19 (cepA ambiguity explained; Addendum A5 registered)
+- Email to Dr Zhang sent 19 October (no reply yet; Zymo reply pending).
+- bin/22 (89f249f, hypothesis committed before the run): the four ResFinder names cepA, cepA-29, -44, -49 are 98.8-99.7% identical; 29 reads in the group; P1-P3 met. The A4 cepA miss was a naming artefact of the family rule.
+- A5 (D22) registered: explicit merge list reference/amr_family_merge.tsv; bin/21 gains --merge/--suffix; A4-rule outputs kept; predictions for the A5 dev run fixed beforehand. The A5 dev run is NOT an independent test (the change was motivated by dev).
+- NEXT: user commits docs + bin/21 + reference/amr_family_merge.tsv, tags amr-a5-registered, runs the two commands in A5; then a freeze addendum (A6) and ONE eval pass (needs an eval AMR path in bin/21 with guards: --allow-eval, tag check, never overwrite; I write it); then Plan Rev9 / Guide v7 with the AMR work.

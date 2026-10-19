@@ -12,6 +12,9 @@ Step 2  (default)  : minimap2 -x map-ont --secondary=yes -N 100 of the dev reads
                      A family is 'detected' at >= 3 supporting reads; the curve at 1, 2, 3, 5, 10 reads is reported.
 Outputs: reports/amr/dev_family_reads.tsv (all families with >= 1 supporting read), dev_outcomes.tsv (one row per catalogue species x family),
          dev_amr_report.txt, dev_run.json (command, image digest, ResFinder version file). Scoring unit: species x family (E. coli strains collapsed).
+A5 (2026-10-19): --merge FILE (alias -> family; reference/amr_family_merge.tsv) renames ResFinder families that sequence evidence (bin/22) shows to be
+the same gene under different names; --suffix _A5 writes the outputs next to the A4-rule outputs (which are kept). Without --merge the behaviour is
+exactly A4 as registered.
 Standard library only; minimap2 in the Docker image used by bin/08.
 """
 import argparse, csv, importlib.util, json, os, re, sys
@@ -21,13 +24,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 P = lambda *x: str(ROOT.joinpath(*x))
 HDR = re.compile(r"^(.+?)_(\d+)_(.+)$")
+MERGE = {}  # alias -> family (A5); empty = A4 rule
 MIN_ID, MIN_SPAN, AMB, CALL, E_MIN = 0.80, 0.80, 0.9, 3, 10.0
 CURVE = (1, 2, 3, 5, 10)
 
 
 def family(header):
     m = HDR.match(header.lstrip(">").split()[0])
-    return m.group(1) if m else header.lstrip(">").split()[0]
+    f = m.group(1) if m else header.lstrip(">").split()[0]
+    return MERGE.get(f, f)
 
 
 def families_in(fsa):
@@ -74,7 +79,7 @@ def build_map(a):
                      "E": "" if E is None else f"{E:.1f}",
                      "evaluable": "no (carrier not in dev trace)" if E is None else ("yes" if E >= E_MIN else "low opportunity (E < 10)")})
     os.makedirs(P(a.out), exist_ok=True)
-    with open(P(a.out, "family_map.tsv"), "w") as o:
+    with open(P(a.out, f"family_map{a.suffix}.tsv"), "w") as o:
         w = csv.DictWriter(o, fieldnames=list(rows[0]), delimiter="\t"); w.writeheader(); w.writerows(rows)
     L = [f"Family map (A4): {len(rows)} species x symbol units (AMR type; {len(point)} POINT rows not scored); ResFinder families {len(fam)}", ""]
     for r in rows:
@@ -82,7 +87,7 @@ def build_map(a):
     L.append("")
     L.append(f"high-confidence mapped: {sum(r['category']=='high-confidence' and r['status']=='mapped' for r in rows)} of {sum(r['category']=='high-confidence' for r in rows)}; "
              f"high-confidence mapped AND evaluable: {sum(r['category']=='high-confidence' and r['status']=='mapped' and r['evaluable']=='yes' for r in rows)}")
-    txt = "\n".join(L); open(P(a.out, "family_map_report.txt"), "w").write(txt + "\n"); print(txt)
+    txt = "\n".join(L); open(P(a.out, f"family_map_report{a.suffix}.txt"), "w").write(txt + "\n"); print(txt)
     return rows
 
 
@@ -137,7 +142,7 @@ def run(a, fam_rows):
             continue
         support[best[0]] += 1; idsum[best[0]] += best[1][1]
     os.makedirs(P(a.out), exist_ok=True)
-    with open(P(a.out, "dev_family_reads.tsv"), "w") as o:
+    with open(P(a.out, f"dev_family_reads{a.suffix}.tsv"), "w") as o:
         o.write("family\tsupporting_reads\tambiguous_reads\tmean_identity\n")
         for f in sorted(set(support) | set(ambig), key=lambda f: -support[f]):
             o.write(f"{f}\t{support[f]}\t{ambig[f]}\t{idsum[f]/support[f]:.3f}\n" if support[f] else f"{f}\t0\t{ambig[f]}\t\n")
@@ -153,7 +158,7 @@ def run(a, fam_rows):
             res = "detected" if s >= CALL else "missed"
         outc.append(dict(r, support=s, ambiguous=ambig[f] if f else 0, result=res, **{f"ge{k}": int(s >= k) for k in CURVE}))
     cols = list(outc[0])
-    with open(P(a.out, "dev_outcomes.tsv"), "w") as o:
+    with open(P(a.out, f"dev_outcomes{a.suffix}.tsv"), "w") as o:
         w = csv.DictWriter(o, fieldnames=cols, delimiter="\t"); w.writeheader(); w.writerows(outc)
     hc = [r for r in outc if r["category"] == "high-confidence"]
     ev = [r for r in hc if r["status"] == "mapped" and r["evaluable"] == "yes"]
@@ -175,8 +180,8 @@ def run(a, fam_rows):
     for f, s in sorted(unexp, key=lambda x: -x[1])[:40]:
         L.append(f"  {f:28s}{s:>6d} reads (ambiguous {ambig[f]})")
     L += ["", "Gene-family level only; no alleles, point mutations or species attribution. Reference annotation is not biological truth. Research use only."]
-    txt = "\n".join(L); open(P(a.out, "dev_amr_report.txt"), "w").write(txt + "\n"); print(txt)
-    json.dump(meta, open(P(a.out, "dev_run.json"), "w"), indent=1)
+    txt = "\n".join(L); open(P(a.out, f"dev_amr_report{a.suffix}.txt"), "w").write(txt + "\n"); print(txt)
+    json.dump(meta, open(P(a.out, f"dev_run{a.suffix}.json"), "w"), indent=1)
 
 
 def main():
@@ -193,7 +198,12 @@ def main():
     ap.add_argument("--threads", type=int, default=6)
     ap.add_argument("--memory", default="8g")
     ap.add_argument("--paf", help="use an existing PAF (skips mapping; for tests)")
+    ap.add_argument("--merge", default="", help="A5: TSV alias<TAB>family<TAB>evidence; empty = A4 rule")
+    ap.add_argument("--suffix", default="", help="suffix for output names, e.g. _A5")
     a = ap.parse_args()
+    if a.merge:
+        for r in csv.DictReader(open(P(a.merge)), delimiter="\t"):
+            MERGE[r["alias"]] = r["family"]
     rows = build_map(a)
     if not a.map_only:
         run(a, rows)
