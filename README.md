@@ -105,7 +105,7 @@ bash tests/run_tests.sh                                     # fixture tests, no 
 - `modules/kraken2.nf` (same command as `bin/03`), `modules/score.nf` (runs `bin/04_score.py` in a small project-shaped folder), `modules/summarise.nf`, `workflows/core.nf`, `main.nf`, `nextflow.config`.
 - The evaluation pool is refused without `--allow_eval`, and is scored at one fixed fraction with no sweep. The registered stages and tag checks (`bin/06`, `bin/07`) stay in those scripts; results in `results/` are not the registered reports.
 - Not wrapped: pool sampling (`bin/01`, a one-off resumable SRA download whose seed and manifest are its record), the Sylph arm, the database arms (AWS) and the AMR work.
-- Tested: the fixture workflow (hand-worked answers), the full graph with a stand-in `kraken2`, `-stub-run`, and the evaluation guard. Not yet tested on the real database: run the equivalence check once and record the result.
+- Tested: the fixture workflow (hand-worked answers), the full graph with a stand-in `kraken2`, `-stub-run`, the evaluation guard, and on the real PlusPF-8 database and dev pool: `tests/check_equivalence.py` reports IDENTICAL against the frozen dev baseline (2026-10-19). Not tested: Singularity; the Python image is pinned by tag, not digest.
 
 ## Status
 
