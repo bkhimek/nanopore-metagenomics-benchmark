@@ -1,0 +1,3 @@
+genome	gene	gene_start	partner_genome	shared_left_of_gene	shared_right_of_gene	mean_identity
+Bacteroides_fragilis	tet(Q)	48906	Prevotella_corporis	14131	6176	0.946
+Prevotella_corporis	tet(Q)	62174	Bacteroides_fragilis	14129	5157	0.947
