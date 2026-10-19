@@ -1,0 +1,5 @@
+species	gene	E	locus_reads	depth_over_mean	supported	ambiguous	none	low_identity	low_span
+Bacteroides fragilis	tet(Q)	29.2	34	1.1388275079875376	1	0	0	33	0
+Bacteroides fragilis	cepA	32.1	37	1.169237195552985	29	0	0	8	0
+Faecalibacterium prausnitzii	tet(W)	21.7	19	0.9823298195542641	14	0	0	5	0
+Prevotella corporis	tet(Q)	21.6	18	0.8115131019006891	14	0	0	4	0

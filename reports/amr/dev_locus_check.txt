@@ -1,0 +1,14 @@
+Locus check (EXPLORATORY, dev pool; hypotheses in the script header)
+
+species                   gene          E locus reads depth/mean  supported ambiguous  no aln  low id low span
+Bacteroides fragilis      tet(Q)     29.2          34       1.14          1         0       0      33        0
+Bacteroides fragilis      cepA       32.1          37       1.17         29         0       0       8        0
+Faecalibacterium prausnit tet(W)     21.7          19       0.98         14         0       0       5        0
+Prevotella corporis       tet(Q)     21.6          18       0.81         14         0       0       4        0
+
+Per gene family, summed over carriers (locus reads can be shared by two carriers only if the same read maps to both genomes, which the single-best mapping prevents):
+  cepA     E   32.1  locus reads   37  ratio  1.15  supported   29  -> H1 (lost after mapping to the genomes)
+  tet(Q)   E   50.8  locus reads   52  ratio  1.02  supported   15  -> H1 (lost after mapping to the genomes)
+  tet(W)   E   21.7  locus reads   19  ratio  0.88  supported   14  -> H1 (lost after mapping to the genomes)
+
+Exploratory; the locus read count uses the supplier genome coordinates (the sequenced strains may differ), and 'supported' follows the A4/A5 rules unchanged.
