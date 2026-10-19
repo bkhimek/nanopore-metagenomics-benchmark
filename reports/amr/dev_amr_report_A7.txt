@@ -1,0 +1,42 @@
+AMR read-level pilot, DEV pool (A7: A4/A5 rules with BASE-LEVEL identity (minimap2 -c); 2378 alignments; 104 reads pass the alignment filter; ResFinder data/db/resfinder_db)
+
+species                   gene         cat            E reads  amb  result
+Bacteroides fragilis      cepA         high-conf   32.1    36    0  detected
+Bacteroides fragilis      lnu(AN2)     high-conf   33.1     0    0  not in arm database
+Bacteroides fragilis      tet(Q)       high-conf   29.2    47    0  detected
+Clostridioides difficile  blaCDD       high-conf    3.6     0    0  not in arm database
+Clostridioides difficile  erm(B)       high-conf    3.7     2    0  not detected (not scored: low opportunity (E < 10))
+Enterococcus faecalis     lsa(A)       high-conf      -     0    0  not detected (not scored: no (carrier not in dev trace))
+Faecalibacterium prausnit tet(W)       high-conf   21.7    18    1  detected
+Prevotella corporis       tet(Q)       high-conf   21.6    47    0  detected
+Bacteroides fragilis      mef(En2)     candidate   31.2     0    0  not in arm database
+Clostridioides difficile  blaAHM       candidate    3.7     0    0  not in arm database
+Clostridioides difficile  cplR         candidate    3.3     0    0  not in arm database
+Clostridioides difficile  nimB-Cd      candidate    3.8     0    0  not in arm database
+Clostridioides difficile  vanG         candidate    3.5     0    0  not in arm database
+Clostridioides difficile  vanR-Cd      candidate    3.7     0    0  not in arm database
+Clostridioides difficile  vanS-Cd      candidate    3.5     0    0  not in arm database
+Clostridioides difficile  vanT-Cd      candidate    3.1     0    0  not in arm database
+Clostridioides difficile  vanZ1        candidate    3.7     0    0  not in arm database
+Escherichia coli          acrF         candidate   25.7     0    0  not in arm database
+Escherichia coli          blaEC        candidate   31.4     0    0  not in arm database
+Escherichia coli          mdtM         candidate   31.1     0    0  not in arm database
+Salmonella enterica       mdsA         candidate      -     0    0  not in arm database
+Salmonella enterica       mdsB         candidate      -     0    0  not in arm database
+
+Recall, evaluable high-confidence DISTINCT families (4 species x gene rows; 3 families, since support cannot be attributed to a species): 3 of 3 detected at >= 3 reads
+  at >= 1 reads: 3 of 3
+  at >= 2 reads: 3 of 3
+  at >= 3 reads: 3 of 3
+  at >= 5 reads: 3 of 3
+  at >= 10 reads: 3 of 3
+
+Descriptive identity curve (A7; the registered cut is 0.80; supporting reads per evaluable family at each cut, same span and ambiguity rules):
+  family        0.80    0.85    0.90    0.95
+  cepA            36      35      34      29
+  tet(Q)          47      46      44      39
+  tet(W)          18      18      16      14
+
+Families with >= 3 supporting reads that are NOT in the reference catalogue (not automatically false positives): 0
+
+Gene-family level only; no alleles, point mutations or species attribution. Reference annotation is not biological truth. Research use only.
