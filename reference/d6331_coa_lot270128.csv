@@ -1,0 +1,25 @@
+# Source: Zymo Research Certificate of Analysis, ZymoBIOMICS Gut Microbiome Standard D6331-A, package lot 270128, tube lot 267103, assembly date 2025-12-16. Transcribed by hand from the supplied PDF.
+# NOT the sequenced lot of SRR31222153 (that lot is unknown; this lot was assembled after the study was published). Research use only.
+# Compositions are % by genomic DNA abundance (shotgun, Illumina). QC: average weighted deviation 2.11% (threshold 15%), alien taxa 0.
+species,defined_pct,ngs_measured_pct,relative_weighted_deviation_pct
+Faecalibacterium prausnitzii,14,15.95,13.94
+Veillonella rogosae,14,13.93,0.49
+Roseburia hominis,14,13.70,2.16
+Bacteroides fragilis,14,14.23,1.63
+Prevotella corporis,6,6.07,0.49
+Bifidobacterium adolescentis,6,6.00,0.00
+Fusobacterium nucleatum,6,6.50,3.56
+Lactobacillus fermentum,6,4.58,10.13
+Methanobrevibacter smithii,0.1,0.11,0.08
+Salmonella enterica,0.01,0.01,0.00
+Enterococcus faecalis,0.001,0.001,0.00
+Clostridium perfringens,0.0001,0.0001,0.00
+Akkermansia muciniphila,1.5,1.40,0.71
+Clostridioides difficile,1.5,1.58,0.55
+Escherichia coli (B-766),2.8,3.02,1.57
+Escherichia coli (B-2207),2.8,2.65,1.06
+Escherichia coli (B-3008),2.8,2.57,1.65
+Escherichia coli (B-1109),2.8,2.54,1.86
+Escherichia coli (JM109),2.8,2.47,2.39
+Candida albicans,1.5,1.26,1.73
+Saccharomyces cerevisiae,1.4,1.44,0.28

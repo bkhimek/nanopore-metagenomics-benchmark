@@ -614,6 +614,11 @@ Status: design only. Nothing about AMR has been run. Phase 3 had been deferred u
 - Wording corrections adopted from the reviews: depth series is 13 / 14 / 14 evaluable species at 0.1 / 0.25 / 0.5 Gb with F1 0.953 / 0.958 / 0.966 (not "all 14 at every depth"); the human call is a false-positive taxonomic call above threshold, origin unresolved; the five gene-detection predictions (A10) and the failed attribution target (A8, 0.593 against 0.85) are separate registrations.
 - Still open: Zymo lot certificate, basecalling model tier from the study authors, DOI of Chen et al. 2025.
 
+## Zymo certificate of analysis (2026-10-20; documentation, not a result; part of no verdict)
+- CoA received for lot 270128 (assembled 2025-12-16), which postdates the study, so it is not the sequenced lot. The truth used in all arms remains the theoretical composition; the sequenced lot is unknown.
+- Its measured composition differs from the defined one by Bray-Curtis about 0.03 (hand calculation from the CoA table; stored as reference/d6331_coa_lot270128.csv, not used by any script). An exploratory re-score against it was not run.
+- Still open: identify the sequenced lot and the basecalling model tier (study authors, no reply yet).
+
 ## Unverified / open
 - Basecalling model tier (not in the ENA record, the Argo paper or its supplement; ask the authors)
 - Emails: Zymo technical support asked for lot-specific CoAs and typical lot variation (sent 2026-10-17; reply pending, may never arrive). The study authors have not yet been asked for the lot number and the basecalling model tier.

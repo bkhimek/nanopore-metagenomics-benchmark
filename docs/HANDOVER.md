@@ -364,3 +364,9 @@ Next steps: (1) user: copy Guide v6, README, PROJECT_STATE, HANDOVER, git rm the
 - CLAUDE.md updated with Track E (project entry, working discipline, lessons learned, Nextflow recipe for future metagenomics projects, digest pin).
 - reference/* showed mode-only changes (644 to 755) after the unzip; advised git checkout -- reference and git config core.fileMode false.
 - Open: replies from Dr Zhang (basecalling model tier) and Zymo (lot number and CoA; would allow re-scoring against measured composition); DOI of Chen et al. not confirmed. Nothing else queued.
+
+## 2026-10-20 night XX (Zymo certificate of analysis received)
+- Zymo sent a CoA for D6331-A package lot 270128 (tube lot 267103, assembled 2025-12-16, Illumina shotgun, QC pass: average weighted deviation 2.11% against a 15% threshold, no alien taxa). The study (Chen et al., Nature Communications 16:1744, 2025) predates that lot, so this is NOT the sequenced lot; the sequenced lot is still unknown. Nothing re-scored, no registration, no verdict changed.
+- Bray-Curtis between the CoA's defined and measured columns is about 0.03 (hand calculation, 21 rows, renormalised), small beside 0.137 to 0.242 observed. Table transcribed as reference/d6331_coa_lot270128.csv.
+- Case study and the 2 and 5 page summaries (Claude Docs) and CLAUDE.md updated: lot unknown, certificate is for a later lot, next step is to identify the sequenced lot (study authors or SRA metadata).
+- Open: no reply from Dr Zhang (basecalling model tier, sequenced lot); may not come. Nothing else queued.
