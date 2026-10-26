@@ -16,7 +16,9 @@ the data used.
   pools (development and evaluation), each about 1 Gb (185,000 reads). Both pools come from one run, so the held-out
   test is within-run, not independent.
 - **Ground truth:** the manufacturer's theoretical composition (17 species), not a lot-specific measurement. The lot
-  number is unknown; the lot certificate of analysis has not been obtained.
+  of the sequenced tube is unknown. A certificate of analysis was obtained for lot 270128 (2026-10-20), but that lot was
+  assembled in December 2025, after the paper, so it is not the sequenced lot; its measured composition differs from its
+  defined composition by a Bray-Curtis distance of about 0.03.
 - **Method:** every experiment was registered before it was run (arms, rules for choosing settings, written
   predictions), committed and tagged in Git. Settings were tuned on the development pool only, frozen by tag, and the
   evaluation pool was scored once per arm. All arms are reported, including the ones that failed. Evaluation-pool
@@ -28,13 +30,13 @@ the data used.
 | Experiment | Outcome |
 |---|---|
 | Baseline: Kraken2 2.17.2, PlusPF-8 index (2026-06-26) | 14 of 14 evaluable species found; human DNA the only false positive; F1 0.966 (the ceiling with human counted as wrong); Bray-Curtis 0.17 against the theoretical composition |
-| Depth series (0.1, 0.25, 0.5 Gb) | F1 0.953, 0.958, 0.966; presence/absence flat down to 0.1 Gb |
+| Depth series (0.1, 0.25, 0.5 Gb) | F1 0.953, 0.958, 0.966; 13, 14 and 14 evaluable species at 0.1, 0.25 and 0.5 Gb (the rarest species, Methanobrevibacter smithii, is not evaluable at 0.1 Gb and is detected in 4 of 5 replicates at 0.25 Gb) |
 | Kraken2 confidence 0 to 0.4 | Strictness hurts on ~Q18 nanopore reads; the default (0) was best |
 | Database size (8 GB, 16 GB, full PlusPF) | F1 unchanged at 0.966; Bray-Curtis 0.168, 0.153, 0.137 |
 | Read trace (exploratory, development pool) | Much of the departure from the theoretical abundances is in the sequenced sample itself; Kraken2 loses reads mainly for species with close relatives (E. coli, Bifidobacterium adolescentis) |
 | Sylph 1.0.0 with GTDB r232 + RefSeq fungi | F1 0.963; 13 of 14 evaluable species; 0 false positives; Bray-Curtis 0.242 (Kraken2: 0.13 to 0.17). The registered B. adolescentis test is met by 0.002 (0.495 against 0.393 + 0.10), which is marginal and very likely within noise. Abundances are worse than Kraken2's |
 | Reads versus DNA mass (exploratory on the development pool, then registered Addendum A2 on the evaluation pool) | Species differ in read length (Limosilactobacillus fermentum about 2 kb, most others 7 to 9 kb), so read shares are not DNA shares. Counted in bases, Kraken2's Bray-Curtis is 0.19 (0.17 on reads); Sylph keeping one genome per species is 0.18 (0.24 with the registered sum rule, which counts E. coli reads about 2.4 times). All eight written predictions were met; both pools come from one run |
-| Resistance genes (pilot, registered Addenda A3 to A6) | A reference catalogue of resistance genes was annotated in the supplier genomes with AMRFinderPlus (8 high-confidence, 30 candidate; an annotation, not biological truth). Read-level detection against ResFinder: 3 of 3 evaluable gene families detected on the evaluation pool (cepA, tet(Q), tet(W)), all five registered predictions met. Only three families were evaluable, so this is a worked example, not an accuracy estimate; the family rule had to be amended after the development result (disclosed). Candidate genes are mostly absent from the ResFinder arm, and the sequence evidence alone says nothing about the carrier species or a resistant phenotype. Species attribution (Addendum A8, Kraken2 species of each supporting read against the true organism from the supplier genomes): cepA and tet(W) reads are named to the right species (dev 34/34 and 16/18, eval 22/22 and 16/16), tet(Q) reads often only to Bacteroidales (species for 12/30 and 5/16 dev, 7/25 and 5/22 eval, for B. fragilis and P. corporis); all four units attributed, but the overall correct share was 0.684 on dev and 0.593 on eval, below the registered 0.90 and 0.85. Why (Addenda A9 and A10): most Kraken2 k-mer windows of a nanopore read have no hit; the tet(Q) and tet(W) gene sequence maps only to a shared ancestor while cepA's maps to the species, and a read reaches its species only if it holds some species-specific window elsewhere (all five registered predictions met on the evaluation pool; the first positional measure, A9, was insensitive and its evaluation run was not done). A mock-community worked example, not an accuracy estimate. Correction (Addendum A7, base-level identity instead of minimap2's approximate estimate; all predictions met): supporting reads cepA / tet(Q) / tet(W) are 36 / 47 / 18 on dev and 22 / 51 / 16 on the evaluation pool, close to the planning values; the earlier counts (29 / 15 / 14 and 17 / 22 / 14) are kept as the registered earlier arm |
+| Resistance genes (pilot, registered Addenda A3 to A10) | A reference catalogue of resistance genes was annotated in the supplier genomes with AMRFinderPlus (8 high-confidence, 30 candidate; an annotation, not biological truth). Read-level detection against ResFinder: 3 of 3 evaluable gene families detected on the evaluation pool (cepA, tet(Q), tet(W)), all five registered predictions met. Only three families were evaluable, so this is a worked example, not an accuracy estimate; the family rule had to be amended after the development result (disclosed). Candidate genes are mostly absent from the ResFinder arm, and the sequence evidence alone says nothing about the carrier species or a resistant phenotype. Species attribution (Addendum A8, Kraken2 species of each supporting read against the true organism from the supplier genomes): cepA and tet(W) reads are named to the right species (dev 34/34 and 16/18, eval 22/22 and 16/16), tet(Q) reads often only to Bacteroidales (species for 12/30 and 5/16 dev, 7/25 and 5/22 eval, for B. fragilis and P. corporis); all four units attributed, but the overall correct share was 0.684 on dev and 0.593 on eval, below the registered 0.90 and 0.85. Why (Addenda A9 and A10): most Kraken2 k-mer windows of a nanopore read have no hit; the tet(Q) and tet(W) gene sequence maps only to a shared ancestor while cepA's maps to the species, and a read reaches its species only if it holds some species-specific window elsewhere (all five registered predictions met on the evaluation pool; the first positional measure, A9, was insensitive and its evaluation run was not done). A mock-community worked example, not an accuracy estimate. Correction (Addendum A7, base-level identity instead of minimap2's approximate estimate; all predictions met): supporting reads cepA / tet(Q) / tet(W) are 36 / 47 / 18 on dev and 22 / 51 / 16 on the evaluation pool, close to the planning values; the earlier counts (29 / 15 / 14 and 17 / 22 / 14) are kept as the registered earlier arm |
 
 A first translation table between mock-species names and GTDB names failed on the development pool (F1 0.50 for a naming
 reason). It was replaced by a genome-to-genome fastANI table in a registered addendum, disclosed as written after the
@@ -46,8 +48,8 @@ Full numbers, predictions and verdicts are in `docs/PROJECT_STATE.md`. Small res
 
 - `docs/PROJECT_STATE.md`: decisions (D1 to D27), registrations, results, open items. The single source of truth.
 - `docs/HANDOVER.md`: session-by-session state and next steps.
-- `docs/Nanopore_Metagenomics_Project_Plan_Rev13.docx`: project plan.
-- `docs/Nanopore_Metagenomics_Workflow_Guide_v12.docx`: a beginner's guide that explains each step and term
+- `docs/Nanopore_Metagenomics_Project_Plan_Rev14.docx`: project plan.
+- `docs/Nanopore_Metagenomics_Workflow_Guide_v13.docx`: a beginner's guide that explains each step and term
   (thresholds, precision/recall/F1, Bray-Curtis, the Sylph experiment, the resistance-gene pilot) from scratch.
 - `docs/lessons_learned.md`, `reference/README.md` (composition table and checks).
 
@@ -73,8 +75,8 @@ and with `--help`.
 
 ## Reproducing
 
-Tools run in Docker containers with pinned image tags (Kraken2, SRA tools and Sylph are pinned; digests are recorded in
-the run records). Python scripts use the standard library plus a few packages; `scipy` and similar are installed with
+Tools run in Docker containers with pinned images (Kraken2 and the Python helper image are pinned by digest; the SRA tools
+and Sylph are pinned, with digests recorded in the run records). Python scripts use the standard library plus a few packages; `scipy` and similar are installed with
 `pip` into the base environment. The development machine is WSL2 with 12 GB RAM and 6 CPUs; every step fits within
 that except the 16 GB and full PlusPF Kraken2 indexes, which were run once on a temporary 128 GB cloud machine (about
 USD 2). Reads and databases must be fetched locally:
@@ -105,15 +107,15 @@ bash tests/run_tests.sh                                     # fixture tests, no 
 - `modules/kraken2.nf` (same command as `bin/03`), `modules/score.nf` (runs `bin/04_score.py` in a small project-shaped folder), `modules/summarise.nf`, `workflows/core.nf`, `main.nf`, `nextflow.config`.
 - The evaluation pool is refused without `--allow_eval`, and is scored at one fixed fraction with no sweep. The registered stages and tag checks (`bin/06`, `bin/07`) stay in those scripts; results in `results/` are not the registered reports.
 - Not wrapped: pool sampling (`bin/01`, a one-off resumable SRA download whose seed and manifest are its record), the Sylph arm, the database arms (AWS) and the AMR work.
-- Tested: the fixture workflow (hand-worked answers), the full graph with a stand-in `kraken2`, `-stub-run`, the evaluation guard, and on the real PlusPF-8 database and dev pool: `tests/check_equivalence.py` reports IDENTICAL against the frozen dev baseline (2026-10-19). Not tested: Singularity; the Python image is pinned by tag, not digest.
+- Tested: the fixture workflow (hand-worked answers), the full graph with a stand-in `kraken2`, `-stub-run`, the evaluation guard, and on the real PlusPF-8 database and dev pool: `tests/check_equivalence.py` reports IDENTICAL against the frozen dev baseline (2026-10-19). Not tested: Singularity; the Docker-profile run was not repeated after the Python helper image was pinned by digest (commit `d04a6e6`); the Docker-free fixture tests pass.
 
 ## Status
 
 Phase 1 (baseline benchmark) and Phase 2 arms 1 to 3 (Kraken2 confidence, database size, Sylph) are done and
-documented. Phase 3 (resistance genes) is done as a pilot at the level of gene families (no alleles, point mutations or species attribution). Not done: assembly-based and Argo comparisons, Nextflow wrapping beyond the core path (Kraken2 classification and scoring are wrapped, see the Nextflow section; pool sampling, the Sylph arm and all AMR work stay plain scripts),
-a lot-specific composition certificate, the basecalling model tier,
-and any second run or chemistry. The scripts were tested on small synthetic fixtures with answers worked out by hand;
-those fixtures are not yet committed.
+documented. Phase 3 (resistance genes) is done as a pilot at the level of gene families (no alleles or point mutations; species attribution of the supporting reads was tested only inside the mock community, Addenda A8 to A10). Not done: assembly-based and Argo comparisons, Nextflow wrapping beyond the core path (Kraken2 classification and scoring are wrapped, see the Nextflow section; pool sampling, the Sylph arm and all AMR work stay plain scripts),
+a certificate for the sequenced lot (the one obtained, lot 270128, is for a later lot), the basecalling model tier (the
+study authors did not reply; closed 2026-10-26), and any second run or chemistry. The scripts were tested on small
+synthetic fixtures with answers worked out by hand; the Nextflow fixture is committed under `tests/fixtures`.
 
 ## Known limits
 
@@ -122,7 +124,8 @@ those fixtures are not yet committed.
 - Evaluation-pool results are pre-registered comparisons on a pool that was used more than once, not fresh validation.
 - The theoretical composition is not a measurement of the sequenced sample. The read trace shows the sample departs
   from it for several species (for example Roseburia hominis at about 0.4 of the expected amount); whether that is the
-  lot, extraction or library preparation is unresolved.
+  lot, extraction or library preparation is unresolved. The certificate obtained (lot 270128) is for a later lot, so it
+  does not settle this.
 - Reads classified as human (about 0.35 to 1% depending on the database) are counted as false positives; their origin
   is unresolved.
 - Abundance is judged against the manufacturer's composition, which is a share of DNA mass, while the primary Kraken2 scores count reads. Species differ in read length in this run (about 2 kb for Limosilactobacillus fermentum, 7 to 9 kb for most), so read shares and base shares differ; the base-share view was added afterwards (Addendum A2) and does not replace the registered scores. Full-index and 16 GB Kraken2 results were not recomputed in bases.
@@ -133,7 +136,7 @@ those fixtures are not yet committed.
 
 Code and documents are released under the MIT licence (see `LICENSE`). Sequencing data, reference genomes and databases
 are not included and keep their own terms: the reads are public under BioProject PRJNA1181840; the Zymo reference
-genomes, Kraken2 indexes, GTDB and Sylph databases have their own licences and are downloaded by the user.
+genomes, Kraken2 indexes, GTDB and Sylph databases have their own licences and are downloaded separately.
 
 ## Provenance
 
@@ -144,5 +147,5 @@ is labelled as such in `docs/PROJECT_STATE.md`.
 ## Citing the data
 
 Chen X., Yin X., Xu X., Zhang T. Species-resolved profiling of antibiotic resistance genes in complex metagenomes
-through long-read overlapping with Argo. *Nature Communications* 16, 1744 (2025).
+through long-read overlapping with Argo. *Nature Communications* 16, 1744 (2025). doi:10.1038/s41467-025-57088-y.
 https://doi.org/10.1038/s41467-025-57088-y . Data: PRJNA1181840.
